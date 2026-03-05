@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+include 'autorisation.php';
+?>
 
 <head>
     <meta charset="UTF-8">
