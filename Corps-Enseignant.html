@@ -27,18 +27,18 @@
             <div class="Filters">
                 <p>Filtres</p>
                 <div>
-                    <form>
+                    <form method="post">
                         <div>
                             <label for="Name">Nom de famille</label>
-                            <input id="Name" type="text" placeholder="Saisissez le nom de famille">
+                            <input id="Name" type="text" placeholder="Saisissez le nom de famille" name="Name">
                         </div>
                         <div>
                             <label for="First-Name">Prénom</label>
-                            <input id="First-Name" type="text" placeholder="Saisissez le prénom">
+                            <input id="First-Name" type="text" placeholder="Saisissez le prénom" name="First-Name">
                         </div>
                         <div>
                             <label for="Email">Email</label>
-                            <input id="Email" type="text" placeholder="Saisissez l'email">
+                            <input id="Email" type="text" placeholder="Saisissez l'email" name="Email">
                         </div>
                         <div>
                             <label for="Submit"></label>
@@ -46,6 +46,23 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="Table">
+                <p>Template</p>
+                <table>
+                    <tr class="Table-Head">
+                        <th>Nom de famille</th>
+                        <th>Prénom</th>
+                        <th>Modules enseignés</th>
+                        <th>Nombre d'heures</th>
+                    </tr>
+                    <tr>
+                        <th>Template</th>
+                        <th>Template</th>
+                        <th>Template</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

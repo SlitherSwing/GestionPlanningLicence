@@ -44,6 +44,7 @@ button{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
 }
 .Heading button{
     display: flex;
@@ -61,11 +62,15 @@ button{
     display: flex;
     width: 100%;
     justify-content: center;
+    flex-direction: column;
 }
 .Filters{
     display: flex;
     width: 100%;
     flex-direction: column;
+    border-bottom: solid 1px;
+    border-color: #FFBD01;
+    padding: 20px 0 20px 0;
 }
 .Filters p{
     color: #FFBD01;
@@ -75,6 +80,8 @@ button{
     display: flex;
     gap: 10px;
     align-items: end;
+    width: 100%;
+    justify-content: space-between;
 }
 .Filters form div{
     display: flex;
@@ -85,12 +92,30 @@ button{
     padding: 6px 16px 6px 20px;
     border-radius: 6px;
     border-color: #C8CBD9;
-    width: fit-content;
 }
 #Submit{
     background-color: #FFBD01;
     border: none;
     padding: 8px 0 8px 0;
     width: 153px;
-    font-weight:500;
+    font-weight:bold;
+}
+.Table{
+    display: flex;
+    width: 100%;
+    flex-direction: column;   
+}
+.Table p{
+    font-size: 20px;
+    font-weight: 500;
+}
+.Table table{
+    padding: 20px 25px 20px 25px;
+}
+.Table th{
+    text-align: start;
+    padding: 20px 25px 20px 25px;
+}
+.Table-Head{
+    background-color: #F1F2F7;
 }
