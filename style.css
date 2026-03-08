@@ -1,0 +1,96 @@
+body{
+    margin: 0;
+    font-family: 'Poppins';
+}
+a{
+    text-decoration: none;
+}
+h2{
+    font-weight: 500;
+    font-size: 26px;
+    color: #1F384C;
+}
+button{
+    border-style: none;
+    font-family: 'Poppins';
+}
+/* -------------------------------- */
+.Breadcrumb{
+    display: flex;
+    width: 100%;
+    height: 57px;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9;
+    font-weight: 500;
+}
+.Breadcrumb ol{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 10px;
+}
+.Breadcrumb li{
+    color: #1F384C;
+}
+.Breadcrumb a{
+    color: #1F384C;
+}
+.Main{
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 0 40px;
+}
+.Heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Heading button{
+    display: flex;
+    background-color: #2C416E;
+    align-items: center;
+    padding: 14px 20px 14px 20px;
+    color: white;
+    height: 44px;
+    border-radius: 8px;
+}
+.Heading button:hover{
+    cursor: pointer;
+}
+.Content{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.Filters{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.Filters p{
+    color: #FFBD01;
+    font-size: 20px;
+}
+.Filters form{
+    display: flex;
+    gap: 10px;
+    align-items: end;
+}
+.Filters form div{
+    display: flex;
+    flex-direction: column;
+}
+.Filters form input{
+    line-height: 24px;
+    padding: 6px 16px 6px 20px;
+    border-radius: 6px;
+    border-color: #C8CBD9;
+    width: fit-content;
+}
+#Submit{
+    background-color: #FFBD01;
+    border: none;
+    padding: 8px 0 8px 0;
+    width: 153px;
+    font-weight:500;
+}
