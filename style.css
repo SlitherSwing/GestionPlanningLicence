@@ -86,12 +86,19 @@ button{
 .Filters form div{
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 .Filters form input{
     line-height: 24px;
     padding: 6px 16px 6px 20px;
+    border: 1px solid;
     border-radius: 6px;
     border-color: #C8CBD9;
+    width: 100%;
+    box-sizing: border-box;
+}
+.Filters form div:last-child {
+    flex: 0;
 }
 #Submit{
     background-color: #FFBD01;
@@ -99,6 +106,9 @@ button{
     padding: 8px 0 8px 0;
     width: 153px;
     font-weight:bold;
+}
+#Submit:hover{
+    cursor: pointer;
 }
 .Table{
     display: flex;
@@ -111,10 +121,16 @@ button{
 }
 .Table table{
     padding: 20px 25px 20px 25px;
+    border-collapse:collapse ;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9
 }
 .Table th{
     text-align: start;
     padding: 20px 25px 20px 25px;
+}
+Table th .material-symbols-outlined {
+    vertical-align: middle;
 }
 .Table-Head{
     background-color: #F1F2F7;
