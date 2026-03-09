@@ -1,0 +1,52 @@
+body{
+    font-family: "Poppins", sans-serif;
+}
+.page{
+    display: flex;
+}
+.gauche{
+    width: 240px;
+}
+.droite{
+    margin-left: 40px;
+}
+.haut{
+    height: 57px;
+    width: 1200px;
+    display: flex;
+    gap: 20px;
+}
+.haut img{
+    width: 20px;
+    height: auto;
+    margin-top: 17px;
+}
+.ligne{
+  border: none;
+  height: 0.5px;
+  background-color: rgb(219, 218, 218);
+}
+.calendrier-titre{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.cal{
+    font-size: 26px;
+    color: #1F384C;
+}
+.int{
+    font-size:20px; 
+}
+.bouton-ajt{
+    margin-top: 40px;
+}
+.ajouter{
+    width: 307px;
+    height: 44px;
+   
+    color: white;
+    background-color: #2C416E;
+    border-radius: 8px;
+    font-size: 16px;
+}
