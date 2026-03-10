@@ -25,6 +25,7 @@ body{
   border: none;
   height: 0.5px;
   background-color: rgb(219, 218, 218);
+  width: 1200px;
 }
 .calendrier-titre{
     display: flex;
@@ -40,13 +41,25 @@ body{
 }
 .bouton-ajt{
     margin-top: 40px;
+    margin-right: 44px;
 }
 .ajouter{
     width: 307px;
     height: 44px;
-   
     color: white;
     background-color: #2C416E;
     border-radius: 8px;
     font-size: 16px;
+}
+
+.infos-inter{
+    width: 1108px;
+    height: 60px;
+    background-color: #F1F2F7;
+    text-align: left;
+    padding: 4px 25px;
+    display: flex;
+    gap: 120px;
+    border-radius: 3px;
+    font-size: 14.5px;
 }
