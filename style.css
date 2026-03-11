@@ -14,6 +14,9 @@ button{
     border-style: none;
     font-family: 'Poppins';
 }
+th{
+    font-weight:400;
+}
 /* -------------------------------- */
 .connection-page {
     display: flex;
