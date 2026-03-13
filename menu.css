@@ -30,16 +30,15 @@ body{
 
     display: flex;
     align-items: center;
-    width: 156px;
+    justify-content: center;
     height: 25px;
     gap: 10px;
-    margin-top: 20px;
 
 }
 
 .logo{
 
-    width: 30px;
+    width: 20px;
 
 }
 
@@ -112,9 +111,12 @@ body{
 
 .menu-logo:active{
 
-    background:#0B163B;
     transform: scale(0.95);
 
+}
+
+.menu-logo:hover .logo{
+    filter: brightness(0) invert(1); /*change la couleur des logos*/
 }
 
 .bloc-profile{
@@ -123,23 +125,15 @@ body{
     align-items: center;
     margin-top: auto;
     width: 250px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
 }
 
-.picture{
+.image{
 
     width: 49px;
     height: 49px;
-
-    background: url(picture.png);
     border-radius: 40px;
-
-    /* À l'intérieur de l'auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-
 
 }
 
@@ -148,6 +142,8 @@ body{
     margin: 0;
     font-size: 16px;
     color:#000000;
+    margin-left: 10px;
+    opacity: 1;
 
 }
 
@@ -156,5 +152,13 @@ body{
     margin: 0;
     font-size: 14px;
     color:#787F89;
+    margin-left: 10px;
 
+}
+
+.chevron{
+
+    width: 14px;
+    height: 14px;
+    opacity: 1;
 }
