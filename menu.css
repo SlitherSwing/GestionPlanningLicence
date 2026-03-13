@@ -1,5 +1,4 @@
-
-body{
+body {
 
     margin: 0;
     padding: 0;
@@ -7,16 +6,10 @@ body{
 
 }
 
-.bloc-global{
 
-    width: 240px;
-    height: 100vh;
+.Sidebar-Menu {
 
-}
-
-.menu{
-
-    background:#F1F2F7;
+    background: #F1F2F7;
     width: 240px;
     height: 100vh;
     padding: 19px;
@@ -26,7 +19,7 @@ body{
 
 }
 
-.bloc-title{
+.Block-Patch {
 
     display: flex;
     align-items: center;
@@ -36,40 +29,31 @@ body{
 
 }
 
-.logo{
+.Logo {
 
     width: 20px;
 
 }
 
-.text h1{
+.Text h1 {
 
     margin: 0;
     font-size: 11px;
-    color:#000000; 
+    color: #000000;
     font-weight: bold;
 
 }
 
-.text p{
+.Text p {
 
     margin: 0;
     font-size: 8px;
-    color:#000000;
+    color: #000000;
     font-weight: bold;
 
 }
 
-.section{
-
-    font-size: 12px;
-    color:#787F89;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
-
-}
-
-.bloc-menu{
+.Block-Menu {
 
     width: 200px;
     display: flex;
@@ -79,21 +63,24 @@ body{
 
 }
 
-.bloc-settings{
+.Block-Title {
 
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+    font-size: 12px;
+    color: #787F89;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
 
 }
 
-.menu-logo{
 
-    display :flex;
+
+.Icones {
+
+    display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color:#787F89;
+    color: #787F89;
     padding: 10px;
     border-radius: 8px;
     font-size: 12px;
@@ -101,25 +88,34 @@ body{
 
 }
 
-.menu-logo:hover{
+.Icones:hover {
 
-    background:#2C416E;
-    color:#FFFFFF;
+    background: #2C416E;
+    color: #FFFFFF;
     border-radius: 10px;
 
 }
 
-.menu-logo:active{
+.Icones:active {
 
     transform: scale(0.95);
 
 }
 
-.menu-logo:hover .logo{
-    filter: brightness(0) invert(1); /*change la couleur des logos*/
+.Icones:hover .logo {
+    filter: brightness(0) invert(1);
+    /*change la couleur des logos*/
 }
 
-.bloc-profile{
+.Block-Settings {
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.Block-Profile {
 
     display: flex;
     align-items: center;
@@ -129,7 +125,7 @@ body{
 
 }
 
-.image{
+.ProfilePicture {
 
     width: 49px;
     height: 49px;
@@ -137,26 +133,26 @@ body{
 
 }
 
-.name{
+.Username {
 
     margin: 0;
     font-size: 16px;
-    color:#000000;
+    color: #000000;
     margin-left: 10px;
     opacity: 1;
 
 }
 
-.role{
+.Role {
 
     margin: 0;
     font-size: 14px;
-    color:#787F89;
+    color: #787F89;
     margin-left: 10px;
 
 }
 
-.chevron{
+.Chevron-down {
 
     width: 14px;
     height: 14px;
