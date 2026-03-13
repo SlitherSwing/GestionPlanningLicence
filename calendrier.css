@@ -3,6 +3,7 @@ body{
 }
 .page{
     display: flex;
+    height: 960px;
 }
 .gauche{
     width: 240px;
@@ -52,14 +53,33 @@ body{
     font-size: 16px;
 }
 
-.infos-inter{
-    width: 1108px;
-    height: 60px;
-    background-color: #F1F2F7;
-    text-align: left;
-    padding: 4px 25px;
+.Table{
     display: flex;
-    gap: 120px;
-    border-radius: 3px;
-    font-size: 14.5px;
+    width: 100%;
+    flex-direction: column;   
+}
+.Table p{
+    font-size: 20px;
+}
+.Table table{
+    padding: 20px 25px 20px 25px;
+    border-collapse:collapse ;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9
+}
+
+.Table th{
+    text-align: start;
+    padding: 20px 25px 20px 25px;
+     font-weight: normal;
+}
+.Table th svg{
+    width: 20px;
+    height: auto;
+}
+Table th .material-symbols-outlined {
+    vertical-align: middle;
+}
+.Table-Head{
+    background-color: #F1F2F7;
 }
