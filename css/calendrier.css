@@ -4,12 +4,10 @@ body{
 .Page-Calen{
     display: flex;
     height: 960px;
-}
-.Left-Calen{
-    width: 240px;
+    gap:10px;
 }
 .Right-Calen{
-    margin-left: 40px;
+    margin-left: 300px;
 }
 .Top-Calen{
     height: 57px;
@@ -51,6 +49,7 @@ body{
     background-color: #2C416E;
     border-radius: 8px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .Table{
@@ -77,9 +76,17 @@ body{
     width: 20px;
     height: auto;
 }
-Table-Calen th .material-symbols-outlined {
+.Table-Calen th .material-symbols-outlined {
     vertical-align: middle;
 }
 .Table-Calen-Head{
     background-color: #F1F2F7;
+}
+.Eyes-Calen{
+    cursor: pointer;
+    margin-top: 10px;
+}
+.Eyes-Calen :hover{
+    background-color: #a5a8b8;
+    padding: 5px 5px;;
 }
