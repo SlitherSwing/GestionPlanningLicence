@@ -28,6 +28,13 @@ th {
     width: 100%;
 }
 
+.Error {
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
 /* -------------------------------- */
 /* Bien penser à mettre la page entière dans Page, et ensuite le contenu de la page dans une div avec la classe Main-Content */
 .Sidebar-Menu {

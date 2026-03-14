@@ -1,8 +1,37 @@
+<?php
+session_start();
+include 'autorisation.php';
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = htmlspecialchars($_POST['email']);
+    $typedPassword = $_POST['password'];
+
+    $query = $con->prepare("SELECT * FROM user WHERE email = :email");
+    $query->bindParam(':email', $email);
+    $query->execute();
+
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+    if ($user['email'] == $email && password_verify($typedPassword, $user['password'])) {
+        $_SESSION['email'] = $email;
+        $_SESSION['first_name'] = $user['first_name'];
+        $_SESSION['last_name'] = $user['last_name'];
+        $_SESSION['role'] = $user['role'];
+        header('Location: Corps-Enseignant.html');
+        exit();
+    } else {
+        $error = "Problème de connexion";
+    }
+
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
-<?php
-include 'autorisation.php';
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -60,19 +89,6 @@ include 'autorisation.php';
                 </a>
 
             </div>
-
-            <div class="Block-Profile">
-
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <span class="Username">Stella Ribas</span>
-                    <img src="./assets/Chevron-down.svg" class="Chevron-down">
-                    <span class="Role">Administrateur</span>
-                </div>
-
-            </div>
-
         </div>
         <section class="Connection-Container">
             <h1>
@@ -90,6 +106,9 @@ include 'autorisation.php';
                     required>
                 <button type="submit">Accèder au portail</button>
             </form>
+            <?php if (isset($error)) { ?>
+                <p class="Error"><?php echo $error; ?></p>
+            <?php } ?>
         </section>
     </main>
 </body>
