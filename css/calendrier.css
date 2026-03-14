@@ -15,10 +15,12 @@ body{
     display: flex;
     gap: 20px;
 }
+
 .Top-Calen img{
     width: 20px;
     height: auto;
     margin-top: 17px;
+    cursor: pointer;
 }
 .Lign-Calen{
   border: none;
