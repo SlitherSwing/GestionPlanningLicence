@@ -52,43 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>Enseignement Supérieur</p>
                 </div>
             </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
         </div>
         <section class="Connection-Container">
             <h1>
