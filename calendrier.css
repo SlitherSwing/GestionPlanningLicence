@@ -1,50 +1,50 @@
 body{
     font-family: "Poppins", sans-serif;
 }
-.page{
+.Page-Calen{
     display: flex;
     height: 960px;
 }
-.gauche{
+.Left-Calen{
     width: 240px;
 }
-.droite{
+.Right-Calen{
     margin-left: 40px;
 }
-.haut{
+.Top-Calen{
     height: 57px;
     width: 1200px;
     display: flex;
     gap: 20px;
 }
-.haut img{
+.Top-Calen img{
     width: 20px;
     height: auto;
     margin-top: 17px;
 }
-.ligne{
+.Lign-Calen{
   border: none;
   height: 0.5px;
   background-color: rgb(219, 218, 218);
   width: 1200px;
 }
-.calendrier-titre{
+.Calen-Title{
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
-.cal{
+.Calen{
     font-size: 26px;
     color: #1F384C;
 }
-.int{
+.Inter{
     font-size:20px; 
 }
-.bouton-ajt{
+.Button-Add-Inter{
     margin-top: 40px;
     margin-right: 44px;
 }
-.ajouter{
+.Add-Inter{
     width: 307px;
     height: 44px;
     color: white;
@@ -58,28 +58,28 @@ body{
     width: 100%;
     flex-direction: column;   
 }
-.Table p{
+.Table-Calen p{
     font-size: 20px;
 }
-.Table table{
+.Table-Calen table{
     padding: 20px 25px 20px 25px;
     border-collapse:collapse ;
     border-bottom: solid 1px;
     border-color: #C8CBD9
 }
 
-.Table th{
+.Table-Calen th{
     text-align: start;
     padding: 20px 25px 20px 25px;
      font-weight: normal;
 }
-.Table th svg{
+.Table-Calen th svg{
     width: 20px;
     height: auto;
 }
-Table th .material-symbols-outlined {
+Table-Calen th .material-symbols-outlined {
     vertical-align: middle;
 }
-.Table-Head{
+.Table-Calen-Head{
     background-color: #F1F2F7;
 }
