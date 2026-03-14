@@ -18,7 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['role'] = $user['role'];
-        header('Location: Corps-Enseignant.html');
+        $cookie_lastName = $_SESSION['last_name'];
+        $cookie_firstName = $_SESSION['first_name'];
+        $cookie_email = $_SESSION['email'];
+        $cookie_role = $_SESSION['role'];
+        setcookie('email', $cookie_email, time() + (86400 * 300), "/", "", true, true);
+        setcookie('FirstName', $cookie_firstName, time() + (86400 * 300), "/", "", true, true);
+        setcookie('LastName', $cookie_lastName, time() + (86400 * 300), "/", "", true, true);
+        setcookie('Role', $cookie_role, time() + (86400 * 300), "/", "", true, true);
+        header('Location: Corps-Enseignant.php');
         exit();
     } else {
         $error = "Problème de connexion";
