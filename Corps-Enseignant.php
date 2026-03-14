@@ -1,3 +1,10 @@
+<?php
+session_start();
+include 'autorisation.php';
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -70,9 +77,15 @@
                 <img src="./assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
-                    <span class="Username">Stella Ribas</span>
-                    <img src="./assets/Chevron-down.svg" class="Chevron-down">
-                    <span class="Role">Administrateur</span>
+                    <div>
+                        <span class="Username">
+                            <?= $_COOKIE['FirstName'] . " " . $_COOKIE['LastName'] ?>
+                        </span>
+                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                    </div>
+                    <span class="Role">
+                        <?= $_COOKIE['Role'] ?>
+                    </span>
                 </div>
 
             </div>
