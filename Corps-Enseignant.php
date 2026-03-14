@@ -1,6 +1,10 @@
 <?php
 session_start();
 include 'autorisation.php';
+
+if (!isset($_SESSION['email'])) {
+    header('Location: index.php');
+}
 ?>
 
 
@@ -79,12 +83,12 @@ include 'autorisation.php';
                 <div>
                     <div>
                         <span class="Username">
-                            <?= $_COOKIE['FirstName'] . " " . $_COOKIE['LastName'] ?>
+                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
                         <img src="./assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
-                        <?= $_COOKIE['Role'] ?>
+                        <?= $_SESSION['role'] ?>
                     </span>
                 </div>
 
