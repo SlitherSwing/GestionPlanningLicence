@@ -8,24 +8,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = htmlspecialchars($_POST['email']);
     $typedPassword = $_POST['password'];
 
+    // On séléctionne l'utilisateur via l'adresse e-mail
     $query = $con->prepare("SELECT * FROM user WHERE email = :email");
     $query->bindParam(':email', $email);
     $query->execute();
 
     $user = $query->fetch(PDO::FETCH_ASSOC);
     if ($user['email'] == $email && password_verify($typedPassword, $user['password'])) {
+
+        // On stock les informations de l'utilisateurs dans une super global 
         $_SESSION['email'] = $email;
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['role'] = $user['role'];
-        $cookie_lastName = $_SESSION['last_name'];
-        $cookie_firstName = $_SESSION['first_name'];
-        $cookie_email = $_SESSION['email'];
-        $cookie_role = $_SESSION['role'];
-        setcookie('email', $cookie_email, time() + (86400 * 300), "/", "", true, true);
-        setcookie('FirstName', $cookie_firstName, time() + (86400 * 300), "/", "", true, true);
-        setcookie('LastName', $cookie_lastName, time() + (86400 * 300), "/", "", true, true);
-        setcookie('Role', $cookie_role, time() + (86400 * 300), "/", "", true, true);
         header('Location: Corps-Enseignant.php');
         exit();
     } else {
