@@ -22,22 +22,30 @@ th {
     font-weight: 400;
 }
 
-/* -------------------------------- */
+.Page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
 
+/* -------------------------------- */
+/* Bien penser à mettre la page entière dans Page, et ensuite le contenu de la page dans une div avec la classe Main-Content */
 .Sidebar-Menu {
 
     background: #F1F2F7;
     width: 240px;
     height: 100vh;
-    padding: 19px;
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: sticky;
 
 }
 
-.Block-Patch {
+.Sidebar-Menu>* {
+    padding: 19px;
+}
 
+.Block-Patch {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +83,6 @@ th {
     width: 200px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-top: 20px;
 
 }
@@ -177,74 +184,36 @@ th {
 }
 
 /* -------------------------------- */
-.connection-page {
+
+.Connection-Page {
     display: flex;
     height: 100vh;
     width: 100%;
 }
 
-.banner {
-    height: 100vh;
-    width: 250px;
-    background-color: #F1F2F7;
-    display: block;
-}
-
-.logo-container {
-    display: flex;
-    margin: 15px 30px
-}
-
-.school-logo {
-    width: 24px;
-    height: 25px;
-    padding: 5px;
-}
-
-.school-name-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    justify-content: center;
-    line-height: 1;
-}
-
-.school-name-container p {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    color: #0B163B
-}
-
-.school-name-container p:nth-child(2) {
-    font-size: 8px;
-    letter-spacing: 0.4px;
-}
-
-.connection-container {
+.Connection-Container {
     display: flex;
     flex-direction: column;
     margin: 70px 90px;
     font-family: 'Poppins', sans-serif;
 }
 
-.connection-container h1 {
+.Connection-Container h1 {
     font-size: 24px;
 }
 
-.connection-container h3 {
+.Connection-Container h3 {
     color: #2C416E;
     font-size: 20px;
 
 }
 
-.connection-form {
+.Connection-Form {
     display: flex;
     flex-direction: column;
 }
 
-.connection-form label {
+.Connection-Form label {
     font-size: 16px;
     font-weight: 300;
     margin-bottom: 5px;
@@ -252,14 +221,14 @@ th {
 
 }
 
-.connection-form input {
+.Connection-Form input {
     width: 300%;
     height: 40px;
     border: 1px solid #E5E5E5;
     border-radius: 5px;
 }
 
-.connection-form button {
+.Connection-Form button {
     width: fit-content;
     font-size: 16px;
     font-weight: 300;
@@ -269,6 +238,14 @@ th {
     color: white;
     border-radius: 7px;
     border: none;
+}
+
+
+/* -------------------------------- */
+.Main-Content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .Breadcrumb {
