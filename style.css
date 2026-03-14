@@ -2,89 +2,225 @@ body {
     margin: 0;
     padding: 0;
 }
-a{
+
+a {
     text-decoration: none;
 }
-h2{
+
+h2 {
     font-weight: 500;
     font-size: 26px;
     color: #1F384C;
 }
-button{
+
+button {
     border-style: none;
     font-family: 'Poppins';
 }
-th{
-    font-weight:400;
+
+th {
+    font-weight: 400;
 }
+
+.Page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.Error {
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
 /* -------------------------------- */
-.connection-page {
+/* Bien penser à mettre la page entière dans Page, et ensuite le contenu de la page dans une div avec la classe Main-Content */
+.Sidebar-Menu {
+
+    background: #F1F2F7;
+    width: 240px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+
+}
+
+.Sidebar-Menu>* {
+    padding: 19px;
+}
+
+.Block-Patch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    gap: 10px;
+
+}
+
+.Logo {
+
+    width: 20px;
+
+}
+
+.Text h1 {
+
+    margin: 0;
+    font-size: 11px;
+    color: #000000;
+    font-weight: bold;
+
+}
+
+.Text p {
+
+    margin: 0;
+    font-size: 8px;
+    color: #000000;
+    font-weight: bold;
+
+}
+
+.Block-Menu {
+
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.Block-Title {
+
+    font-size: 12px;
+    color: #787F89;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+
+}
+
+
+
+.Icones {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #787F89;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    transition: 0.2s;
+
+}
+
+.Icones:hover {
+
+    background: #2C416E;
+    color: #FFFFFF;
+    border-radius: 10px;
+
+}
+
+.Icones:active {
+
+    transform: scale(0.95);
+
+}
+
+.Icones:hover .logo {
+    filter: brightness(0) invert(1);
+    /*change la couleur des logos*/
+}
+
+.Block-Settings {
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.Block-Profile {
+
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    width: 250px;
+    margin-bottom: 30px;
+
+}
+
+.ProfilePicture {
+
+    width: 49px;
+    height: 49px;
+    border-radius: 40px;
+
+}
+
+.Username {
+
+    margin: 0;
+    font-size: 16px;
+    color: #000000;
+    margin-left: 10px;
+    opacity: 1;
+
+}
+
+.Role {
+
+    margin: 0;
+    font-size: 14px;
+    color: #787F89;
+    margin-left: 10px;
+
+}
+
+.Chevron-down {
+
+    width: 14px;
+    height: 14px;
+    opacity: 1;
+}
+
+/* -------------------------------- */
+
+.Connection-Page {
     display: flex;
     height: 100vh;
     width: 100%;
 }
-.banner {
-    height: 100vh;
-    width: 250px;
-    background-color: #F1F2F7;
-    display: block;
-}
 
-.logo-container {
-    display: flex;
-    margin: 15px 30px
-}
-
-.school-logo {
-    width: 24px;
-    height: 25px;
-    padding: 5px;
-}
-
-.school-name-container {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    justify-content: center;
-    line-height: 1;
-}
-
-.school-name-container p {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    color: #0B163B
-}
-
-.school-name-container p:nth-child(2) {
-    font-size: 8px;
-    letter-spacing: 0.4px;
-}
-
-.connection-container {
+.Connection-Container {
     display: flex;
     flex-direction: column;
     margin: 70px 90px;
     font-family: 'Poppins', sans-serif;
 }
 
-.connection-container h1 {
+.Connection-Container h1 {
     font-size: 24px;
 }
 
-.connection-container h3 {
+.Connection-Container h3 {
     color: #2C416E;
     font-size: 20px;
 
 }
 
-.connection-form {
+.Connection-Form {
     display: flex;
     flex-direction: column;
 }
 
-.connection-form label {
+.Connection-Form label {
     font-size: 16px;
     font-weight: 300;
     margin-bottom: 5px;
@@ -92,14 +228,14 @@ th{
 
 }
 
-.connection-form input {
+.Connection-Form input {
     width: 300%;
     height: 40px;
     border: 1px solid #E5E5E5;
     border-radius: 5px;
 }
 
-.connection-form button {
+.Connection-Form button {
     width: fit-content;
     font-size: 16px;
     font-weight: 300;
@@ -110,7 +246,16 @@ th{
     border-radius: 7px;
     border: none;
 }
-.Breadcrumb{
+
+
+/* -------------------------------- */
+.Main-Content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Breadcrumb {
     display: flex;
     width: 100%;
     height: 57px;
@@ -119,31 +264,37 @@ th{
     font-weight: 500;
     font-family: 'Poppins';
 }
-.Breadcrumb ol{
+
+.Breadcrumb ol {
     display: flex;
     flex-direction: row;
     list-style: none;
     gap: 10px;
 }
-.Breadcrumb li{
+
+.Breadcrumb li {
     color: #1F384C;
 }
-.Breadcrumb a{
+
+.Breadcrumb a {
     color: #1F384C;
 }
-.Main{
+
+.Main {
     display: flex;
     flex-direction: column;
     padding: 0 40px 0 40px;
     font-family: 'Poppins';
 }
-.Heading{
+
+.Heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
 }
-.Heading button{
+
+.Heading button {
     display: flex;
     background-color: #2C416E;
     align-items: center;
@@ -152,16 +303,19 @@ th{
     height: 44px;
     border-radius: 8px;
 }
-.Heading button:hover{
+
+.Heading button:hover {
     cursor: pointer;
 }
-.Content{
+
+.Content {
     display: flex;
     width: 100%;
     justify-content: center;
     flex-direction: column;
 }
-.Filters{
+
+.Filters {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -169,23 +323,27 @@ th{
     border-color: #FFBD01;
     padding: 20px 0 20px 0;
 }
-.Filters p{
+
+.Filters p {
     color: #FFBD01;
     font-size: 20px;
 }
-.Filters form{
+
+.Filters form {
     display: flex;
     gap: 10px;
     align-items: end;
     width: 100%;
     justify-content: space-between;
 }
-.Filters form div{
+
+.Filters form div {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
-.Filters form input{
+
+.Filters form input {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
@@ -194,41 +352,50 @@ th{
     width: 100%;
     box-sizing: border-box;
 }
+
 .Filters form div:last-child {
     flex: 0;
 }
-#Submit{
+
+#Submit {
     background-color: #FFBD01;
     border: none;
     padding: 8px 0 8px 0;
     width: 153px;
-    font-weight:bold;
+    font-weight: bold;
 }
-#Submit:hover{
+
+#Submit:hover {
     cursor: pointer;
 }
-.Table{
+
+.Table {
     display: flex;
     width: 100%;
-    flex-direction: column;   
+    flex-direction: column;
 }
-.Table p{
+
+.Table p {
     font-size: 20px;
     font-weight: 500;
 }
-.Table table{
+
+.Table table {
     padding: 20px 25px 20px 25px;
-    border-collapse:collapse ;
+    border-collapse: collapse;
     border-bottom: solid 1px;
     border-color: #C8CBD9
 }
-.Table th{
+
+.Table th {
     text-align: start;
     padding: 20px 25px 20px 25px;
 }
+
 Table th .material-symbols-outlined {
     vertical-align: middle;
 }
-.Table-Head{
+
+.Table-Head {
     background-color: #F1F2F7;
 }

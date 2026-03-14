@@ -1,8 +1,37 @@
+<?php
+session_start();
+include 'autorisation.php';
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = htmlspecialchars($_POST['email']);
+    $typedPassword = $_POST['password'];
+
+    $query = $con->prepare("SELECT * FROM user WHERE email = :email");
+    $query->bindParam(':email', $email);
+    $query->execute();
+
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+    if ($user['email'] == $email && password_verify($typedPassword, $user['password'])) {
+        $_SESSION['email'] = $email;
+        $_SESSION['first_name'] = $user['first_name'];
+        $_SESSION['last_name'] = $user['last_name'];
+        $_SESSION['role'] = $user['role'];
+        header('Location: Corps-Enseignant.html');
+        exit();
+    } else {
+        $error = "Problème de connexion";
+    }
+
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
-<?php
-include 'localhost';
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -12,24 +41,26 @@ include 'localhost';
 </head>
 
 <body>
-    <main class="connection-page">
-        <aside class="banner">
-            <div class="logo-container">
-                <img src="./assets/logo.png" class="school-logo" alt="Logo du lycée Saint-Vincent">
-                <div class="school-name-container">
-                    <p>Lycée Saint-Vincent</p>
+    <main class="Connection-Page">
+        <div class="Sidebar-Menu">
+
+            <div class="Block-Patch">
+                <img src="./assets/logo.png" class="Logo">
+
+                <div class="Text">
+                    <h1>Lycée Saint-Vincent</h1>
                     <p>Enseignement Supérieur</p>
                 </div>
             </div>
-        </aside>
-        <section class="connection-container">
+        </div>
+        <section class="Connection-Container">
             <h1>
                 Gestion du supérieur
             </h1>
             <h3>
                 Connexion au portail
             </h3>
-            <form class="connection-form">
+            <form action="" method="post" class="Connection-Form">
                 <label for="email">Email - champ obligatoire</label>
                 <input type="email" id="email" name="email" placeholder="Veuillez rentrer votre adresse e-mail"
                     required>
@@ -38,6 +69,9 @@ include 'localhost';
                     required>
                 <button type="submit">Accèder au portail</button>
             </form>
+            <?php if (isset($error)) { ?>
+                <p class="Error"><?php echo $error; ?></p>
+            <?php } ?>
         </section>
     </main>
 </body>
