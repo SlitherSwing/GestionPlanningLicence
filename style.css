@@ -152,7 +152,7 @@ th {
     align-items: center;
     margin-top: auto;
     width: 250px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 
 }
 
@@ -402,20 +402,29 @@ Table th .material-symbols-outlined {
 
 /* -------------------------------- */
 
-Main-Content {
+.Main-Content {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
+main {
+    display: flex;
+}
+
 .Breadcrumb {
     display: flex;
     width: 100%;
-    height: 57px;
-    border-bottom: solid 1px;
-    border-color: #C8CBD9;
-    font-weight: 500;
-    font-family: 'Poppins';
+    height: 32px;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.BreadcrumbMain{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .Breadcrumb ol {
@@ -433,28 +442,18 @@ Main-Content {
     color: #1F384C;
 }
 
-.Main {
-    display: flex;
-    flex-direction: column;
-    padding: 0 40px 0 40px;
-    font-family: 'Poppins';
+.Heading {
+    margin-top: 8px;
 }
 
-.Heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+.Heading h2 {
+    font-size: 20px;
 }
 
 .Heading button {
-    display: flex;
-    background-color: #2C416E;
-    align-items: center;
-    padding: 14px 20px 14px 20px;
-    color: white;
-    height: 44px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    height: 36px;
+    font-size: 14px;
 }
 
 .Heading button:hover {
@@ -469,25 +468,20 @@ Main-Content {
 }
 
 .Filters {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    border-bottom: solid 1px;
-    border-color: #FFBD01;
-    padding: 20px 0 20px 0;
+    padding: 6px 0;
+  
 }
 
 .Filters p {
-    color: #FFBD01;
-    font-size: 20px;
+    font-size: 16px;
+    margin-bottom: 4px;
 }
 
 .Filters form {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: end;
-    width: 100%;
-    justify-content: space-between;
+    width: 400px;
 }
 
 .Filters form div {
@@ -523,9 +517,7 @@ Main-Content {
 }
 
 .Table {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+    margin-top: 5px;
 }
 
 .Table p {
@@ -534,21 +526,30 @@ Main-Content {
 }
 
 .Table table {
-    padding: 20px 25px 20px 25px;
     border-collapse: collapse;
-    border-bottom: solid 1px;
-    border-color: #C8CBD9
+    width: 100%;
 }
 
-.Table th {
-    text-align: start;
-    padding: 20px 25px 20px 25px;
-}
-
-Table th .material-symbols-outlined {
-    vertical-align: middle;
+.Table th,
+.Table td {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-bottom: 2px solid #EAECF0;
+    border-radius: 3px;
 }
 
 .Table-Head {
     background-color: #F1F2F7;
 }
+
+.color-purple { color: #6750A4; }
+
+.color-green { color: #028202; }
+
+.color-blue { color:#0EA5E9; }
+
+.color-orange { color: #FF8000; }
+
+.color-brown { color: #8C1D18; }
+
+
