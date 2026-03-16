@@ -1,175 +1,93 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
-<meta charset="UTF-8">
-<title>Types d'intervention</title>
-
-<link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
-< link href=""
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Interventions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
 </head>
-
 <body>
+    <nav class="Breadcrumb">
+        <ol>
+            <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+            <li>></li>
+            <li><a href="">Types-Intervention</a></li>
+        </ol>
+    </nav>
+    <div class="Main">
+        <div class="Heading">
+            <h2>Types-Intervention</h2>
+            <button>Ajouter un type</button>
+        </div>
+        <div class="Content">
+            <div class="Filters">
+                <p>Filtres</p>
+                <div>
+                    <form method="post">
+                        <div>
+                            <label for="Name">Nom</label>
+                            <input id="Name" type="date" placeholder="Saisissez le Nom" name="Name">
+                        </div>
+                        <div>
+                            
+                            <label for="Submit"></label>
+                            <input id="Submit" type="submit" value="Filtrer">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="Table">
+                <p>5 types</p>
+                <table>
+                    <tr class="Table-Head">
+                        <th>Nom</th>
+                        <th>Descriptif</th>
+                        <th>Couleur</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>Autonomie</th>
+                        <th>Eleves en autonomie</th>
+                        <th>#6750A4</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                       
+                        
+                    </tr>
+                    <tr>
+                        <th>Conférence</th>
+                        <th>Conférence effectuée par un ou plusieurs intervenants</th>
+                        <th>#6750A4</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                    </tr>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Cours dispensé par un ou plusieurs intervenants</th>
+                        <th>#6750A4</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                    </tr>
+                    <tr>
+                        <th>Evaluation</th>
+                        <th>Evaluation sous forme de POC ou d’écrit</th>
+                        <th>#6750A4</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                    </tr>
+                    <tr>
 
-
-<nav class="Breadcrumb">
-
-<span class="material-symbols-outlined">home</span>
-
-<span class="sep">></span>
-
-<span>Types d’intervention</span>
-
+                        <th>Soutenance</th>
+                        <th>Soutenance de fin de projet</th>
+                        <th>#6750A4</th>
+                        <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                    </tr>
+                    <tr>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </nav>
-
-<div class="page">
-<div class="Header">
-
-<h2>Types d’intervention</h2>
-
-<button class="add-btn">Ajouter un type</button>
-
-</div>
-
-<div class="filters">
-
-<p>Filtres</p>
-
-<form>
-
-<div class="filter-group">
-
-<label>Nom</label>
-
-<input type="text" placeholder="Saisissez le nom">
-
-</div>
-
-<input class="filter-btn" type="submit" value="Filtrer">
-
-</form>
-
-</div>
-
-
-
-<div class="line"></div>
-
-
-
-<div class="table-section">
-
-<p>5 types</p>
-
-<table>
-
-<tr class="table-head">
-
-<th>Nom</th>
-<th>Descriptif</th>
-<th>Couleur</th>
-<th></th>
-
-</tr>
-
-
-<tr>
-
-<td>Autonomie</td>
-<td>Élèves en autonomie</td>
-<td class="purple">#6750A4</td>
-
-<td>
-
-<span class="material-symbols-outlined">visibility</span>
-
-Accéder à la fiche
-
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>Conférence</td>
-<td>Conférence effectuée par un ou plusieurs intervenants</td>
-<td class="green">#6750A4</td>
-
-<td>
-
-<span class="material-symbols-outlined">visibility</span>
-
-Accéder à la fiche
-
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>Cours</td>
-<td>Cours dispensé par un ou plusieurs intervenants</td>
-<td class="blue">#6750A4</td>
-
-<td>
-
-<span class="material-symbols-outlined">visibility</span>
-
-Accéder à la fiche
-
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>Évaluation</td>
-<td>Évaluation sous forme de POC ou d’écrit</td>
-<td class="orange">#6750A4</td>
-
-<td>
-
-<span class="material-symbols-outlined">visibility</span>
-
-Accéder à la fiche
-
-</td>
-
-</tr>
-
-
-<tr>
-
-<td>Soutenance</td>
-<td>Soutenance de fin de projet</td>
-<td class="red">#6750A4</td>
-
-<td>
-
-<span class="material-symbols-outlined">visibility</span>
-
-Accéder à la fiche
-
-</td>
-
-</tr>
-
-</table>
-
-</div>
-
-
-</div>
-
-
 </body>
 </html>
