@@ -399,3 +399,89 @@ Table th .material-symbols-outlined {
 .Table-Head {
     background-color: #F1F2F7;
 }
+
+/* -------------------------------- */
+
+.types-container{
+    padding:40px;
+}
+
+.types-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.types-header h1{
+    font-size:28px;
+}
+
+.btn-add{
+    background:#2f3b63;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.filters{
+    margin-bottom:20px;
+}
+
+.filter-row{
+    display:flex;
+    align-items:end;
+    gap:15px;
+    margin-top:10px;
+}
+
+.filter-field{
+    display:flex;
+    flex-direction:column;
+}
+
+.filter-field input{
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.btn-filter{
+    background:#e6b33d;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.types-count{
+    margin:20px 0;
+    font-weight:bold;
+}
+
+.color-purple{
+    color:#6750A4;
+    font-weight:bold;
+}
+
+.color-green{
+    color:#4CAF50;
+    font-weight:bold;
+}
+
+.color-blue{
+    color:#2196F3;
+    font-weight:bold;
+}
+
+.color-orange{
+    color:#ff9800;
+    font-weight:bold;
+}
+
+.color-red{
+    color:#f44336;
+    font-weight:bold;
+}
