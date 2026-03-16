@@ -402,86 +402,132 @@ Table th .material-symbols-outlined {
 
 /* -------------------------------- */
 
-.types-container{
-    padding:40px;
+.page{
+
+width:1100px;
+margin:auto;
+
 }
 
-.types-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
+.Breadcrumb{
+
+  display: flex;
+    width: 100%;
+    height: 57px;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9;
+    font-weight: 500;
+    font-family: 'Poppins';
+
 }
 
-.types-header h1{
-    font-size:28px;
+.Header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+
 }
 
-.btn-add{
-    background:#2f3b63;
-    color:white;
-    border:none;
-    padding:10px 18px;
-    border-radius:6px;
-    cursor:pointer;
+.add-btn{
+
+background:#3f4a6b;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+
 }
 
 .filters{
-    margin-bottom:20px;
+
+margin-bottom:10px;
+
 }
 
-.filter-row{
-    display:flex;
-    align-items:end;
-    gap:15px;
-    margin-top:10px;
+.filters p{
+
+color:#e0a800;
+font-weight:500;
+
 }
 
-.filter-field{
-    display:flex;
-    flex-direction:column;
+.filters form{
+
+display:flex;
+gap:15px;
+align-items:end;
+
 }
 
-.filter-field input{
-    padding:8px;
-    border:1px solid #ccc;
-    border-radius:4px;
+.filter-group{
+
+display:flex;
+flex-direction:column;
+
 }
 
-.btn-filter{
-    background:#e6b33d;
-    border:none;
-    padding:8px 16px;
-    border-radius:6px;
-    cursor:pointer;
+.filter-group input{
+
+padding:8px;
+border:1px solid #ccc;
+border-radius:4px;
+
 }
 
-.types-count{
-    margin:20px 0;
-    font-weight:bold;
+.filter-btn{
+
+background:#e0a800;
+border:none;
+padding:8px 18px;
+border-radius:6px;
+cursor:pointer;
+color:white;
+
 }
 
-.color-purple{
-    color:#6750A4;
-    font-weight:bold;
+.line{
+
+height:2px;
+background:#e0a800;
+margin:20px 0;
+
 }
 
-.color-green{
-    color:#4CAF50;
-    font-weight:bold;
+.table-section table{
+
+width:100%;
+border-collapse:collapse;
+
 }
 
-.color-blue{
-    color:#2196F3;
-    font-weight:bold;
+.table-head th{
+
+background:#f1f1f5;
+text-align:left;
+padding:12px;
+
 }
 
-.color-orange{
-    color:#ff9800;
-    font-weight:bold;
+.table-section td{
+
+padding:12px;
+border-bottom:1px solid #eee;
+
 }
 
-.color-red{
-    color:#f44336;
-    font-weight:bold;
+.purple{color:#6750A4;}
+.green{color:#2e7d32;}
+.blue{color:#1976d2;}
+.orange{color:#ef6c00;}
+.red{color:#d32f2f;}
+
+.material-symbols-outlined{
+
+font-size:18px;
+vertical-align:middle;
+margin-right:5px;
+
 }
