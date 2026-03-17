@@ -399,3 +399,102 @@ Table th .material-symbols-outlined {
 .Table-Head {
     background-color: #F1F2F7;
 }
+
+
+/* ------------------------------- */
+
+.Delete-Draw{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background: rgba(0,0,0,0.2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins';
+}
+
+.Delete-Modal{
+    background:white;
+    width:520px;
+    border-radius:10px;
+    padding:25px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.1);
+}
+
+.Delete-Header{
+    
+    display: flex;
+    flex: 1 1 10px;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.Delete-Icon{
+    width:40px;
+    height:40px;
+    background:#F1F2F7;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
+.Delete-Title h3{
+    margin:0;
+    font-size:18px;
+    font-weight:600;
+}
+
+.Delete-Title p{
+    margin:0;
+    font-size:12px;
+    color:#787F89;
+}
+
+.Delete-Close{
+    margin-left:auto;
+    background:none;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.Delete-Content{
+    font-size:14px;
+    color:#1F384C;
+    line-height:22px;
+}
+
+.Delete-Question{
+    margin-top:20px;
+    font-weight:500;
+}
+
+.Delete-Actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:25px;
+}
+
+.Cancel{
+    background:#E5E5E5;
+    padding:10px 25px;
+    border-radius:6px;
+}
+
+.Confirm{
+    background:#E4372E;
+    color:white;
+    padding:10px 25px;
+    border-radius:6px;
+}
+
+.Cancel:hover,
+.Confirm:hover{
+    cursor:pointer;
+}
