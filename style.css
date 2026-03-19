@@ -437,7 +437,7 @@ Table th .material-symbols-outlined {
 .Delete-Icon{
     width:40px;
     height:40px;
-    background:#F1F2F7;
+    background:#F0F0F0;
     border-radius:8px;
     display:flex;
     align-items:center;
@@ -450,12 +450,14 @@ Table th .material-symbols-outlined {
     font-size:24px;
     font-weight:600;
     opacity: 1;
+    color:#54595E;
 }
 
 .Delete-Title p{
     margin:0;
     font-size:14px;
     color:#54595E;
+    
 }
 
 .Delete-Close{
@@ -464,7 +466,7 @@ Table th .material-symbols-outlined {
     right: 10px;   
     width: 24px;
     height: 24px;
-    background: #F1F2F7;
+    background: #F0F0F0;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -499,7 +501,7 @@ Table th .material-symbols-outlined {
 }
 
 .Cancel{
-    background:#E5E5E5;
+    background:#F0F0F0;
     color: #000000;
     padding:10px 25px;
     border-radius:6px;
@@ -509,7 +511,7 @@ Table th .material-symbols-outlined {
 }
 
 .Confirm{
-    background:#E4372E;
+    background:#FF0004;
     color:#FFFFFF;
     padding:10px 25px;
     border-radius:6px;
