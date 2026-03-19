@@ -5,6 +5,7 @@ body {
 
 a {
     text-decoration: none;
+    color: #1F384C;
 }
 
 h2 {
@@ -245,6 +246,7 @@ th {
     color: white;
     border-radius: 7px;
     border: none;
+    cursor: pointer;
 }
 
 
@@ -398,4 +400,16 @@ Table th .material-symbols-outlined {
 
 .Table-Head {
     background-color: #F1F2F7;
+}
+
+.Table-Structure {
+    border-bottom: solid 1px;
+    border-color: #45464a;
+    padding: 20px;
+}
+
+.Table-Link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

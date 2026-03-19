@@ -1,10 +1,52 @@
 <?php
+
 session_start();
 include 'autorisation.php';
 
+// Variables utilisées pour stocker les requêtes de l'utilisateur
+$nom = '';
+$prenom = '';
+$email = '';
+
+// On renvoi ici les gens non connectés
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
+    exit();
+} else {
+    // Si le formulaire a été envoyé, on récupère les valeurs saisies
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nom = trim($_POST['Name'] ?? '');
+        $prenom = trim($_POST['First-Name'] ?? '');
+        $email = trim($_POST['Email'] ?? '');
+    }
+
+    // Requête de base, on va chercher les enseignants avec leurs informations, modules etc. 
+    $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
+            FROM instructor
+            INNER JOIN user ON user.id = instructor.user_id
+            INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
+            INNER JOIN module ON module.id = instructor_module.module_id
+            WHERE 1=1";
+
+    // Si un nom a été saisi, on ajoute un filtre sur le nom
+    if ($nom !== '') {
+        $sql = $sql . " AND user.last_name = '$nom'";
+    }
+
+    // Si un prénom a été saisi, on ajoute un filtre sur le prénom
+    if ($prenom !== '') {
+        $sql = $sql . " AND user.first_name = '$prenom'";
+    }
+
+    // Si un email a été saisi, on ajoute un filtre sur l'email
+    if ($email !== '') {
+        $sql = $sql . " AND user.email = '$email'";
+    }
+
+    // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
+    $result = $con->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+
 ?>
 
 
@@ -117,17 +159,18 @@ if (!isset($_SESSION['email'])) {
                             <form method="post">
                                 <div>
                                     <label for="Name">Nom de famille</label>
-                                    <input id="Name" type="search" placeholder="Saisissez le nom de famille"
-                                        name="Name">
+                                    <input id="Name" type="search" placeholder="Saisissez le nom de famille" name="Name"
+                                        value="<?= $nom ?>">
                                 </div>
                                 <div>
                                     <label for="First-Name">Prénom</label>
                                     <input id="First-Name" type="search" placeholder="Saisissez le prénom"
-                                        name="First-Name">
+                                        name="First-Name" value="<?= $prenom ?>">
                                 </div>
                                 <div>
                                     <label for="Email">Email</label>
-                                    <input id="Email" type="email" placeholder="Saisissez l'email" name="Email">
+                                    <input id="Email" type="search" placeholder="Saisissez l'email" name="Email"
+                                        value="<?= $email ?>">
                                 </div>
                                 <div>
                                     <label for="Submit"></label>
@@ -144,18 +187,35 @@ if (!isset($_SESSION['email'])) {
                                 <th>Prénom</th>
                                 <th>Modules enseignés</th>
                                 <th>Nombre d'heures</th>
+                                <th>Lien</th>
                             </tr>
-                            <tr>
-                                <th>Template</th>
-                                <th>Template</th>
-                                <th>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                            </tr>
+                            <?php if ($result === []) { ?>
+                                <tr>
+                                    <td class="Table-Structure" colspan="5">Aucun enseignant ne correspond aux filtres
+                                        saisis.</td>
+                                </tr>
+                            <?php } else { ?>
+                                <?php foreach ($result as $resultat) { ?>
+                                    <tr>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
+                                        <td class="Table-Structure"><a href="#">
+                                                <div class="Table-Link"><span class="material-symbols-outlined">
+                                                        visibility
+                                                    </span>
+                                                    Accèder à la fiche
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } ?>
                         </table>
                     </div>
                 </div>
             </div>
-            </nav>
         </div>
     </div>
 </body>
