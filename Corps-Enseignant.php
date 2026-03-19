@@ -1,56 +1,50 @@
 <?php
+
 session_start();
 include 'autorisation.php';
 
-$filters = [
-    'last_name' => '',
-    'first_name' => '',
-    'email' => '',
-];
+// Variables utilisées pour stocker les requêtes de l'utilisateur
+$nom = '';
+$prenom = '';
+$email = '';
 
+// On renvoi ici les gens non connectés
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
     exit();
 } else {
+    // Si le formulaire a été envoyé, on récupère les valeurs saisies
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $filters['last_name'] = trim($_POST['Name'] ?? '');
-        $filters['first_name'] = trim($_POST['First-Name'] ?? '');
-        $filters['email'] = trim($_POST['Email'] ?? '');
+        $nom = trim($_POST['Name'] ?? '');
+        $prenom = trim($_POST['First-Name'] ?? '');
+        $email = trim($_POST['Email'] ?? '');
     }
 
+    // Requête de base, on va chercher les enseignants avec leurs informations, modules etc. 
     $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
             FROM instructor
             INNER JOIN user ON user.id = instructor.user_id
             INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
-            INNER JOIN module ON module.id = instructor_module.module_id";
+            INNER JOIN module ON module.id = instructor_module.module_id
+            WHERE 1=1";
 
-    $conditions = [];
-    $parameters = [];
-
-    if ($filters['last_name'] !== '') {
-        $conditions[] = "user.last_name LIKE :last_name";
-        $parameters[':last_name'] = '%' . $filters['last_name'] . '%';
+    // Si un nom a été saisi, on ajoute un filtre sur le nom
+    if ($nom !== '') {
+        $sql = $sql . " AND user.last_name = '$nom'";
     }
 
-    if ($filters['first_name'] !== '') {
-        $conditions[] = "user.first_name LIKE :first_name";
-        $parameters[':first_name'] = '%' . $filters['first_name'] . '%';
+    // Si un prénom a été saisi, on ajoute un filtre sur le prénom
+    if ($prenom !== '') {
+        $sql = $sql . " AND user.first_name = '$prenom'";
     }
 
-    if ($filters['email'] !== '') {
-        $conditions[] = "user.email LIKE :email";
-        $parameters[':email'] = '%' . $filters['email'] . '%';
+    // Si un email a été saisi, on ajoute un filtre sur l'email
+    if ($email !== '') {
+        $sql = $sql . " AND user.email = '$email'";
     }
 
-    if ($conditions !== []) {
-        $sql .= ' WHERE ' . implode(' AND ', $conditions);
-    }
-
-    $sql .= ' ORDER BY user.last_name, user.first_name, module.name';
-
-    $query = $con->prepare($sql);
-    $query->execute($parameters);
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
+    $result = $con->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 ?>
@@ -165,18 +159,18 @@ if (!isset($_SESSION['email'])) {
                             <form method="post">
                                 <div>
                                     <label for="Name">Nom de famille</label>
-                                    <input id="Name" type="search" placeholder="Saisissez le nom de famille"
-                                        name="Name" value="<?= htmlspecialchars($filters['last_name']) ?>">
+                                    <input id="Name" type="search" placeholder="Saisissez le nom de famille" name="Name"
+                                        value="<?= $nom ?>">
                                 </div>
                                 <div>
                                     <label for="First-Name">Prénom</label>
                                     <input id="First-Name" type="search" placeholder="Saisissez le prénom"
-                                        name="First-Name" value="<?= htmlspecialchars($filters['first_name']) ?>">
+                                        name="First-Name" value="<?= $prenom ?>">
                                 </div>
                                 <div>
                                     <label for="Email">Email</label>
                                     <input id="Email" type="search" placeholder="Saisissez l'email" name="Email"
-                                        value="<?= htmlspecialchars($filters['email']) ?>">
+                                        value="<?= $email ?>">
                                 </div>
                                 <div>
                                     <label for="Submit"></label>
@@ -197,7 +191,8 @@ if (!isset($_SESSION['email'])) {
                             </tr>
                             <?php if ($result === []) { ?>
                                 <tr>
-                                    <td class="Table-Structure" colspan="5">Aucun enseignant ne correspond aux filtres saisis.</td>
+                                    <td class="Table-Structure" colspan="5">Aucun enseignant ne correspond aux filtres
+                                        saisis.</td>
                                 </tr>
                             <?php } else { ?>
                                 <?php foreach ($result as $resultat) { ?>
