@@ -2,14 +2,55 @@
 session_start();
 include 'autorisation.php';
 
+$filters = [
+    'last_name' => '',
+    'first_name' => '',
+    'email' => '',
+];
+
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
+    exit();
 } else {
-    $query = $con->prepare("SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count FROM instructor INNER JOIN user ON user.id = instructor.user_id INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id INNER JOIN module ON module.id = instructor_module.module_id ");
-    $query->execute();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $filters['last_name'] = trim($_POST['Name'] ?? '');
+        $filters['first_name'] = trim($_POST['First-Name'] ?? '');
+        $filters['email'] = trim($_POST['Email'] ?? '');
+    }
+
+    $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
+            FROM instructor
+            INNER JOIN user ON user.id = instructor.user_id
+            INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
+            INNER JOIN module ON module.id = instructor_module.module_id";
+
+    $conditions = [];
+    $parameters = [];
+
+    if ($filters['last_name'] !== '') {
+        $conditions[] = "user.last_name LIKE :last_name";
+        $parameters[':last_name'] = '%' . $filters['last_name'] . '%';
+    }
+
+    if ($filters['first_name'] !== '') {
+        $conditions[] = "user.first_name LIKE :first_name";
+        $parameters[':first_name'] = '%' . $filters['first_name'] . '%';
+    }
+
+    if ($filters['email'] !== '') {
+        $conditions[] = "user.email LIKE :email";
+        $parameters[':email'] = '%' . $filters['email'] . '%';
+    }
+
+    if ($conditions !== []) {
+        $sql .= ' WHERE ' . implode(' AND ', $conditions);
+    }
+
+    $sql .= ' ORDER BY user.last_name, user.first_name, module.name';
+
+    $query = $con->prepare($sql);
+    $query->execute($parameters);
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
-
-
 }
 
 ?>
@@ -125,16 +166,17 @@ if (!isset($_SESSION['email'])) {
                                 <div>
                                     <label for="Name">Nom de famille</label>
                                     <input id="Name" type="search" placeholder="Saisissez le nom de famille"
-                                        name="Name">
+                                        name="Name" value="<?= htmlspecialchars($filters['last_name']) ?>">
                                 </div>
                                 <div>
                                     <label for="First-Name">Prénom</label>
                                     <input id="First-Name" type="search" placeholder="Saisissez le prénom"
-                                        name="First-Name">
+                                        name="First-Name" value="<?= htmlspecialchars($filters['first_name']) ?>">
                                 </div>
                                 <div>
                                     <label for="Email">Email</label>
-                                    <input id="Email" type="email" placeholder="Saisissez l'email" name="Email">
+                                    <input id="Email" type="search" placeholder="Saisissez l'email" name="Email"
+                                        value="<?= htmlspecialchars($filters['email']) ?>">
                                 </div>
                                 <div>
                                     <label for="Submit"></label>
@@ -153,29 +195,33 @@ if (!isset($_SESSION['email'])) {
                                 <th>Nombre d'heures</th>
                                 <th>Lien</th>
                             </tr>
-                            <?php foreach ($result as $resultat) { ?>
+                            <?php if ($result === []) { ?>
                                 <tr>
-                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
-                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
-                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
-                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
-                                    <td class="Table-Structure"><a href="#">
-                                            <div class="Table-Link"><span class="material-symbols-outlined">
-                                                    visibility
-                                                </span>
-                                                Accèder à la fiche
-                                            </div>
-                                        </a>
-                        </div>
-                        </td>
-                        </tr>
-                    <?php } ?>
-                    </table>
+                                    <td class="Table-Structure" colspan="5">Aucun enseignant ne correspond aux filtres saisis.</td>
+                                </tr>
+                            <?php } else { ?>
+                                <?php foreach ($result as $resultat) { ?>
+                                    <tr>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
+                                        <td class="Table-Structure"><a href="#">
+                                                <div class="Table-Link"><span class="material-symbols-outlined">
+                                                        visibility
+                                                    </span>
+                                                    Accèder à la fiche
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } ?>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        </nav>
-    </div>
     </div>
 </body>
 
