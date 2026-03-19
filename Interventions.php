@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    include 'autorisation.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,86 +15,170 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
 </head>
 <body>
-    <nav class="Breadcrumb">
-        <ol>
-            <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
-            <li>></li>
-            <li><a href="">Interventions</a></li>
-        </ol>
-    </nav>
-    <div class="Main">
-        <div class="Heading">
-            <h2>Interventions</h2>
-            <button>Ajouter une nouvelle intervention</button>
-        </div>
-        <div class="Content">
-            <div class="Filters">
-                <p>Filtres</p>
+    <div class="Modal-Screen">
+        <div>
+            <div>
                 <div>
-                    <form method="post">
-                        <div>
-                            <label for="Name">Date de début</label>
-                            <input id="Name" type="date" placeholder="Saisissez la Date de début" name="Name">
-                        </div>
-                        <div>
-                            <label for="First-Name">Date de fin</label>
-                            <input id="First-Name" type="date" placeholder="Saisissez la Date de fin" name="First-Name">
-                        </div>
-                        <div>
-                            <label for="Email">Module</label>
-                            <input id="Email" type="search" placeholder="Saisissez le Module" name="Email">
-                        </div>
-                        <div>
-                            <label for="Submit"></label>
-                            <input id="Submit" type="submit" value="Filtrer">
-                        </div>
-                    </form>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3>Ajouter une intervention</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
                 </div>
             </div>
-            <div class="Table">
-                <p>Template</p>
-                <table>
-                    <tr class="Table-Head">
-                        <th>Date de l’intervention</th>
-                        <th>Module & titre</th>
-                        <th>Type</th>
-                        <th>Intervenants</th>
-                        <th>En visio</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                        <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                    </tr>
-                    <tr>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                        <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                    </tr>
-                    <tr>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                        <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                    </tr>
-                    <tr>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th>Template</th>
-                        <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                        <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                    </tr>
-                    <tr></tr>
-                </table>
-            </div>
         </div>
+        
     </div>
-</nav>
+    <div class="Page">
+
+        <div class="Sidebar-Menu">
+
+            <div class="Block-Patch">
+                <img src="./assets/logo.png" class="Logo">
+
+                <div class="Text">
+                    <h1>Lycée Saint-Vincent</h1>
+                    <p>Enseignement Supérieur</p>
+                </div>
+            </div>
+
+            <div class="Block-Menu">
+
+                <p class="Block-Title">MENU</p>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Calendar.svg" class="logo">
+                    Calendrier
+                </a>
+
+                <a href="Interventions.php" class="Icones">
+                    <img src="./assets/Frame.svg" class="logo">
+                    Interventions
+                </a>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Board.svg" class="logo">
+                    Corps enseignant
+                </a>
+
+            </div>
+
+            <div class="Block-Settings">
+
+                <p class="Block-Title">PARAMÉTRAGE</p>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Vector.svg" class="logo">
+                    Modules
+                </a>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Chart.svg" class="logo">
+                    Types d'intervention
+                </a>
+
+            </div>
+
+            <div class="Block-Profile">
+
+                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+
+                <div>
+                    <div>
+                        <span class="Username">
+                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
+                        </span>
+                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                    </div>
+                    <span class="Role">
+                        <?= $_SESSION['role'] ?>
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="Main-Content">
+            <nav class="Breadcrumb">
+                <ol>
+                    <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+                    <li>></li>
+                    <li><a href="">Interventions</a></li>
+                </ol>
+            </nav>
+            <div class="Main">
+                <div class="Heading">
+                    <h2>Interventions</h2>
+                    <button>Ajouter une nouvelle intervention</button>
+                </div>
+                <div class="Content">
+                    <div class="Filters">
+                        <p>Filtres</p>
+                        <div>
+                            <form method="post">
+                                <div>
+                                    <label for="Name">Date de début</label>
+                                    <input id="Name" type="date" placeholder="Saisissez la Date de début" name="Name">
+                                </div>
+                                <div>
+                                    <label for="First-Name">Date de fin</label>
+                                    <input id="First-Name" type="date" placeholder="Saisissez la Date de fin" name="First-Name">
+                                </div>
+                                <div>
+                                    <label for="Email">Module</label>
+                                    <input id="Email" type="search" placeholder="Saisissez le Module" name="Email">
+                                </div>
+                                <div>
+                                    <label for="Submit"></label>
+                                    <input id="Submit" type="submit" value="Filtrer">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="Table">
+                        <p>Template</p>
+                        <table>
+                            <tr class="Table-Head">
+                                <th>Date de l’intervention</th>
+                                <th>Module & titre</th>
+                                <th>Type</th>
+                                <th>Intervenants</th>
+                                <th>En visio</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th><span class="material-symbols-outlined">videocam</span>Template</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                            </tr>
+                            <tr>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th><span class="material-symbols-outlined">videocam</span>Template</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                            </tr>
+                            <tr>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th><span class="material-symbols-outlined">videocam</span>Template</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                            </tr>
+                            <tr>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th>Template</th>
+                                <th><span class="material-symbols-outlined">videocam</span>Template</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </nav>
 </body>
 </html>
