@@ -4,7 +4,14 @@ include 'autorisation.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
+} else {
+    $query = $con->prepare("SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count FROM instructor INNER JOIN user ON user.id = instructor.user_id INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id INNER JOIN module ON module.id = instructor_module.module_id ");
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 }
+
 ?>
 
 
@@ -144,19 +151,31 @@ if (!isset($_SESSION['email'])) {
                                 <th>Prénom</th>
                                 <th>Modules enseignés</th>
                                 <th>Nombre d'heures</th>
+                                <th>Lien</th>
                             </tr>
-                            <tr>
-                                <th>Template</th>
-                                <th>Template</th>
-                                <th>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
-                            </tr>
-                        </table>
-                    </div>
+                            <?php foreach ($result as $resultat) { ?>
+                                <tr>
+                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
+                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
+                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
+                                    <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
+                                    <td class="Table-Structure"><a href="#">
+                                            <div class="Table-Link"><span class="material-symbols-outlined">
+                                                    visibility
+                                                </span>
+                                                Accèder à la fiche
+                                            </div>
+                                        </a>
+                        </div>
+                        </td>
+                        </tr>
+                    <?php } ?>
+                    </table>
                 </div>
             </div>
-            </nav>
         </div>
+        </nav>
+    </div>
     </div>
 </body>
 
