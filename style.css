@@ -246,6 +246,7 @@ th {
     color: white;
     border-radius: 7px;
     border: none;
+    cursor: pointer;
 }
 
 
