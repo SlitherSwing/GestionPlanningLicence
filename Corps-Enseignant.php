@@ -201,7 +201,7 @@ if (!isset($_SESSION['email'])) {
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
-                                        <td class="Table-Structure"><a href="#">
+                                        <td class="Table-Structure"><a href="Fiche-Enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
                                                 <div class="Table-Link"><span class="material-symbols-outlined">
                                                         visibility
                                                     </span>
