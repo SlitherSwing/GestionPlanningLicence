@@ -421,19 +421,75 @@ Table th .material-symbols-outlined {
     background-color: rgb(196, 196, 196,0.6);
     justify-content: center;
     align-items: center;
+    font-family: 'Poppins';
+    flex-direction: column;
+    
 }
 .Modal-Screen>div{
     display: flex;
     width: 720px;
-    height: 100px;
     background-color: white;
     justify-content: center;
+    padding: 10px 0 10px 0;
+    border-radius: 7px;
 }
 .Modal-Screen>div>div{
     display: flex;
     flex-direction: row;
+    gap: 24px;
+}
+.Modal-Screen>div>div>div:first-child{
+    display: flex;
+    align-items: center;
+}
+.Modal-Screen h3{
+    margin-bottom: 0;
+}
+.Modal-Screen>div>div>div p{
+    font-size: 14;
+    color: #54595E;
+    margin: 0;
+}
+.Modal-Screen>div>div>div:first-child span{
+    background-color: #F0F0F0;
 }
 .Modal-Screen span{
     background-color: #F0F0F0;
     transform: scale(2.2);
+}
+.Modal-Screen>div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+}
+.Modal-Screen>div:nth-child(2) form{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 0 10px;
+}
+.Modal-Screen>div:nth-child(2) input{
+    line-height: 24px;
+    padding: 6px 16px 6px 20px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #C8CBD9;
+    width: 100%;
+    box-sizing: border-box;
+}
+.Modal-Screen>div:nth-child(2) select{
+    line-height: 24px;
+    padding: 6px 16px 6px 20px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #C8CBD9;
+    width: 100%;
+    box-sizing: border-box;
+}
+.Modal-Screen button{
+    display: flex;
+    background-color: #2C416E;
+    align-items: center;
+    padding: 14px 20px 14px 20px;
+    color: white;
+    height: 44px;
+    border-radius: 8px;
 }

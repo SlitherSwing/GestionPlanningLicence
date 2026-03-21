@@ -27,7 +27,44 @@
                 </div>
             </div>
         </div>
-        
+        <div>
+            <form action="" method="post">
+                <label for="Ajout-intervention-Titre">Titre</label>
+                <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                <div style="display: flex;flex-direction: row;">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">Date de début - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Début" type="datetime-local">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">Date de fin - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Fin" type="datetime-local">
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;">
+                    <div>
+                        <label for="Ajout-intervention-Module">Module - champ obligatoire</label>
+                        <select name="" id="Ajout-intervention-Module"></select>
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Type">Type d’intervention - champ obligatoire</label>
+                        <select name="Ajout-intervention-Type" id=""></select>
+                    </div>                   
+                </div>
+                <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
+                <input id="Ajout-intervention-Type" type="" placeholder="?">
+                <label for="Ajout-intervention-check"></label>
+                <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
+                <input id="Ajout-intervention-check" type="checkbox">
+                <div>
+                    <button></button>
+                    <button></button>
+                </div>
+            </form>
+        </div>
+        <div>
+
+        </div>
     </div>
     <div class="Page">
 
