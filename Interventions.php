@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
 </head>
 <body>
-    <div class="Modal-Screen">
+    <div class="Modal-Screen" id="Modal-Ajout">
         <div>
             <div>
                 <div>
@@ -25,13 +25,18 @@
                     <h3>Ajouter une intervention</h3>
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
             </div>
         </div>
         <div>
             <form action="" method="post">
-                <label for="Ajout-intervention-Titre">Titre</label>
-                <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
-                <div style="display: flex;flex-direction: row;">
+                <div>
+                    <label for="Ajout-intervention-Titre">Titre</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
                         <label for="Ajout-intervention-Date-Début">Date de début - champ obligatoire</label>
                         <input id="Ajout-intervention-Date-Début" type="datetime-local">
@@ -41,7 +46,7 @@
                         <input id="Ajout-intervention-Date-Fin" type="datetime-local">
                     </div>
                 </div>
-                <div style="display: flex;flex-direction: row;">
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
                         <label for="Ajout-intervention-Module">Module - champ obligatoire</label>
                         <select name="" id="Ajout-intervention-Module"></select>
@@ -51,14 +56,79 @@
                         <select name="Ajout-intervention-Type" id=""></select>
                     </div>                   
                 </div>
-                <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
-                <input id="Ajout-intervention-Type" type="" placeholder="?">
-                <label for="Ajout-intervention-check"></label>
-                <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
-                <input id="Ajout-intervention-check" type="checkbox">
                 <div>
-                    <button></button>
-                    <button></button>
+                    <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
+                    <input id="Ajout-intervention-Type" type="" placeholder="?">
+                </div>
+                <div style="display: flex;flex-direction: row;">
+                    <label for="Ajout-intervention-check"></label>
+                    <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
+                    <input id="Ajout-intervention-check" type="checkbox">
+                </div>
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button>Confirmer</button>
+                </div>
+            </form>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div class="Modal-Screen" id="Modal-Modif">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3>Modifier une intervention</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="" method="post">
+                <div>
+                    <label for="Ajout-intervention-Titre">Titre</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">Date de début - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Début" type="datetime-local">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">Date de fin - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Fin" type="datetime-local">
+                    </div>
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-intervention-Module">Module - champ obligatoire</label>
+                        <select name="" id="Ajout-intervention-Module"></select>
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Type">Type d’intervention - champ obligatoire</label>
+                        <select name="Ajout-intervention-Type" id=""></select>
+                    </div>                   
+                </div>
+                <div>
+                    <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
+                    <input id="Ajout-intervention-Type" type="" placeholder="?">
+                </div>
+                <div style="display: flex;flex-direction: row;">
+                    <label for="Ajout-intervention-check"></label>
+                    <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
+                    <input id="Ajout-intervention-check" type="checkbox">
+                </div>
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button style="background-color: red;">suprimer</button>
+                    <button>Enregistrer les informations</button>
                 </div>
             </form>
         </div>
@@ -146,7 +216,7 @@
             <div class="Main">
                 <div class="Heading">
                     <h2>Interventions</h2>
-                    <button>Ajouter une nouvelle intervention</button>
+                    <a href="#Modal-Ajout">Ajouter une nouvelle intervention</a>
                 </div>
                 <div class="Content">
                     <div class="Filters">
@@ -188,28 +258,28 @@
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Template</th>
+                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr></tr>
                         </table>

@@ -294,17 +294,17 @@ th {
     margin-top: 20px;
 }
 
-.Heading button {
+.Heading a {
     display: flex;
     background-color: #2C416E;
     align-items: center;
-    padding: 14px 20px 14px 20px;
+    padding: 0 20px 0 20px;
     color: white;
     height: 44px;
     border-radius: 8px;
 }
 
-.Heading button:hover {
+.Heading a:hover {
     cursor: pointer;
 }
 
@@ -413,7 +413,7 @@ Table th .material-symbols-outlined {
 }
 
 .Modal-Screen{
-    visibility:visible;
+    visibility:hidden;
     position: absolute;
     display: flex;
     width: 100%;
@@ -424,6 +424,9 @@ Table th .material-symbols-outlined {
     font-family: 'Poppins';
     flex-direction: column;
     
+}
+.Modal-Screen:target{
+    visibility: visible;
 }
 .Modal-Screen>div{
     display: flex;
@@ -452,6 +455,7 @@ Table th .material-symbols-outlined {
 }
 .Modal-Screen>div>div>div:first-child span{
     background-color: #F0F0F0;
+    border-radius: 4px;
 }
 .Modal-Screen span{
     background-color: #F0F0F0;
@@ -465,6 +469,7 @@ Table th .material-symbols-outlined {
     display: flex;
     flex-direction: column;
     padding: 0 10px 0 10px;
+    gap: 20px;
 }
 .Modal-Screen>div:nth-child(2) input{
     line-height: 24px;
@@ -484,7 +489,13 @@ Table th .material-symbols-outlined {
     width: 100%;
     box-sizing: border-box;
 }
-.Modal-Screen button{
+.Modal-Bottom{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
+}
+.Modal-Bottom button{
     display: flex;
     background-color: #2C416E;
     align-items: center;
@@ -492,4 +503,15 @@ Table th .material-symbols-outlined {
     color: white;
     height: 44px;
     border-radius: 8px;
+    width: 100%;
+    justify-content: center;
+    cursor: pointer;
+}
+.Close-Modal{
+    display: flex;
+    position: absolute;
+    background-color: #F0F0F0;
+    border-radius: 100px;
+    padding: 5px;
+    margin-left: 120px;
 }
