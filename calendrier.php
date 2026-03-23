@@ -1,6 +1,11 @@
 <?php
     include 'autorisation.php';
+
+    $sql = "SELECT * FROM course ORDER BY start_date DESC";
+    $stmt = $con->query($sql);
+    $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 
 
@@ -119,7 +124,7 @@
                             <th></th>
                         </tr>
 
-                        
+                        <?php foreach ($interventions as $row): ?>
 
                             <tr>
 
@@ -155,6 +160,8 @@
                                 </td>
 
                             </tr>
+
+                        <?php endforeach; ?>
                        
                     </table>
 
