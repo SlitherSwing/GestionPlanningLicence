@@ -1,17 +1,5 @@
 <?php
-    $user = 'root';
-    $password = '';
-    $dbName = 'gestion license';
-
-    try {
-        $con = new PDO("mysql:host=127.0.0.1;dbname=$dbName;charset=UTF8", $user, $password);
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        die("Erreur de connexion : " . $e->getMessage());
-    }
-
-    $stmt = $pdo->query("SELECT * FROM course ORDER BY start_date DESC");
-    $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    include 'autorisation.php';
 ?>
 
 
@@ -131,7 +119,7 @@
                             <th></th>
                         </tr>
 
-                        <?php foreach ($interventions as $colonne) ?>
+                        
 
                             <tr>
 
@@ -167,7 +155,7 @@
                                 </td>
 
                             </tr>
-                        <?php endforeach; ?>
+                       
                     </table>
 
                 </div>
