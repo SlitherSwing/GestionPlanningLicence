@@ -23,160 +23,159 @@ include('autorisation.php');
 
 <body>
 
-    <main>
-
+    <main class="Page">
         <div class="Sidebar-Menu">
+            <div class="Block-Patch">
+                <img src="./assets/logo.png" class="Logo">
 
-            <div class="Sidebar-Menu">
-
-                <div class="Block-Patch">
-                    <img src="./assets/logo.png" class="Logo">
-
-                    <div class="Text">
-                        <h1>Lycée Saint-Vincent</h1>
-                        <p>Enseignement Supérieur</p>
-                    </div>
+                <div class="Text">
+                    <h1>Lycée Saint-Vincent</h1>
+                    <p>Enseignement Supérieur</p>
                 </div>
+            </div>
 
-                <div class="Block-Menu">
+            <div class="Block-Menu">
 
-                    <p class="Block-Title">MENU</p>
+                <p class="Block-Title">MENU</p>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Calendar.svg" class="logo">
-                        Calendrier
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Calendar.svg" class="logo">
+                    Calendrier
+                </a>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Frame.svg" class="logo">
-                        Interventions
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Frame.svg" class="logo">
+                    Interventions
+                </a>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Board.svg" class="logo">
-                        Corps enseignant
-                    </a>
-
-                </div>
-
-                <div class="Block-Settings">
-
-                    <p class="Block-Title">PARAMÉTRAGE</p>
-
-                    <a href="#" class="Icones">
-                        <img src="./assets/Vector.svg" class="logo">
-                        Modules
-                    </a>
-
-                    <a href="#" class="Icones">
-                        <img src="./assets/Chart.svg" class="logo">
-                        Types d'intervention
-                    </a>
-
-                </div>
-
-                <div class="Block-Profile">
-
-                    <img src="./assets/ProfilePicture.png" class="ProfilePicture">
-
-                    <div>
-                        <div>
-                            <span class="Username">
-                                <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                            </span>
-                            <img src="./assets/Chevron-down.svg" class="Chevron-down">
-                        </div>
-                        <span class="Role">
-                            <?= $_SESSION['role'] ?>
-                        </span>
-                    </div>
-
-                </div>
+                <a href="#" class="Icones">
+                    <img src="./assets/Board.svg" class="logo">
+                    Corps enseignant
+                </a>
 
             </div>
 
-            <div class="BreadcrumbMain">
+            <div class="Block-Settings">
+
+                <p class="Block-Title">PARAMÉTRAGE</p>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Vector.svg" class="logo">
+                    Modules
+                </a>
+
+                <a href="#" class="Icones">
+                    <img src="./assets/Chart.svg" class="logo">
+                    Types d'intervention
+                </a>
+
+            </div>
+
+            <div class="Block-Profile">
+
+                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+
                 <div>
-                    <nav class="Breadcrumb">
-                        <ol>
-                            <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
-                            <li>></li>
-                            <li><a href="">Types-Intervention</a></li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="Main">
-                    <div class="Heading">
-                        <h2>Types-Intervention</h2>
-                        <button>Ajouter un type</button>
+                    <div>
+                        <span class="Username">
+                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
+                        </span>
+                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
                     </div>
-                    <div class="Content">
-                        <div class="Filters">
-                            <p>Filtres</p>
-                            <div>
-                                <form method="post">
-                                    <div>
-                                        <label for="Name">Nom</label>
-                                        <input id="Name" type="text" placeholder="Saisissez le Nom" name="Name">
-                                    </div>
-                                    <div>
+                    <span class="Role">
+                        <?= $_SESSION['role'] ?>
+                    </span>
+                </div>
+            </div>
+        </div>
 
-                                        <label for="Submit"></label>
-                                        <input id="Submit" type="submit" value="Filtrer">
-                                    </div>
-                                </form>
-                            </div>
+        <div class="Main-Content">
+            <div class="Breadcrumb">
+                <nav>
+                    <ol>
+                        <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+                        <li>></li>
+                        <li><a href="">Types-Intervention</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="Main">
+                <div class="Heading">
+                    <h2>Types-Intervention</h2>
+                    <button>Ajouter un type</button>
+                </div>
+                <div class="Content">
+                    <div class="Filters">
+                        <p>Filtres</p>
+                        <div>
+                            <form method="post">
+                                <div>
+                                    <label for="Name">Nom</label>
+                                    <input id="Name" type="text" placeholder="Saisissez le Nom" name="Name">
+                                </div>
+                                <div>
+
+                                    <label for="Submit"></label>
+                                    <input id="Submit" type="submit" value="Filtrer">
+                                </div>
+                            </form>
                         </div>
-                        <div class="Table">
-                            <p>5 types</p>
-                            <table>
-                                <tr class="Table-Head">
-                                    <th>Nom</th>
-                                    <th>Descriptif</th>
-                                    <th>Couleur</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Autonomie</th>
-                                    <th>Eleves en autonomie</th>
-                                    <th class="color-purple">#6750A4</th>
-                                    <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
+                    </div>
+                    <div class="Table">
+                        <p>5 types</p>
+                        <table>
+                            <tr class="Table-Head">
+                                <th>Nom</th>
+                                <th>Descriptif</th>
+                                <th>Couleur</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Autonomie</th>
+                                <th>Eleves en autonomie</th>
+                                <th class="color-purple">#6750A4</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
+                                </th>
 
 
-                                </tr>
-                                <tr>
-                                    <th>Conférence</th>
-                                    <th>Conférence effectuée par un ou plusieurs intervenants</th>
-                                    <th class="color-green">#6750A4</th>
-                                    <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
-                                </tr>
-                                <tr>
-                                    <th>Cours</th>
-                                    <th>Cours dispensé par un ou plusieurs intervenants</th>
-                                    <th class="color-blue">#6750A4</th>
-                                    <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
-                                </tr>
-                                <tr>
-                                    <th>Evaluation</th>
-                                    <th>Evaluation sous forme de POC ou d’écrit</th>
-                                    <th class="color-orange">#6750A4</th>
-                                    <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
-                                </tr>
-                                <tr>
+                            </tr>
+                            <tr>
+                                <th>Conférence</th>
+                                <th>Conférence effectuée par un ou plusieurs intervenants</th>
+                                <th class="color-green">#6750A4</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Cours</th>
+                                <th>Cours dispensé par un ou plusieurs intervenants</th>
+                                <th class="color-blue">#6750A4</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Evaluation</th>
+                                <th>Evaluation sous forme de POC ou d’écrit</th>
+                                <th class="color-orange">#6750A4</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
+                                </th>
+                            </tr>
+                            <tr>
 
-                                    <th>Soutenance</th>
-                                    <th>Soutenance de fin de projet</th>
-                                    <th class="color-brown">#6750A4</th>
-                                    <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche</th>
-                                </tr>
-                                <tr>
-                                </tr>
-                            </table>
-                        </div>
+                                <th>Soutenance</th>
+                                <th>Soutenance de fin de projet</th>
+                                <th class="color-brown">#6750A4</th>
+                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
+                                </th>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
-            </nav>
+        </div>
+        </div>
     </main>
 </body>
 
