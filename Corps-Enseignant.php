@@ -16,15 +16,29 @@ if (!isset($_SESSION['email'])) {
     exit();
 } else {
     // Si le formulaire a été envoyé, on récupère les valeurs saisies
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nom = trim($_POST['Name'] ?? '');
-        $prenom = trim($_POST['First-Name'] ?? '');
-        $email = trim($_POST['Email'] ?? '');
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $nom = trim($_GET['Name'] ?? '');
+        $prenom = trim($_GET['First-Name'] ?? '');
+        $email = trim($_GET['Email'] ?? '');
     }
 
+    // Si la superglobale $_GET["page"] existe, on récupère la valeur de la page, sinon on lui assigne la valeur 1
+    if (isset($_GET["page"])) {
+        $page = (int) $_GET["page"];
+    } else {
+        $page = 1;
+    }
+
+    // Si la page est inférieure à 1, on lui assigne la valeur 1
+    if ($page < 1) {
+        $page = 1;
+    }
+
+    // On calcule les éléments à afficher sur la page
+    $offset = ($page - 1) * $limit;
+
     // Requête de base, on va chercher les enseignants avec leurs informations, modules etc. 
-    $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
-            FROM instructor OFFSET $offset LIMIT $limit
+    $sqlBase = " FROM instructor
             INNER JOIN user ON user.id = instructor.user_id
             INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
             INNER JOIN module ON module.id = instructor_module.module_id
@@ -32,18 +46,27 @@ if (!isset($_SESSION['email'])) {
 
     // Si un nom a été saisi, on ajoute un filtre sur le nom
     if ($nom !== '') {
-        $sql = $sql . " AND user.last_name = '$nom'";
+        $sqlBase = $sqlBase . " AND user.last_name = '$nom'";
     }
 
     // Si un prénom a été saisi, on ajoute un filtre sur le prénom
     if ($prenom !== '') {
-        $sql = $sql . " AND user.first_name = '$prenom'";
+        $sqlBase = $sqlBase . " AND user.first_name = '$prenom'";
     }
 
     // Si un email a été saisi, on ajoute un filtre sur l'email
     if ($email !== '') {
-        $sql = $sql . " AND user.email = '$email'";
+        $sqlBase = $sqlBase . " AND user.email = '$email'";
     }
+
+    $sqlCount = "SELECT COUNT(*)" . $sqlBase;
+    $totalResultats = $con->query($sqlCount)->fetchColumn();
+    $totalPages = ceil($totalResultats / $limit);
+
+    $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count"
+        . $sqlBase
+        . " ORDER BY user.last_name ASC
+            LIMIT $limit OFFSET $offset";
 
     // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
     $result = $con->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -158,21 +181,21 @@ if (!isset($_SESSION['email'])) {
                     <div class="Filters">
                         <p>Filtres</p>
                         <div>
-                            <form method="post">
+                            <form method="get">
                                 <div>
                                     <label for="Name">Nom de famille</label>
                                     <input id="Name" type="search" placeholder="Saisissez le nom de famille" name="Name"
-                                        value="<?= $nom ?>">
+                                        value="<?= htmlspecialchars($nom) ?>">
                                 </div>
                                 <div>
                                     <label for="First-Name">Prénom</label>
                                     <input id="First-Name" type="search" placeholder="Saisissez le prénom"
-                                        name="First-Name" value="<?= $prenom ?>">
+                                        name="First-Name" value="<?= htmlspecialchars($prenom) ?>">
                                 </div>
                                 <div>
                                     <label for="Email">Email</label>
                                     <input id="Email" type="search" placeholder="Saisissez l'email" name="Email"
-                                        value="<?= $email ?>">
+                                        value="<?= htmlspecialchars($email) ?>">
                                 </div>
                                 <div>
                                     <label for="Submit"></label>
@@ -203,22 +226,60 @@ if (!isset($_SESSION['email'])) {
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
-                                        <<<<<<< Updated upstream <td class="Table-Structure"><a href="#">
-                                                =======
-                                                <td class="Table-Structure"><a
-                                                        href="Fiche-Enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
-                                                        >>>>>>> Stashed changes
-                                                        <div class="Table-Link"><span class="material-symbols-outlined">
-                                                                visibility
-                                                            </span>
-                                                            Accèder à la fiche
-                                                        </div>
-                                                    </a>
-                                                </td>
+                                        <td class="Table-Structure"><a
+                                                href="Fiche-Enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
+                                                <div class="Table-Link"><span class="material-symbols-outlined">
+                                                        visibility
+                                                    </span>
+                                                    Accèder à la fiche
+                                                </div>
+                                            </a>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
                         </table>
+                        <?php if ($totalPages > 1) { ?>
+                            <!-- On affiche la pagination seulement s'il y a plusieurs pages -->
+                            <div class="Pagination">
+
+                                <?php if ($page > 1) { ?>
+                                    <!-- Lien vers la page précédente -->
+                                    <a
+                                        class="Pagination-Link"
+                                        href="Corps-Enseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        Précédent
+                                    </a>
+                                <?php } ?>
+
+                                <!-- Boucle pour afficher tous les numéros de page -->
+                                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                                    <?php
+                                    $classePagination = 'Pagination-Link';
+
+                                    if ($i == $page) {
+                                        $classePagination = 'Pagination-Link Pagination-Active';
+                                    }
+                                    ?>
+
+                                    <a
+                                        class="<?= $classePagination ?>"
+                                        href="Corps-Enseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        <?= $i ?>
+                                    </a>
+                                <?php } ?>
+
+                                <?php if ($page < $totalPages) { ?>
+                                    <!-- Lien vers la page suivante -->
+                                    <a
+                                        class="Pagination-Link"
+                                        href="Corps-Enseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        Suivant
+                                    </a>
+                                <?php } ?>
+
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

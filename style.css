@@ -413,6 +413,26 @@ Table th .material-symbols-outlined {
     gap: 10px;
 }
 
+.Pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.Pagination-Link {
+    padding: 8px 14px;
+    border: 1px solid #C8CBD9;
+    border-radius: 8px;
+    background-color: #F1F2F7;
+}
+
+.Pagination-Active {
+    background-color: #2C416E;
+    color: white;
+}
+
 .Module-List h3 {
     color: #FFBD01;
 }
