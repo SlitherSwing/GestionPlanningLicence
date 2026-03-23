@@ -15,9 +15,9 @@ Ici, le projet est réalisé en :
 - MySQL
 
 On utlise les également les outils suivants : 
-- Figma 
+- Figma (https://www.figma.com/design/AJZ4aDQO3E0v3PW0HmlhmR/Enseignement-sup%C3%A9rieur---light?node-id=0-1&p=f&t=uacK3uZWILZf2u79-0)
 - Git 
-- GitHub 
+- GitHub (https://github.com/SlitherSwing/GestionPlanningLicence)
 
 
 # Organisation #
@@ -39,9 +39,9 @@ Les conventions utilisées dans le projet sont les suivantes :
 - Chaque mot est séparé par un tirêt 
 - Chaque tâche qui requiert une structure HTML différente est mise en place sur une branche qui lui attribuée. 
 
-
 # Ressources # 
 
 Les ressources utlisées pour le projet sont de plusieurs natures. 
 Une maquête Figma nous a été fourni afin de nous fournir les éléments nécéssaires à la construction de la structure du site. 
 Un cahier des charges nous à également été fourni afin de satisfaire au mieux les besoins du client. 
+
