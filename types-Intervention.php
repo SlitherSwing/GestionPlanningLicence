@@ -113,8 +113,8 @@
                         <div>
                             <form method="post">
                                 <div>
-                                    <label for="Name">Nom</label>
-                                    <input id="Name" type="text" placeholder="Saisissez le Nom" name="Name">
+                                    <label for="NameType">Nom</label>
+                                    <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType">
                                 </div>
                                 <div>
 
