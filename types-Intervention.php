@@ -47,7 +47,7 @@ include('autorisation.php');
                         Calendrier
                     </a>
 
-                    <a href="#" class="Icones">
+                    <a href="Interventions.php" class="Icones">
                         <img src="./assets/Frame.svg" class="logo">
                         Interventions
                     </a>
