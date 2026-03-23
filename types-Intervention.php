@@ -1,6 +1,9 @@
 <?php
-session_start();
-include('autorisation.php');
+    session_start();
+    include('autorisation.php');
+    $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
+    $stmt = $con->query($sql);
+    $typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
