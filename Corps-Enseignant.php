@@ -97,7 +97,7 @@ if (!isset($_SESSION['email'])) {
                     Interventions
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="Corps-Enseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -113,7 +113,7 @@ if (!isset($_SESSION['email'])) {
                     Modules
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="types-Intervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -144,9 +144,9 @@ if (!isset($_SESSION['email'])) {
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+                    <li><span class="material-symbols-outlined">home</span></li>
                     <li>></li>
-                    <li><a href="">Corps enseignant</a></li>
+                    <li><a href="Corps-Enseignant.php">Corps enseignant</a></li>
                 </ol>
             </nav>
             <div class="Main">

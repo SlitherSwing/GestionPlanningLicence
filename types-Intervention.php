@@ -43,12 +43,12 @@ include('autorisation.php');
                     Calendrier
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="Interventions.php" class="Icones">
                     <img src="./assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="Corps-Enseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -64,7 +64,7 @@ include('autorisation.php');
                     Modules
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="types-Intervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
