@@ -130,46 +130,31 @@ include('autorisation.php');
                                 <th>Couleur</th>
                                 <th></th>
                             </tr>
-                            <tr>
-                                <th>Autonomie</th>
-                                <th>Eleves en autonomie</th>
-                                <th class="color-purple">#6750A4</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
-                                </th>
 
+                            <?php foreach ($typeinterventions as $type): ?>
 
-                            </tr>
-                            <tr>
-                                <th>Conférence</th>
-                                <th>Conférence effectuée par un ou plusieurs intervenants</th>
-                                <th class="color-green">#6750A4</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Cours</th>
-                                <th>Cours dispensé par un ou plusieurs intervenants</th>
-                                <th class="color-blue">#6750A4</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Evaluation</th>
-                                <th>Evaluation sous forme de POC ou d’écrit</th>
-                                <th class="color-orange">#6750A4</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
-                                </th>
-                            </tr>
-                            <tr>
+                                <tr>
 
-                                <th>Soutenance</th>
-                                <th>Soutenance de fin de projet</th>
-                                <th class="color-brown">#6750A4</th>
-                                <th><span class="material-symbols-outlined">visibility</span>Accèder à la fiche
-                                </th>
-                            </tr>
-                            <tr>
-                            </tr>
+                                    <td>
+                                        <?= htmlspecialchars($type['name']) ?>
+                                    </td>
+
+                                    <td>
+                                        <?= htmlspecialchars($type['description']) ?>
+                                    </td>
+
+                                    <td>
+                                        <?= htmlspecialchars($type['color']) ?>
+                                    </td>
+
+                                    <td>
+                                        <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>Accéder à la fiche</span>
+                                    </td>
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
                         </table>
                     </div>
                 </div>
