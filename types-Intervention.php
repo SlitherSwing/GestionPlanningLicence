@@ -156,7 +156,7 @@
                                 <tr>
 
                                     <td>
-                                        <?= htmlspecialchars($type['name']) ?>
+                                        <?= $type['name'] ?>
                                     </td>
 
                                     <td>
