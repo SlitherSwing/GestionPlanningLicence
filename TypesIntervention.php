@@ -1,25 +1,25 @@
 <?php
-    session_start();
-    include('credentials.php');
+session_start();
+include('credentials.php');
 
-    if (!empty($_POST['NameType'])) {
-        
-        $nameType = $_POST['NameType'];
+if (!empty($_POST['NameType'])) {
 
-        $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
-        $stmt = $con->prepare($sql);
-        
-        $stmt->execute([':nom' => "%" . $nameType . "%"]);
+    $nameType = $_POST['NameType'];
 
-    } else {
-        
-        $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
-        $stmt = $con->query($sql);
+    $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
+    $stmt = $con->prepare($sql);
 
-    }
-    $typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->execute([':nom' => "%" . $nameType . "%"]);
 
-    $count = count($typeinterventions);
+} else {
+
+    $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
+    $stmt = $con->query($sql);
+
+}
+$typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$count = count($typeinterventions);
 
 ?>
 
@@ -58,7 +58,7 @@
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
+                <a href="Calendrier.php" class="Icones">
                     <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
@@ -68,7 +68,7 @@
                     Interventions
                 </a>
 
-                <a href="Corps-Enseignant.php" class="Icones">
+                <a href="CorpsEnseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -79,12 +79,12 @@
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
+                <a href="Modules.html" class="Icones">
                     <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="types-Intervention.php" class="Icones">
+                <a href="TypesIntervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -131,7 +131,8 @@
                             <form method="post">
                                 <div class="Type-Name">
                                     <label for="NameType">Nom</label>
-                                    <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType" width="400px">
+                                    <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType"
+                                        width="400px">
                                 </div>
 
                                 <div class="Filter-Name">
@@ -156,7 +157,7 @@
                                 <tr>
 
                                     <td>
-                                        <?=  htmlspecialchars($type['name']) ?>
+                                        <?= htmlspecialchars($type['name']) ?>
                                     </td>
 
                                     <td>
@@ -168,7 +169,22 @@
                                     </td>
 
                                     <td>
-                                        <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>Accéder à la fiche</span>
+                                        <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px"
+                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                    stroke-linejoin="round"></g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
+                                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                    <path
+                                                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
+                                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>Accéder à la fiche</span>
                                     </td>
 
                                 </tr>
