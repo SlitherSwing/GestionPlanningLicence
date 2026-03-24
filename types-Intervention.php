@@ -131,7 +131,7 @@
                             <form method="post">
                                 <div class="Type-Name">
                                     <label for="NameType">Nom</label>
-                                    <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType">
+                                    <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType" width="400px">
                                 </div>
 
                                 <div class="Filter-Name">
