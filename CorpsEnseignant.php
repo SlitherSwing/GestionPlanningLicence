@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include 'autorisation.php';
+include 'credentials.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';

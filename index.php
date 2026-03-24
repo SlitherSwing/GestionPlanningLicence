@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['role'] = $user['role'];
-        header('Location: Corps-Enseignant.php');
+        header('Location: CorpsEnseignant.php');
         exit();
     } else {
         $error = "Problème de connexion";
