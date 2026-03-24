@@ -317,12 +317,7 @@ th {
 }
 
 
-.Type-Name input{
-    width: 400px;
-}
-.Filter-Name{
-    margin-left: 400px;
-}
+
 .Filters {
     display: flex;
     width: 100%;
@@ -341,7 +336,7 @@ th {
     display: flex;
     gap: 10px;
     align-items: end;
-    width: 100%;
+    width: 400px;
     justify-content: space-between;
 }
 
