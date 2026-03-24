@@ -316,9 +316,11 @@ th {
     flex-direction: column;
 }
 
+
+
 .Filters {
     display: flex;
-    width: 100%;
+    width: 400px;
     flex-direction: column;
     border-bottom: solid 1px;
     border-color: #FFBD01;
@@ -334,7 +336,7 @@ th {
     display: flex;
     gap: 10px;
     align-items: end;
-    width: 100%;
+    width: 400px;
     justify-content: space-between;
 }
 
@@ -350,7 +352,7 @@ th {
     border: 1px solid;
     border-radius: 6px;
     border-color: #C8CBD9;
-    width: 100%;
+    width: 400px;
     box-sizing: border-box;
 }
 
@@ -385,7 +387,8 @@ th {
     padding: 20px 25px 20px 25px;
     border-collapse: collapse;
     border-bottom: solid 1px;
-    border-color: #C8CBD9
+    border-color: #C8CBD9;
+    
 }
 
 .Table th {
@@ -394,6 +397,15 @@ th {
 }
 
 Table th .material-symbols-outlined {
+    vertical-align: middle;
+}
+
+.Table td {
+    text-align: start;
+    padding: 20px 25px 20px 25px;
+}
+
+Table td .material-symbols-outlined {
     vertical-align: middle;
 }
 

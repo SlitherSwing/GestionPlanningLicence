@@ -81,6 +81,15 @@ body{
 .Table-Calen th .material-symbols-outlined {
     vertical-align: middle;
 }
+
+.Table-Calen td {
+    text-align: start;
+    padding: 20px 25px 20px 25px;
+}
+
+Table-Calen td .material-symbols-outlined {
+    vertical-align: middle;
+}
 .Table-Calen-Head{
     background-color: #F1F2F7;
 }
