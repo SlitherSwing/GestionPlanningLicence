@@ -48,17 +48,17 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
+                <a href="Calendrier.php" class="Icones">
                     <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="Interventions.php" class="Icones">
                     <img src="./assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="CorpsEnseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -69,12 +69,12 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
+                <a href="Modules.html" class="Icones">
                     <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="TypesIntervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>

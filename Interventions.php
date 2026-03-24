@@ -1,9 +1,10 @@
 <?php
-    session_start();
-    include 'credentials.php';
+session_start();
+include 'credentials.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,12 @@
     <title>Interventions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
+
 <body>
     <div class="Modal-Screen" id="Modal-Ajout">
         <div>
@@ -34,7 +38,8 @@
             <form action="" method="post">
                 <div>
                     <label for="Ajout-intervention-Titre">Titre</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                    <input id="Ajout-intervention-Titre" type="text"
+                        placeholder="Saisissez un titre sur l’intervention">
                 </div>
                 <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
@@ -54,7 +59,7 @@
                     <div>
                         <label for="Ajout-intervention-Type">Type d’intervention - champ obligatoire</label>
                         <select name="Ajout-intervention-Type" id=""></select>
-                    </div>                   
+                    </div>
                 </div>
                 <div>
                     <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
@@ -94,7 +99,8 @@
             <form action="" method="post">
                 <div>
                     <label for="Ajout-intervention-Titre">Titre</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                    <input id="Ajout-intervention-Titre" type="text"
+                        placeholder="Saisissez un titre sur l’intervention">
                 </div>
                 <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
@@ -114,7 +120,7 @@
                     <div>
                         <label for="Ajout-intervention-Type">Type d’intervention - champ obligatoire</label>
                         <select name="Ajout-intervention-Type" id=""></select>
-                    </div>                   
+                    </div>
                 </div>
                 <div>
                     <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
@@ -153,7 +159,7 @@
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
+                <a href="Calendrier.php" class="Icones">
                     <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
@@ -163,7 +169,7 @@
                     Interventions
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="CorpsEnseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -174,12 +180,12 @@
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
+                <a href="Modules.html" class="Icones">
                     <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="#" class="Icones">
+                <a href="TypesIntervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -229,7 +235,8 @@
                                 </div>
                                 <div>
                                     <label for="First-Name">Date de fin</label>
-                                    <input id="First-Name" type="date" placeholder="Saisissez la Date de fin" name="First-Name">
+                                    <input id="First-Name" type="date" placeholder="Saisissez la Date de fin"
+                                        name="First-Name">
                                 </div>
                                 <div>
                                     <label for="Email">Module</label>
@@ -258,34 +265,39 @@
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
+                                <th><a href="#Modal-Modif"><span
+                                            class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
+                                <th><a href="#Modal-Modif"><span
+                                            class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
+                                <th><a href="#Modal-Modif"><span
+                                            class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th>Template</th>
                                 <th><span class="material-symbols-outlined">videocam</span>Template</th>
-                                <th><a href="#Modal-Modif"><span class="material-symbols-outlined">visibility</span>Template</a></th>
+                                <th><a href="#Modal-Modif"><span
+                                            class="material-symbols-outlined">visibility</span>Template</a></th>
                             </tr>
                             <tr></tr>
                         </table>
                     </div>
                 </div>
             </div>
-        </nav>
+            </nav>
 </body>
+
 </html>

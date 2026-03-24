@@ -110,7 +110,7 @@ if (!isset($_SESSION['email'])) {
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
+                <a href="Calendrier.php" class="Icones">
                     <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
@@ -120,7 +120,7 @@ if (!isset($_SESSION['email'])) {
                     Interventions
                 </a>
 
-                <a href="Corps-Enseignant.php" class="Icones">
+                <a href="CorpsEnseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -131,12 +131,12 @@ if (!isset($_SESSION['email'])) {
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
+                <a href="Modules.html" class="Icones">
                     <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="types-Intervention.php" class="Icones">
+                <a href="TypesIntervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -245,8 +245,7 @@ if (!isset($_SESSION['email'])) {
 
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
-                                    <a
-                                        class="Pagination-Link"
+                                    <a class="Pagination-Link"
                                         href="Corps-Enseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Précédent
                                     </a>
@@ -262,8 +261,7 @@ if (!isset($_SESSION['email'])) {
                                     }
                                     ?>
 
-                                    <a
-                                        class="<?= $classePagination ?>"
+                                    <a class="<?= $classePagination ?>"
                                         href="Corps-Enseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         <?= $i ?>
                                     </a>
@@ -271,8 +269,7 @@ if (!isset($_SESSION['email'])) {
 
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
-                                    <a
-                                        class="Pagination-Link"
+                                    <a class="Pagination-Link"
                                         href="Corps-Enseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Suivant
                                     </a>
