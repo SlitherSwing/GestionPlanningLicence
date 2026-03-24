@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('autorisation.php');
+    include ('type-inter-filtrage.php');
     $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
     $stmt = $con->query($sql);
     $typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -125,7 +126,7 @@
                         </div>
                     </div>
                     <div class="Table">
-                        <p>5 types</p>
+                        <p><?= count($typeinterventions) ?> types</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom</th>
