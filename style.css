@@ -316,6 +316,13 @@ th {
     flex-direction: column;
 }
 
+
+.Type-Name{
+    width: 400px;
+}
+.Filter-Name{
+    margin-left: 400px;
+}
 .Filters {
     display: flex;
     width: 100%;

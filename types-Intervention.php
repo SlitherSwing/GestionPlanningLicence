@@ -129,12 +129,12 @@
                         <p>Filtres</p>
                         <div>
                             <form method="post">
-                                <div>
+                                <div class="Type-Name">
                                     <label for="NameType">Nom</label>
                                     <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType">
                                 </div>
-                                <div>
 
+                                <div class="Filter-Name">
                                     <label for="Submit"></label>
                                     <input id="Submit" type="submit" value="Filtrer">
                                 </div>
@@ -156,7 +156,7 @@
                                 <tr>
 
                                     <td>
-                                        <?= $type['name'] ?>
+                                        <?=  htmlspecialchars($type['name']) ?>
                                     </td>
 
                                     <td>
