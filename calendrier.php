@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     include 'autorisation.php';
 
     $sql = "SELECT * FROM course ORDER BY start_date DESC";
