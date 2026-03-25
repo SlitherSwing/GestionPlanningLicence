@@ -9,6 +9,11 @@ body{
     flex-direction: row;
     width: 100%;
 }
+.Page-Calen{
+    display: flex;
+    height: 960px;
+    gap:10px;
+}
 
 .Error {
     color: red;
@@ -261,11 +266,7 @@ body{
 .Breadcrumb a {
     color: #1F384C;
 }
-.Page-Calen{
-    display: flex;
-    height: 960px;
-    gap:10px;
-}
+
 .Right-Calen{
    
 }
@@ -319,31 +320,52 @@ body{
     width: 100%;
     flex-direction: column;   
 }
-.Table-Calen p{
+
+
+
+
+.Table p {
     font-size: 20px;
-}
-.Table-Calen table{
-    padding: 20px 25px 20px 25px;
-    border-collapse:collapse ;
-    border-bottom: solid 1px;
-    border-color: #C8CBD9
+    font-weight: 500;
 }
 
-.Table-Calen th{
+.Table table {
+    padding: 20px 25px 20px 25px;
+    border-collapse: collapse;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9;
+    font-weight: normal;
+}
+
+.Table th {
     text-align: start;
     padding: 20px 25px 20px 25px;
      font-weight: normal;
 }
-.Table-Calen th svg{
-    width: 20px;
-    height: auto;
-}
-.Table-Calen th .material-symbols-outlined {
+
+Table th .material-symbols-outlined {
     vertical-align: middle;
 }
-.Table-Calen-Head{
+
+.Table-Head {
     background-color: #F1F2F7;
 }
+
+.Table-Structure {
+    border-bottom: solid 1px;
+    border-color: #45464a;
+    padding: 20px;
+}
+
+.Table-Link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+
 .Eyes-Calen{
     cursor: pointer;
     margin-top: 10px;
