@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Requete.php';
 
 
 
@@ -9,20 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $typedPassword = $_POST['password'];
 
     // On séléctionne l'utilisateur via l'adresse e-mail
-    $query = $con->prepare("SELECT * FROM user WHERE email = :email");
-    $query->bindParam(':email', $email);
-    $query->execute();
-
-    $user = $query->fetch(PDO::FETCH_ASSOC);
-    if ($user['email'] == $email && password_verify($typedPassword, $user['password'])) {
-
-        // On stock les informations de l'utilisateurs dans une super global 
-        $_SESSION['email'] = $email;
-        $_SESSION['first_name'] = $user['first_name'];
-        $_SESSION['last_name'] = $user['last_name'];
-        $_SESSION['role'] = $user['role'];
-        header('Location: CorpsEnseignant.php');
-        exit();
+    $user = findUserByEmail($con, $email);
+    if (!empty($user)) {
+        if (password_verify($typedPassword, $user['password'])) {
+            // On stock les informations de l'utilisateurs dans une super global 
+            $_SESSION['email'] = $email;
+            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['last_name'] = $user['last_name'];
+            $_SESSION['role'] = $user['role'];
+            header('Location: CorpsEnseignant.php');
+            exit();
+        } else {
+            $error = "Problème de connexion";
+        }
     } else {
         $error = "Problème de connexion";
     }

@@ -1,5 +1,13 @@
 <?php
 
+function findUserByEmail(PDO $con, string $email): array
+{
+    $query = $con->prepare("SELECT * FROM user WHERE email =:email");
+    $query->bindParam(':email', $email);
+    $query->execute();
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
 function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $email): int
 {
     $sql = "SELECT COUNT(*)
