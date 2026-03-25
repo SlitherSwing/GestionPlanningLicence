@@ -5,9 +5,8 @@
     $sql = "SELECT * FROM course ORDER BY start_date DESC";
     $stmt = $con->query($sql);
     $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
-
-
 
 
 <!DOCTYPE html>
