@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Requete.php';
 
 if (!empty($_POST['NameType'])) {
 
@@ -8,8 +9,8 @@ if (!empty($_POST['NameType'])) {
 
     $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
     $stmt = $con->prepare($sql);
-
     $stmt->execute([':nom' => "%" . $nameType . "%"]);
+
 
 } else {
 
