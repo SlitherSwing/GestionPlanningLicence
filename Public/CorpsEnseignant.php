@@ -2,6 +2,7 @@
 
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Requete.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';
@@ -14,6 +15,7 @@ $limit = 10;
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
     exit();
+
 } else {
     // Si le formulaire a été envoyé, on récupère les valeurs saisies
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -37,39 +39,11 @@ if (!isset($_SESSION['email'])) {
     // On calcule les éléments à afficher sur la page
     $offset = ($page - 1) * $limit;
 
-    // Requête de base, on va chercher les enseignants avec leurs informations, modules etc. 
-    $sqlBase = " FROM instructor
-            INNER JOIN user ON user.id = instructor.user_id
-            INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
-            INNER JOIN module ON module.id = instructor_module.module_id
-            WHERE 1=1";
-
-    // Si un nom a été saisi, on ajoute un filtre sur le nom
-    if ($nom !== '') {
-        $sqlBase = $sqlBase . " AND user.last_name = '$nom'";
-    }
-
-    // Si un prénom a été saisi, on ajoute un filtre sur le prénom
-    if ($prenom !== '') {
-        $sqlBase = $sqlBase . " AND user.first_name = '$prenom'";
-    }
-
-    // Si un email a été saisi, on ajoute un filtre sur l'email
-    if ($email !== '') {
-        $sqlBase = $sqlBase . " AND user.email = '$email'";
-    }
-
-    $sqlCount = "SELECT COUNT(*)" . $sqlBase;
-    $totalResultats = $con->query($sqlCount)->fetchColumn();
+    $totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
     $totalPages = ceil($totalResultats / $limit);
 
-    $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count"
-        . $sqlBase
-        . " ORDER BY user.last_name ASC
-            LIMIT $limit OFFSET $offset";
-
     // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
-    $result = $con->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 }
 
 ?>
