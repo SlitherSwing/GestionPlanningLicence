@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('credentials.php');
+require_once __DIR__ . '/../Require/Credentials.php';
 
 if (!empty($_POST['NameType'])) {
 
@@ -31,7 +31,7 @@ $count = count($typeinterventions);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Interventions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@ $count = count($typeinterventions);
     <main class="Page">
         <div class="Sidebar-Menu">
             <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
+                <img src="assets/Logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
@@ -59,17 +59,17 @@ $count = count($typeinterventions);
                 <p class="Block-Title">MENU</p>
 
                 <a href="Calendrier.php" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
+                    <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
                 <a href="Interventions.php" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
+                    <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
                 <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
+                    <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
 
@@ -80,12 +80,12 @@ $count = count($typeinterventions);
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
                 <a href="Modules.html" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
+                    <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
                 <a href="TypesIntervention.php" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
+                    <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
 
@@ -93,14 +93,14 @@ $count = count($typeinterventions);
 
             <div class="Block-Profile">
 
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <div>
                         <span class="Username">
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
-                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                        <img src="assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
                         <?= $_SESSION['role'] ?>
@@ -113,9 +113,9 @@ $count = count($typeinterventions);
             <div class="Breadcrumb">
                 <nav>
                     <ol>
-                        <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="">Types-Intervention</a></li>
+                        <li><a href="TypesIntervention.php">Types-Intervention</a></li>
                     </ol>
                 </nav>
             </div>

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include 'credentials.php';
+require_once __DIR__ . '/../Require/Credentials.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';
@@ -82,7 +82,7 @@ if (!isset($_SESSION['email'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Corps Enseignant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['email'])) {
         <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
+                <img src="assets/Logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
@@ -111,17 +111,17 @@ if (!isset($_SESSION['email'])) {
                 <p class="Block-Title">MENU</p>
 
                 <a href="Calendrier.php" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
+                    <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
                 <a href="Interventions.php" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
+                    <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
                 <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
+                    <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
 
@@ -132,12 +132,12 @@ if (!isset($_SESSION['email'])) {
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
                 <a href="Modules.html" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
+                    <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
                 <a href="TypesIntervention.php" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
+                    <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
 
@@ -145,14 +145,14 @@ if (!isset($_SESSION['email'])) {
 
             <div class="Block-Profile">
 
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <div>
                         <span class="Username">
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
-                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                        <img src="assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
                         <?= $_SESSION['role'] ?>
@@ -169,7 +169,7 @@ if (!isset($_SESSION['email'])) {
                 <ol>
                     <li><span class="material-symbols-outlined">home</span></li>
                     <li>></li>
-                    <li><a href="Corps-Enseignant.php">Corps enseignant</a></li>
+                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
                 </ol>
             </nav>
             <div class="Main">
@@ -227,7 +227,7 @@ if (!isset($_SESSION['email'])) {
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
                                         <td class="Table-Structure"><a
-                                                href="Fiche-Enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
+                                                href="FicheEnseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
                                                 <div class="Table-Link"><span class="material-symbols-outlined">
                                                         visibility
                                                     </span>
@@ -246,7 +246,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
                                     <a class="Pagination-Link"
-                                        href="Corps-Enseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="CorpsEnseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Précédent
                                     </a>
                                 <?php } ?>
@@ -262,7 +262,7 @@ if (!isset($_SESSION['email'])) {
                                     ?>
 
                                     <a class="<?= $classePagination ?>"
-                                        href="Corps-Enseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="CorpsEnseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         <?= $i ?>
                                     </a>
                                 <?php } ?>
@@ -270,7 +270,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
                                     <a class="Pagination-Link"
-                                        href="Corps-Enseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="CorpsEnseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Suivant
                                     </a>
                                 <?php } ?>

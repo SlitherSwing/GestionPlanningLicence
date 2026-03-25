@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'credentials.php';
+require_once __DIR__ . '/../Require/Credentials.php';
 
 
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Portail de connexion</title>
 </head>
 
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
+                <img src="assets/Logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
