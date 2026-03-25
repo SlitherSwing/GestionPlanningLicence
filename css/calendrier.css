@@ -268,7 +268,7 @@ body{
 }
 
 .Right-Calen{
-   
+   margin-left: 100px;
 }
 .Top-Calen{
     height: 57px;
@@ -293,6 +293,7 @@ body{
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    margin-left: 0px;
 }
 .Calen{
     font-size: 26px;
