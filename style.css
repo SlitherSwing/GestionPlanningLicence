@@ -710,7 +710,7 @@ Table th .material-symbols-outlined {
     cursor: pointer;
 }
 
-{
+.Table{
     display: flex;
     width: 100%;
     flex-direction: column;   
@@ -748,4 +748,3 @@ Table th .material-symbols-outlined {
     background-color: #a5a8b8;
     padding: 5px 5px;;
 }
-
