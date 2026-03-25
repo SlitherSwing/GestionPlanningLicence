@@ -120,9 +120,9 @@
 
                 </section>
 
-                <div class="Table-Calen">
+                <div class="Table">
                     <table>
-                        <tr class="Table-Calen-Head">
+                        <tr class="Table--Head">
                             <th>Date de l’intervention</th>
                             <th>Module & titre</th>
                             <th>Type</th>
