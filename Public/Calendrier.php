@@ -1,15 +1,15 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Requete.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
     exit();
 }
 
-$sql = "SELECT * FROM course ORDER BY start_date DESC";
-$stmt = $con->query($sql);
-$interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$interventions = calendarData($con);
+
 ?>
 
 

@@ -80,3 +80,10 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function calendarData(PDO $con): array
+{
+    $sql = "SELECT * FROM course ORDER BY start_date DESC";
+    $stmt = $con->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
