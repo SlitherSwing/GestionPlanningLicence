@@ -26,65 +26,72 @@
 
             <div class="Sidebar-Menu">
 
-                <div class="Block-Patch">
-                    <img src="./assets/logo.png" class="Logo">
+            <div class="Block-Patch">
+                <img src="./assets/logo.png" class="Logo">
 
-                    <div class="Text">
-                        <h1>Lycée Saint-Vincent</h1>
-                        <p>Enseignement Supérieur</p>
-                    </div>
-                </div>
+                <div class="Text">
+                    <h1>Lycée Saint-Vincent</h1>
+                    <p>Enseignement Supérieur</p>
+                </div>
+            </div>
 
-                <div class="Block-Menu">
+            <div class="Block-Menu">
 
-                    <p class="Block-Title">MENU</p>
+                <p class="Block-Title">MENU</p>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Calendar.svg" class="logo">
-                        Calendrier
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Calendar.svg" class="logo">
+                    Calendrier
+                </a>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Frame.svg" class="logo">
-                        Interventions
-                    </a>
+                <a href="Interventions.php" class="Icones">
+                    <img src="./assets/Frame.svg" class="logo">
+                    Interventions
+                </a>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Board.svg" class="logo">
-                        Corps enseignant
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Board.svg" class="logo">
+                    Corps enseignant
+                </a>
 
-                </div>
+            </div>
 
-                <div class="Block-Settings">
+            <div class="Block-Settings">
 
-                    <p class="Block-Title">PARAMÉTRAGE</p>
+                <p class="Block-Title">PARAMÉTRAGE</p>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Vector.svg" class="logo">
-                        Modules
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Vector.svg" class="logo">
+                    Modules
+                </a>
 
-                    <a href="#" class="Icones">
-                        <img src="./assets/Chart.svg" class="logo">
-                        Types d'intervention
-                    </a>
+                <a href="#" class="Icones">
+                    <img src="./assets/Chart.svg" class="logo">
+                    Types d'intervention
+                </a>
 
-                </div>
+            </div>
 
-                <div class="Block-Profile">
+            <div class="Block-Profile">
 
-                    <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
 
-                    <div>
-                        <span class="Username">Stella Ribas</span>
-                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
-                        <span class="Role">Administrateur</span>
-                    </div>
+                <div>
+                    <div>
+                        <span class="Username">
+                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
+                        </span>
+                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                    </div>
+                    <span class="Role">
+                        <?= $_SESSION['role'] ?>
+                    </span>
+                </div>
 
-                </div>
+            </div>
 
-            </div>
+        </div>
+
 
 
 
