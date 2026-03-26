@@ -577,7 +577,7 @@ Table th .material-symbols-outlined {
     display: flex;
     flex-direction: row;
     gap: 24px;
-    border-radius: 0px;
+    border-radius: 2px;
 }
 .Modal-Screen>div>div>div:first-child{
     display: flex;
