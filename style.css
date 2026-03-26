@@ -613,6 +613,7 @@ Table th .material-symbols-outlined {
     flex-direction: column;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
+    padding-bottom: 20px;
 }
 .Modal-Screen>div:nth-child(2) form{
     display: flex;
