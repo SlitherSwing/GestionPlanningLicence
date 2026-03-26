@@ -237,7 +237,7 @@ if (!isset($_SESSION['email'])) {
             <div class="Main">
                 <div class="Heading">
                     <h2>Corps enseignant</h2>
-                    <button>Ajouter un enseignant</button>
+                    <button><a href="#Modal-Ajout">Ajouter un enseignant</a></button>
                 </div>
                 <div class="Content">
                     <div class="Filters">
