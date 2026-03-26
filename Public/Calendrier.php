@@ -22,8 +22,6 @@ $interventions = calendarData($con);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-    <link rel="stylesheet" href="../css/calendrier.css" />
-    <link rel="stylesheet" href="../css/menu.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +31,7 @@ $interventions = calendarData($con);
 </head>
 
 <body>
-    <section class="Page-Calen">
+    <section class="Page">
 
         <div class="Sidebar-Menu">
 
@@ -100,16 +98,14 @@ $interventions = calendarData($con);
 
 
 
-        <div class="Right-Calen">
-
-            <section class="Top-Calen">
-
-                <div class="House-Calen"> <img src="assets/maison.png"></div>
-                <div class="House-Calen-Text">
-                    <p>> Calendrier </p>
-                </div>
-
-            </section>
+        <div class="Main-Content">
+            <nav class="Breadcrumb">
+                <ol>
+                    <li><span class="material-symbols-outlined">home</span></li>
+                    <li>></li>
+                    <li><a href="Calendrier.php">Calendrier</a></li>
+                </ol>
+            </nav>
             <hr class="Lign-Calen">
 
             <section class="Calen-Title">
