@@ -560,7 +560,7 @@ Table th .material-symbols-outlined {
     align-items: center;
     font-family: 'Poppins';
     flex-direction: column;
-    border-radius: 5;
+    border-radius: 5px;
     
 }
 .Modal-Screen:target{
