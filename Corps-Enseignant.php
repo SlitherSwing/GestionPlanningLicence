@@ -93,6 +93,67 @@ if (!isset($_SESSION['email'])) {
 </head>
 
 <body>
+
+    <div class="Modal-Screen" id="Modal-Ajout">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3>Ajouter une intervention</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="" method="post">
+                <div>
+                    <label for="Ajout-intervention-Titre">Titre</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">Date de début - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Début" type="datetime-local">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">Date de fin - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Fin" type="datetime-local">
+                    </div>
+                </div>
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-intervention-Module">Module - champ obligatoire</label>
+                        <select name="" id="Ajout-intervention-Module"></select>
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Type">Type d’intervention - champ obligatoire</label>
+                        <select name="Ajout-intervention-Type" id=""></select>
+                    </div>                   
+                </div>
+                <div>
+                    <label for="Ajout-intervention-Type">Intervenants - champ obligatoire</label>
+                    <input id="Ajout-intervention-Type" type="" placeholder="?">
+                </div>
+                <div style="display: flex;flex-direction: row;">
+                    <label for="Ajout-intervention-check"></label>
+                    <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
+                    <input id="Ajout-intervention-check" type="checkbox">
+                </div>
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button>Confirmer</button>
+                </div>
+            </form>
+        </div>
+        <div>
+
+        </div>
+    </div>
     
     <div class="Page">
 
@@ -287,48 +348,7 @@ if (!isset($_SESSION['email'])) {
         </div>
     </div>
 
-    <div  class="Modal-Screen" id="Modal-Ajout">
-        <div>
-            <div>
-                <div>
-                    <span class="material-symbols-outlined">add</span>
-                </div>
-                <div>
-                    <h3><a href="#Modal-Ajout">Ajouter un enseignant</a></h3>
-                    <p>Remplissez les informations ci-dessous.</p>
-                </div>
-                <div>
-                    <a href="#" class="Close-Modal">X</a>
-                </div>
-            </div>
-        </div>
-        <div>
-            <form action="" method="post">
-                <div>
-                    <label for="Ajout-intervention-Titre">Nom de famille - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un nom de famille">
-                </div>
-                <div>
-                    <label for="Ajout-intervention-Titre">Prénom - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un prénom">
-                </div>
-                <div>
-                    <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un email">
-                </div>
-                <div>
-                    <label for="Ajout-intervention-Type">Modules enseignés - champ obligatoire</label>
-                    <input id="Ajout-intervention-Type" type="" placeholder="?">
-                </div>
-    
-                <div class="Modal-Bottom">
-                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
-                    <button>Enregistrer les informations</button>
-                </div>
-            </form>
-        </div>
-    <div>
-</div>
+   
 </body>
 
 </html>
