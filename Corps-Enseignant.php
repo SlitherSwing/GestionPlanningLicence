@@ -286,6 +286,49 @@ if (!isset($_SESSION['email'])) {
             </div>
         </div>
     </div>
+
+    <div  class="Modal-Screen" id="Modal-Ajout">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3><a href="#Modal-Ajout">Ajouter un enseignant</a></h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="" method="post">
+                <div>
+                    <label for="Ajout-intervention-Titre">Nom de famille - champ obligatoire</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un nom de famille">
+                </div>
+                <div>
+                    <label for="Ajout-intervention-Titre">Prénom - champ obligatoire</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un prénom">
+                </div>
+                <div>
+                    <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un email">
+                </div>
+                <div>
+                    <label for="Ajout-intervention-Type">Modules enseignés - champ obligatoire</label>
+                    <input id="Ajout-intervention-Type" type="" placeholder="?">
+                </div>
+    
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button>Enregistrer les informations</button>
+                </div>
+            </form>
+        </div>
+    <div>
+</div>
 </body>
 
 </html>
