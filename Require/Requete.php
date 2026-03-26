@@ -87,3 +87,8 @@ function calendarData(PDO $con): array
     $stmt = $con->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function typesinterventioncourajout(PDO $con)
+{
+    $sql = "INSERT * FROM intervention_type";
+}
