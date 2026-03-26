@@ -572,7 +572,7 @@ Table th .material-symbols-outlined {
     background-color: white;
     justify-content: center;
     padding: 10px 0 10px 0;
-    ;
+    border-radius: 5px
 }
 .Modal-Screen>div>div{
     display: flex;
