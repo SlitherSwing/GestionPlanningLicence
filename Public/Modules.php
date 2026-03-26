@@ -98,7 +98,7 @@ require_once __DIR__ . '/../Require/Requete.php';
 
 
 
-        <div class="Right-Modules">
+        <div style="margin-right: 50px;">
             <section class="Top-Modules">
 
                 <div class="House-Modules"> <img src="assets/maison.png"></div>

@@ -42,7 +42,7 @@ th {
 
     background: #F1F2F7;
     width: 240px;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 
