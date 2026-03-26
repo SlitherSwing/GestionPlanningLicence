@@ -2,7 +2,7 @@
 
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Requete.php';
+require_once __DIR__ . '/../Require/Requete.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';

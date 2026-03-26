@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Requete.php';
+require_once __DIR__ . '/../Require/Requete.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
@@ -23,6 +23,7 @@ $interventions = calendarData($con);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
     <link rel="stylesheet" href="../css/calendrier.css" />
+    <link rel="stylesheet" href="../css/menu.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
