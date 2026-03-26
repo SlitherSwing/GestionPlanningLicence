@@ -1,6 +1,7 @@
 <?php
-    session_start();
-    require_once('Require/Requete.php');
+session_start();
+require_once('../Require/Credentials.php');
+require_once('../Require/Requete.php');
 
 ?>
 <!DOCTYPE html>
@@ -103,26 +104,29 @@
                 <div class="Heading">
                     <h2>Cours</h2>
                 </div>
-                    <div class="Type_intervention_Cour">
-                        <form action="" method="post">
+                <div class="Type_intervention_Cour">
+                    <form action="" method="post">
+                        <div>
                             <div>
-                                <div>
-                                    <label for="Type_intervention_Cour_Nom">Nom - champ obligatoire</label>
-                                    <input id="Type_intervention_Cour_Nom" type="text" placeholder="Cours" name="">
-                                </div>
-                                <div>
-                                    <label for="Type_intervention_Cour_Code">Code couleur (hexadécimal) - champ obligatoire</label>
-                                    <input id="Type_intervention_Cour_Code" type="text" placeholder="#FFFFFF" required>
-                                </div>
+                                <label for="Type_intervention_Cour_Nom">Nom - champ obligatoire</label>
+                                <input id="Type_intervention_Cour_Nom" type="text" placeholder="Cours" name="">
                             </div>
-                            <label for="Type_intervention_Cour_Description">Description - champ obligatoire</label>
-                            <textarea id="Type_intervention_Cour_Description" type="" placeholder="Cours dispensé par un ou plusieurs intervenants" required></textarea>
                             <div>
-                                <button>Retour à la liste</button>
-                                <button>Supprimer</button>
-                                <label for="Type_intervention_Cour_Submit"><button>Enregistrer les informations</button></label>
-                                <input id="Type_intervention_Cour_Submit" type="submit">
+                                <label for="Type_intervention_Cour_Code">Code couleur (hexadécimal) - champ
+                                    obligatoire</label>
+                                <input id="Type_intervention_Cour_Code" type="text" placeholder="#FFFFFF" required>
                             </div>
+                        </div>
+                        <label for="Type_intervention_Cour_Description">Description - champ obligatoire</label>
+                        <textarea id="Type_intervention_Cour_Description" type=""
+                            placeholder="Cours dispensé par un ou plusieurs intervenants" required></textarea>
+                        <div>
+                            <button>Retour à la liste</button>
+                            <button>Supprimer</button>
+                            <label for="Type_intervention_Cour_Submit"><button>Enregistrer les
+                                    informations</button></label>
+                            <input id="Type_intervention_Cour_Submit" type="submit">
+                        </div>
                     </form>
                 </div>
             </div>
