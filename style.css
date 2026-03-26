@@ -571,7 +571,7 @@ Table th .material-symbols-outlined {
     background-color: white;
     justify-content: center;
     padding: 10px 0 10px 0;
-    border-radius: 7px;
+    border-radius: 2px;
 }
 .Modal-Screen>div>div{
     display: flex;
@@ -592,7 +592,7 @@ Table th .material-symbols-outlined {
 }
 .Modal-Screen>div>div>div:first-child span{
     background-color: #F0F0F0;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 .Modal-Screen span{
     background-color: #F0F0F0;
@@ -612,7 +612,7 @@ Table th .material-symbols-outlined {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
-    border-radius: 6px;
+    border-radius: 2px;
     border-color: #C8CBD9;
     width: 100%;
     box-sizing: border-box;
