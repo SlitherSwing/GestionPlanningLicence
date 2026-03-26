@@ -1,12 +1,8 @@
 <?php
     session_start();
-    
-    $sql = "INSERT * FROM intervention_type";
+    require_once('Require/Requete.php');
 
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
