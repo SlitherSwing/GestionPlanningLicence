@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include 'credentials.php';
+require_once __DIR__ . '/../Require/Credentials.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
@@ -18,7 +18,7 @@ if ($tab !== 'interventions') {
 }
 
 if ($id <= 0) {
-    header('Location: Corps-Enseignant.php');
+    header('Location: CorpsEnseignant.php');
     exit();
 }
 
@@ -30,7 +30,7 @@ $requeteEnseignant->execute(['id' => $id]);
 $enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
 
 if (!$enseignant) {
-    header('Location: Corps-Enseignant.php');
+    header('Location: CorpsEnseignant.php');
     exit();
 }
 
@@ -120,7 +120,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Fiche Enseignant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,7 +136,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
         <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
+                <img src="assets/Logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
@@ -148,18 +148,18 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
+                <a href="Calendrier.php" class="Icones">
+                    <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
                 <a href="Interventions.php" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
+                    <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="Corps-Enseignant.php" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
+                <a href="CorpsEnseignant.php" class="Icones">
+                    <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
 
@@ -169,13 +169,13 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
+                <a href="Modules.html" class="Icones">
+                    <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="types-Intervention.php" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
+                <a href="TypesIntervention.php" class="Icones">
+                    <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
 
@@ -183,14 +183,14 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="Block-Profile">
 
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <div>
                         <span class="Username">
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
-                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                        <img src="assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
                         <?= $_SESSION['role'] ?>
@@ -205,9 +205,9 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="Corps-Enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="Corps-Enseignant.php">Corps enseignant</a></li>
+                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
                     <li>></li>
                     <li><?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?>
                     </li>
@@ -247,13 +247,13 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="Teacher-Tabs">
-                    <a href="Fiche-Enseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
+                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
                           echo 'Active-Tab';
                       } ?>">
                         Informations générales
                     </a>
 
-                    <a href="Fiche-Enseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
+                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
                           echo 'Active-Tab';
                       } ?>">
                         Interventions
@@ -273,7 +273,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                         <div class="Teacher-Card">
                             <p>Informations générales</p>
 
-                            <form method="post" action="Fiche-Enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+                            <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Last-Name">Nom de famille - champ obligatoire</label>
@@ -312,7 +312,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                         <div class="Filters">
                             <p>Filtres</p>
                             <div>
-                                <form method="post" action="Fiche-Enseignant.php?id=<?= $id ?>&tab=interventions">
+                                <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=interventions">
                                     <div>
                                         <label for="Start-Date">Date de début</label>
                                         <input id="Start-Date" type="date" name="Start-Date"

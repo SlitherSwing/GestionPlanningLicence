@@ -1,14 +1,15 @@
 <?php
-include 'credentials.php';
+session_start();
+require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Require/Requete.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
     exit();
 }
 
-$sql = "SELECT * FROM course ORDER BY start_date DESC";
-$stmt = $con->query($sql);
-$interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$interventions = calendarData($con);
+
 ?>
 
 
@@ -21,8 +22,9 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-    <link rel="stylesheet" href="css/calendrier.css" />
-    <link rel="stylesheet" href="css/menu.css" />
+    <link rel="stylesheet" href="../css/calendrier.css" />
+    <link rel="stylesheet" href="../css/menu.css" />
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -36,7 +38,7 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
+                <img src="assets/Logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
@@ -48,18 +50,18 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
+                <a href="Calendrier.php" class="Icones">
+                    <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
+                <a href="Interventions.php" class="Icones">
+                    <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
+                <a href="CorpsEnseignant.php" class="Icones">
+                    <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
 
@@ -69,13 +71,13 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
+                <a href="Modules.html" class="Icones">
+                    <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="#" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
+                <a href="TypesIntervention.php" class="Icones">
+                    <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
 
@@ -83,11 +85,11 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="Block-Profile">
 
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <span class="Username">Stella Ribas</span>
-                    <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                    <img src="assets/Chevron-down.svg" class="Chevron-down">
                     <span class="Role">Administrateur</span>
                 </div>
 
@@ -102,7 +104,7 @@ $interventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <section class="Top-Calen">
 
-                <div class="House-Calen"> <img src="images/maison.png"></div>
+                <div class="House-Calen"> <img src="assets/maison.png"></div>
                 <div class="House-Calen-Text">
                     <p>> Calendrier </p>
                 </div>

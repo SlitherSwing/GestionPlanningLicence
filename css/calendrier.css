@@ -1,50 +1,322 @@
-body{
+body {
     font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
 }
-.Page-Calen{
+
+
+
+.Page {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.Page-Calen {
     display: flex;
     height: 960px;
-    gap:10px;
+    gap: 10px;
 }
-.Right-Calen{
-    margin-left: 300px;
+
+.Error {
+    color: red;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 30px;
 }
-.Top-Calen{
+
+/* -------------------------------- */
+/* Bien penser à mettre la page entière dans Page, et ensuite le contenu de la page dans une div avec la classe Main-Content */
+.Sidebar-Menu {
+
+    background: #F1F2F7;
+    width: 240px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Sidebar-Menu>* {
+    padding: 19px;
+}
+
+.Block-Patch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    gap: 10px;
+
+}
+
+.Logo {
+
+    width: 20px;
+
+}
+
+.Text h1 {
+
+    margin: 0;
+    font-size: 11px;
+    color: #000000;
+    font-weight: bold;
+
+}
+
+.Text p {
+
+    margin: 0;
+    font-size: 8px;
+    color: #000000;
+    font-weight: bold;
+
+}
+
+.Block-Menu {
+
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.Block-Title {
+
+    font-size: 12px;
+    color: #787F89;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+
+}
+
+
+
+.Icones {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #787F89;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    transition: 0.2s;
+
+}
+
+.Icones:hover {
+
+    background: #2C416E;
+    color: #FFFFFF;
+    border-radius: 10px;
+
+}
+
+.Icones:active {
+
+    transform: scale(0.95);
+
+}
+
+.Icones:hover .logo {
+    filter: brightness(0) invert(1);
+    /*change la couleur des logos*/
+}
+
+.Block-Settings {
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.Block-Profile {
+
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    width: 250px;
+    margin-bottom: 30px;
+
+}
+
+.ProfilePicture {
+
+    width: 49px;
+    height: 49px;
+    border-radius: 40px;
+
+}
+
+.Username {
+
+    margin: 0;
+    font-size: 16px;
+    color: #000000;
+    margin-left: 10px;
+    opacity: 1;
+
+}
+
+.Role {
+
+    margin: 0;
+    font-size: 14px;
+    color: #787F89;
+    margin-left: 10px;
+
+}
+
+.Chevron-down {
+
+    width: 14px;
+    height: 14px;
+    opacity: 1;
+}
+
+/* -------------------------------- */
+
+.Connection-Page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.Connection-Container {
+    display: flex;
+    flex-direction: column;
+    margin: 70px 90px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.Connection-Container h1 {
+    font-size: 24px;
+}
+
+.Connection-Container h3 {
+    color: #2C416E;
+    font-size: 20px;
+
+}
+
+.Connection-Form {
+    display: flex;
+    flex-direction: column;
+}
+
+.Connection-Form label {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 5px;
+    margin-top: 15px;
+
+}
+
+.Connection-Form input {
+    width: 300%;
+    height: 40px;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+}
+
+.Connection-Form button {
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 30px;
+    padding: 15px 25px;
+    background-color: #2C416E;
+    color: white;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* -------------------------------- */
+.Main-Content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Breadcrumb {
+    display: flex;
+    width: 100%;
+    height: 57px;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.Breadcrumb ol {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 10px;
+}
+
+.Breadcrumb li {
+    color: #1F384C;
+}
+
+.Breadcrumb a {
+    color: #1F384C;
+}
+
+.Right-Calen {
+    margin-left: 100px;
+}
+
+.Top-Calen {
     height: 57px;
     width: 1200px;
     display: flex;
     gap: 20px;
 }
 
-.Top-Calen img{
+.Top-Calen img {
     width: 20px;
     height: auto;
     margin-top: 17px;
     cursor: pointer;
 }
-.Lign-Calen{
-  border: none;
-  height: 0.5px;
-  background-color: rgb(219, 218, 218);
-  width: 1200px;
+
+.Lign-Calen {
+    border: none;
+    height: 0.5px;
+    background-color: rgb(219, 218, 218);
+    width: 1200px;
 }
-.Calen-Title{
+
+.Calen-Title {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    margin-left: 0px;
 }
-.Calen{
+
+.Calen {
     font-size: 26px;
     color: #1F384C;
 }
-.Inter{
-    font-size:20px; 
+
+.Inter {
+    font-size: 20px;
 }
-.Button-Add-Inter{
+
+.Button-Add-Inter {
     margin-top: 40px;
     margin-right: 44px;
 }
-.Add-Inter{
+
+.Add-Inter {
     width: 307px;
     height: 44px;
     color: white;
@@ -54,31 +326,35 @@ body{
     cursor: pointer;
 }
 
-.Table{
+.Table {
     display: flex;
     width: 100%;
-    flex-direction: column;   
-}
-.Table-Calen p{
-    font-size: 20px;
-}
-.Table-Calen table{
-    padding: 20px 25px 20px 25px;
-    border-collapse:collapse ;
-    border-bottom: solid 1px;
-    border-color: #C8CBD9
+    flex-direction: column;
 }
 
-.Table-Calen th{
+
+
+
+.Table p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.Table table {
+    padding: 20px 25px 20px 25px;
+    border-collapse: collapse;
+    border-bottom: solid 1px;
+    border-color: #C8CBD9;
+    font-weight: normal;
+}
+
+.Table th {
     text-align: start;
     padding: 20px 25px 20px 25px;
-     font-weight: normal;
+    font-weight: normal;
 }
-.Table-Calen th svg{
-    width: 20px;
-    height: auto;
-}
-.Table-Calen th .material-symbols-outlined {
+
+Table th .material-symbols-outlined {
     vertical-align: middle;
 }
 
@@ -90,14 +366,33 @@ body{
 Table-Calen td .material-symbols-outlined {
     vertical-align: middle;
 }
-.Table-Calen-Head{
+
+.Table-Calen-Head {
     background-color: #F1F2F7;
 }
-.Eyes-Calen{
+
+.Table-Structure {
+    border-bottom: solid 1px;
+    border-color: #45464a;
+    padding: 20px;
+}
+
+.Table-Link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+
+.Eyes-Calen {
     cursor: pointer;
     margin-top: 10px;
 }
-.Eyes-Calen :hover{
+
+.Eyes-Calen :hover {
     background-color: #a5a8b8;
-    padding: 5px 5px;;
+    padding: 5px 5px;
+    ;
 }
