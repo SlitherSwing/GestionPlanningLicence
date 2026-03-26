@@ -611,6 +611,8 @@ Table th .material-symbols-outlined {
 .Modal-Screen>div:nth-child(2){
     display: flex;
     flex-direction: column;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 .Modal-Screen>div:nth-child(2) form{
     display: flex;

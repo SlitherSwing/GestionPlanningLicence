@@ -133,9 +133,6 @@ if (!isset($_SESSION['email'])) {
                 </div>
             </form>
         </div>
-        <div>
-
-        </div>
     </div>
     
     <div class="Page">
