@@ -243,7 +243,7 @@
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Template</p>
+                        <p>Interventions</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Date de l’intervention</th>
