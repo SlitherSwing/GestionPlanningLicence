@@ -1,8 +1,14 @@
 <?php
-session_start();
-require_once('../Require/Credentials.php');
-require_once('../Require/Requete.php');
+    session_start();
+    require_once('../Require/Credentials.php');
+    require_once('../Require/Requete.php');
 
+    $name = $_POST['name']??'';
+    $color = $_POST['color']??'';
+    $description = $_POST['description']??'';
+    var_dump($name);
+    var_dump($color);
+    var_dump($description);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,13 +16,11 @@ require_once('../Require/Requete.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css\style.css">
     <title>Interventions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
@@ -109,23 +113,23 @@ require_once('../Require/Requete.php');
                         <div>
                             <div>
                                 <label for="Type_intervention_Cour_Nom">Nom - champ obligatoire</label>
-                                <input id="Type_intervention_Cour_Nom" type="text" placeholder="Cours" name="">
+                                <input id="Type_intervention_Cour_Nom" type="text" placeholder="Cours" name="name">
                             </div>
                             <div>
                                 <label for="Type_intervention_Cour_Code">Code couleur (hexadécimal) - champ
                                     obligatoire</label>
-                                <input id="Type_intervention_Cour_Code" type="text" placeholder="#FFFFFF" required>
+                                <input id="Type_intervention_Cour_Code" type="text" name="color" placeholder="#FFFFFF" required>
                             </div>
                         </div>
                         <label for="Type_intervention_Cour_Description">Description - champ obligatoire</label>
                         <textarea id="Type_intervention_Cour_Description" type=""
-                            placeholder="Cours dispensé par un ou plusieurs intervenants" required></textarea>
+                            placeholder="Cours dispensé par un ou plusieurs intervenants" name="description" required></textarea>
                         <div>
                             <button>Retour à la liste</button>
                             <button>Supprimer</button>
                             <label for="Type_intervention_Cour_Submit"><button>Enregistrer les
                                     informations</button></label>
-                            <input id="Type_intervention_Cour_Submit" type="submit">
+                            <input id="Type_intervention_Cour_Submit" name="typeinter" type="submit">
                         </div>
                     </form>
                 </div>
