@@ -101,7 +101,7 @@ if (!isset($_SESSION['email'])) {
                     <span class="material-symbols-outlined">add</span>
                 </div>
                 <div>
-                    <h3>Ajouter une intervention</h3>
+                    <h3>Ajouter un enseignant</h3>
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
                 <div>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['email'])) {
 
                 <div>
                     <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez une adresse mail">
                 </div>
 
                 <div class="Modal-Bottom">
