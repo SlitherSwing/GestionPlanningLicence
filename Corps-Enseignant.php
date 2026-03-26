@@ -127,11 +127,6 @@ if (!isset($_SESSION['email'])) {
                     <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez un titre sur l’intervention">
                 </div>
 
-                <div style="display: flex;flex-direction: row;">
-                    <label for="Ajout-intervention-check"></label>
-                    <label for="Ajout-intervention-check">Intervention effectuée en visio</label>
-                    <input id="Ajout-intervention-check" type="checkbox">
-                </div>
                 <div class="Modal-Bottom">
                     <button style="background-color: #F0F0F0;color: black;">Annuler</button>
                     <button>Confirmer</button>
