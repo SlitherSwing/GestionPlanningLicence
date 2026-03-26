@@ -94,7 +94,7 @@ if (!isset($_SESSION['email'])) {
 
 <body>
 
-    <div class="Modal-Add" class="Modal-Screen" id="Modal-Ajout">
+    <div class="Modal-Add"  id="Modal-Ajout">
         <div>
             <div>
                 <div>
