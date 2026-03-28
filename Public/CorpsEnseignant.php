@@ -179,7 +179,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Enseignants</p>
+                        <p>Template</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom de famille</th>
