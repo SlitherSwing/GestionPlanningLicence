@@ -105,7 +105,7 @@ if (!isset($_SESSION['email'])) {
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="Modules.html" class="Icones">
+                <a href="Modules.php" class="Icones">
                     <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
@@ -179,7 +179,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Enseignants</p>
+                        <p><?= $totalResultats ?> Enseignants trouvés</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom de famille</th>
