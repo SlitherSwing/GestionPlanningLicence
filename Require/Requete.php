@@ -87,3 +87,72 @@ function calendarData(PDO $con): array
     $stmt = $con->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function insertTypeIntervention(PDO $con, string $name, string $color, string $description): bool
+{
+    $sql = "INSERT INTO intervention_type (name, color, description) VALUES (:name, :color, :description)";
+    $params = [
+        ':name' => $name,
+        ':color' => $color,
+        ':description' => $description,
+    ];
+    $stmt = $con->prepare($sql);
+    return $stmt->execute($params);
+}
+
+function requeteEnseignant(PDO $con, int $id): array
+{
+    $sql = "SELECT instructor.id, user.id AS user_id, user.first_name, user.last_name, user.email
+            FROM instructor
+            INNER JOIN user ON user.id = instructor.user_id
+            WHERE instructor.id = :id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function requeteModules(PDO $con, int $id): array
+{
+    $sql = "SELECT module.id, module.name, module.hours_count
+            FROM instructor_module
+            INNER JOIN module ON module.id = instructor_module.module_id
+            WHERE instructor_module.instructor_id = :id
+            ORDER BY module.name";
+    $stmt = $con->prepare($sql);
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function requeteIntervention(PDO $con, int $id, string $dateDebut, string $dateFin, string $moduleFiltre): array
+{
+    $sqlInterventions = "SELECT course.start_date, course.end_date, course.title,
+module.name AS module_name, intervention_type.name AS type_name, course.remotely
+FROM course
+INNER JOIN course_instructor ON course_instructor.course_id = course.id
+INNER JOIN module ON module.id = course.module_id
+INNER JOIN intervention_type ON intervention_type.id = course.intervention_type_id
+WHERE course_instructor.instructor_id = :id";
+
+    $parametres = ['id' => $id];
+
+    if ($dateDebut !== '') {
+        $sqlInterventions .= " AND course.start_date >= :date_debut";
+        $parametres['date_debut'] = $dateDebut . ' 00:00:00';
+    }
+
+    if ($dateFin !== '') {
+        $sqlInterventions .= " AND course.end_date <= :date_fin";
+        $parametres['date_fin'] = $dateFin . ' 23:59:59';
+    }
+
+    if ($moduleFiltre !== '') {
+        $sqlInterventions .= " AND course.module_id = :module_id";
+        $parametres['module_id'] = $moduleFiltre;
+    }
+
+    $sqlInterventions .= " ORDER BY course.start_date ASC";
+
+    $requeteInterventions = $con->prepare($sqlInterventions);
+    $requeteInterventions->execute($parametres);
+    return $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
+}
