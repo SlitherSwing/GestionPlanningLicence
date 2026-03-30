@@ -139,7 +139,7 @@ $modules = moduleData($con);
                             </ul>
                         </details>
 
-                    <? endforeach; ?>
+                    <?php endforeach; ?>
                    
 
                 </div>
