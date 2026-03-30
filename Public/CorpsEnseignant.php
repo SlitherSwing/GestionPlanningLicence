@@ -67,6 +67,48 @@ if (!isset($_SESSION['email'])) {
 </head>
 
 <body>
+
+    <div class="Modal-Screen" id="Modal-Ajout">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3>Ajouter un enseignant</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="" method="post">
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">Nom de famille - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Début" type="text">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">Prénom - champ obligatoire</label>
+                        <input id="Ajout-intervention-Date-Fin" type="text">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
+                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez une adresse mail">
+                </div>
+
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button>Confirmer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <div class="Page">
 
         <div class="Sidebar-Menu">
@@ -149,7 +191,7 @@ if (!isset($_SESSION['email'])) {
             <div class="Main">
                 <div class="Heading">
                     <h2>Corps enseignant</h2>
-                    <button>Ajouter un enseignant</button>
+                    <button><a href="#Modal-Ajout">Ajouter un enseignant</a></button>
                 </div>
                 <div class="Content">
                     <div class="Filters">
@@ -256,6 +298,8 @@ if (!isset($_SESSION['email'])) {
             </div>
         </div>
     </div>
+
+   
 </body>
 
 </html>
