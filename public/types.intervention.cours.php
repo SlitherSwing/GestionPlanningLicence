@@ -35,6 +35,7 @@ if (isset($_POST['typeinter'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +48,7 @@ if (isset($_POST['typeinter'])) {
         rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
+
 <body>
     <main class="Page">
         <div class="Sidebar-Menu">
@@ -148,7 +150,8 @@ if (isset($_POST['typeinter'])) {
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
-                            <a href="" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la liste</a>
+                            <a href="" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la
+                                liste</a>
                             <a href="" class="A-button" style="background-color: red;">Supprimer</a>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
@@ -161,4 +164,5 @@ if (isset($_POST['typeinter'])) {
         </div>
     </main>
 </body>
+
 </html>
