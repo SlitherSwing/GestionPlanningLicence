@@ -123,7 +123,7 @@ $count = count($typeinterventions);
             <div class="Main">
                 <div class="Heading">
                     <h2>Types-Intervention</h2>
-                    <button>Ajouter un type</button>
+                    <a href="TypesIntervention_Cour.php">Ajouter un type</a>
                 </div>
                 <div class="Content">
                     <div class="Filters">
