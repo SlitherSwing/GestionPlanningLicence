@@ -66,29 +66,28 @@ Fonctionnalités observables dans le dépôt :
 1. Placer le projet dans le dossier `htdocs` de XAMPP.
 2. Démarrer Apache et MySQL depuis XAMPP.
 3. Créer une base de données nommée `Gestion Licence`.
-4. Configurer l'accès MySQL dans `Require/Credentials.php`.
-5. Utiliser `Public/Credentials.example.php` comme modèle de structure si nécessaire.
+4. Configurer l'accès MySQL dans `require/credentials.php`.
+5. Utiliser `Credentials.example.php` comme modèle de structure si nécessaire.
 6. Préparer un jeu d'essai cohérent dans la base de données.
 7. Ouvrir le point d'entrée local dans le navigateur.
 
 Point d'entrée local :
 
-- exemple avec l'arborescence actuelle : `http://localhost/projetFinal/projetFinal/Public/index.php`
+- exemple avec l'arborescence actuelle : `http://localhost/projetFinal/projetFinal/public/index.php`
 - si le dossier change de nom, adapter l'URL en conséquence
 
 ### Configuration de la connexion à la base
 
-Le fichier réellement chargé à l'exécution est [`Require/Credentials.php`](Require/Credentials.php).
+Le fichier réellement chargé à l'exécution est [`require/credentials.php`](require/credentials.php).
 
-Un exemple de structure est fourni dans [`Public/Credentials.example.php`](Public/Credentials.example.php).
+Un exemple de structure est fourni dans [`Credentials.example.php`](Credentials.example.php).
 
 Important : Il faut adapter `host`, `dbname`, `user` et `password` à votre environnement local !
 
 ## Structure du projet
 
-- [`Public/`](Public/) : point d'entrée web, pages PHP, maquettes HTML et ressources statiques ;
-- [`Require/`](Require/) : connexion PDO et fonctions de requêtes SQL utilisées par les pages ;
-- [`css/`](css/) : feuilles de style globales et styles spécifiques à certaines vues ;
+- [`public/`](public/) : point d'entrée web, pages PHP, maquettes HTML, feuilles de style et ressources statiques ;
+- [`require/`](require/) : connexion PDO et fonctions de requêtes SQL utilisées par les pages ;
 - [`DocumentationTechnique/`](DocumentationTechnique/) : éléments de conception, documentation technique et support visuel de la base.
 
 ## Base de données attendue
@@ -131,9 +130,9 @@ Le projet utilise également :
 
 Les conventions observables sont les suivantes :
 
-- séparation des pages publiques dans `Public/` ;
-- centralisation de la connexion PDO dans `Require/Credentials.php` ;
-- centralisation des requêtes SQL dans `Require/Requete.php` ;
+- séparation des pages publiques dans `public/` ;
+- centralisation de la connexion PDO dans `require/credentials.php` ;
+- centralisation des requêtes SQL dans `require/requete.php` ;
 
 Ces conventions reflètent l'état actuel du dépôt, sans présumer d'une normalisation encore incomplète.
 
@@ -141,4 +140,3 @@ Ces conventions reflètent l'état actuel du dépôt, sans présumer d'une norma
 
 Le projet a été découpé en sprints hebdomadaires suivis sur GitHub via les `milestones` et les `issues`. Le travail est réalisé en groupe de 4 + 1 élève en observateur, avec répartition des tâches entre les membres de l'équipe.
 Enseignants et Intervenants sont égalements présents tout au long du projet afin d'assurer un suivi constant et de nous guider dans nos choix techniques et fonctionnels.
-

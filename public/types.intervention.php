@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
 if (!empty($_POST['NameType'])) {
 
@@ -32,7 +32,7 @@ $count = count($typeinterventions);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Interventions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,17 +59,17 @@ $count = count($typeinterventions);
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="Calendrier.php" class="Icones">
+                <a href="calendrier.php" class="Icones">
                     <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
-                <a href="Interventions.php" class="Icones">
+                <a href="interventions.php" class="Icones">
                     <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="CorpsEnseignant.php" class="Icones">
+                <a href="corps.enseignant.php" class="Icones">
                     <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -80,12 +80,12 @@ $count = count($typeinterventions);
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="Modules.php" class="Icones">
+                <a href="modules.php" class="Icones">
                     <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="TypesIntervention.php" class="Icones">
+                <a href="types.intervention.php" class="Icones">
                     <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -114,16 +114,16 @@ $count = count($typeinterventions);
             <div class="Breadcrumb">
                 <nav>
                     <ol>
-                        <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="TypesIntervention.php">Types-Intervention</a></li>
+                        <li><a href="types.intervention.php">Types-Intervention</a></li>
                     </ol>
                 </nav>
             </div>
             <div class="Main">
                 <div class="Heading">
                     <h2>Types-Intervention</h2>
-                    <a href="TypesIntervention_Cour.php">Ajouter un type</a>
+                    <a href="types.intervention.cours.php">Ajouter un type</a>
                 </div>
                 <div class="Content">
                     <div class="Filters">

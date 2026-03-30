@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
 if (!isset($_SESSION['email'])) {
     header('Location: index.php');
@@ -19,12 +19,16 @@ if ($tab !== 'interventions') {
 }
 
 if ($id <= 0) {
-    header('Location: CorpsEnseignant.php');
+    header('Location: corps.enseignant.php');
     exit();
 }
 
 
 $enseignant = requeteEnseignant($con, $id);
+if (!$enseignant) {
+    header('Location: corps.enseignant.php');
+    exit();
+}
 
 if (isset($_POST['Save-Infos'])) {
     $nom = trim($_POST['Last-Name'] ?? '');
@@ -49,8 +53,7 @@ if (isset($_POST['Save-Infos'])) {
 
         $message = "Les informations ont bien été enregistrées.";
 
-        $requeteEnseignant->execute(['id' => $id]);
-        $enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
+        $enseignant = requeteEnseignant($con, $id);
     }
 }
 
@@ -76,7 +79,7 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Fiche Enseignant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,17 +107,17 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="Calendrier.php" class="Icones">
+                <a href="calendrier.php" class="Icones">
                     <img src="assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
-                <a href="Interventions.php" class="Icones">
+                <a href="interventions.php" class="Icones">
                     <img src="assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="CorpsEnseignant.php" class="Icones">
+                <a href="corps.enseignant.php" class="Icones">
                     <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
@@ -125,12 +128,12 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="Modules.php" class="Icones">
+                <a href="modules.php" class="Icones">
                     <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="TypesIntervention.php" class="Icones">
+                <a href="types.intervention.php" class="Icones">
                     <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
@@ -161,9 +164,9 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
                     <li>></li>
                     <li><?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?>
                     </li>
@@ -203,13 +206,13 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                 </div>
 
                 <div class="Teacher-Tabs">
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
                           echo 'Active-Tab';
                       } ?>">
                         Informations générales
                     </a>
 
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
                           echo 'Active-Tab';
                       } ?>">
                         Interventions
@@ -229,7 +232,7 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                         <div class="Teacher-Card">
                             <p>Informations générales</p>
 
-                            <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+                            <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Last-Name">Nom de famille - champ obligatoire</label>
@@ -268,7 +271,7 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                         <div class="Filters">
                             <p>Filtres</p>
                             <div>
-                                <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=interventions">
+                                <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=interventions">
                                     <div>
                                         <label for="Start-Date">Date de début</label>
                                         <input id="Start-Date" type="date" name="Start-Date"
