@@ -805,8 +805,56 @@ Table td .material-symbols-outlined {
 .Cancel:hover,
 .Confirm:hover {
     cursor: pointer;
-
 }
+.Type_intervention_Cour{
+    width: 500px;
+    display: flex;
+}
+.Type_intervention_Cour form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.Type_intervention_Cour form div{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+.Type_intervention_Cour form div div{
+    display: flex;
+    flex-direction: column;
+}
+.Type_intervention_Cour form input,textarea{
+    line-height: 24px;
+    padding: 6px 16px 6px 20px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #C8CBD9;
+    width: 400px;
+    box-sizing: border-box;
+}
+.Type_intervention_Cour form textarea{
+    width: 100%;
+}
+.Type_intervention_Cour button{
+    line-height: 24px;
+    padding: 6px 16px 6px 20px;
+    border: 1px solid;
+    border-radius: 6px;
+    border-color: #C8CBD9;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.Type_intervention_Cour button:nth-child(2){
+    background-color: #FF0004;
+    color: white;
+}
+.Type_intervention_Cour button:nth-child(3){
+    background-color: #2C416E;
+    color: white;
+}
+
 
 
 
