@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+
 }
 
 a {
@@ -570,6 +571,7 @@ Table td .material-symbols-outlined {
     background-color: white;
 }
 
+
 .Modal-Screen {
     visibility: hidden;
     position: absolute;
@@ -581,7 +583,8 @@ Table td .material-symbols-outlined {
     align-items: center;
     font-family: 'Poppins';
     flex-direction: column;
-
+    border-radius: 5px;
+    
 }
 
 .Modal-Screen:target {
@@ -594,13 +597,22 @@ Table td .material-symbols-outlined {
     background-color: white;
     justify-content: center;
     padding: 10px 0 10px 0;
-    border-radius: 7px;
+}
+
+.Modal-Screen>div:first-child{
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.Modal-Screen form{
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 .Modal-Screen>div>div {
     display: flex;
     flex-direction: row;
     gap: 24px;
+    
 }
 
 .Modal-Screen>div>div>div:first-child {
@@ -620,7 +632,7 @@ Table td .material-symbols-outlined {
 
 .Modal-Screen>div>div>div:first-child span {
     background-color: #F0F0F0;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .Modal-Screen span {
@@ -631,6 +643,14 @@ Table td .material-symbols-outlined {
 .Modal-Screen>div:nth-child(2) {
     display: flex;
     flex-direction: column;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding-bottom: 20px;
+}
+.Modal-Screen>div:nth-child(3){
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-bottom: 20px;
 }
 
 .Modal-Screen>div:nth-child(2) form {
@@ -644,7 +664,7 @@ Table td .material-symbols-outlined {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
-    border-radius: 6px;
+    border-radius: 2px;
     border-color: #C8CBD9;
     width: 100%;
     box-sizing: border-box;
@@ -816,25 +836,31 @@ Table td .material-symbols-outlined {
 .Confirm:hover {
     cursor: pointer;
 }
-.Type_intervention_Cour{
+
+.Type_intervention_Cour {
     width: 500px;
     display: flex;
 }
-.Type_intervention_Cour form{
+
+.Type_intervention_Cour form {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.Type_intervention_Cour form div{
+
+.Type_intervention_Cour form div {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
-.Type_intervention_Cour form div div{
+
+.Type_intervention_Cour form div div {
     display: flex;
     flex-direction: column;
 }
-.Type_intervention_Cour form input,textarea{
+
+.Type_intervention_Cour form input,
+textarea {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
@@ -843,10 +869,12 @@ Table td .material-symbols-outlined {
     width: 400px;
     box-sizing: border-box;
 }
-.Type_intervention_Cour form textarea{
+
+.Type_intervention_Cour form textarea {
     width: 100%;
 }
-.Type_intervention_Cour button{
+
+.Type_intervention_Cour button {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
@@ -856,11 +884,13 @@ Table td .material-symbols-outlined {
     box-sizing: border-box;
     cursor: pointer;
 }
-.Type_intervention_Cour button:nth-child(2){
+
+.Type_intervention_Cour button:nth-child(2) {
     background-color: #FF0004;
     color: white;
 }
-.Type_intervention_Cour button:nth-child(3){
+
+.Type_intervention_Cour button:nth-child(3) {
     background-color: #2C416E;
     color: white;
 }

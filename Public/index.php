@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
 
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['last_name'] = $user['last_name'];
             $_SESSION['role'] = $user['role'];
-            header('Location: CorpsEnseignant.php');
+            header('Location: corps.enseignant.php');
             exit();
         } else {
             $error = "Problème de connexion";
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Portail de connexion</title>
 </head>
 

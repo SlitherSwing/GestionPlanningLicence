@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('../Require/Credentials.php');
-require_once('../Require/Requete.php');
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
 $name = $_POST['name'] ?? '';
 $color = $_POST['color'] ?? '';
@@ -35,7 +35,7 @@ if (isset($_POST['typeinter'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="\projetFinal\css\style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Interventions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,6 +49,7 @@ if (isset($_POST['typeinter'])) {
         <div class="Sidebar-Menu">
             <div class="Block-Patch">
                 <img src="./assets/logo.png" class="Logo">
+
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
                     <p>Enseignement Supérieur</p>
@@ -56,14 +57,17 @@ if (isset($_POST['typeinter'])) {
             </div>
             <div class="Block-Menu">
                 <p class="Block-Title">MENU</p>
+
                 <a href="#" class="Icones">
                     <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
+
                 <a href="Interventions.php" class="Icones">
                     <img src="./assets/Frame.svg" class="logo">
                     Interventions
                 </a>
+
                 <a href="Corps-Enseignant.php" class="Icones">
                     <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
@@ -71,23 +75,27 @@ if (isset($_POST['typeinter'])) {
             </div>
             <div class="Block-Settings">
                 <p class="Block-Title">PARAMÉTRAGE</p>
+
                 <a href="#" class="Icones">
                     <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
+
                 <a href="types-Intervention.php" class="Icones">
                     <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
             </div>
             <div class="Block-Profile">
+
                 <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+
                 <div>
                     <div>
                         <span class="Username">
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
-                        <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                        <img src="assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
                         <?= $_SESSION['role'] ?>
@@ -99,11 +107,11 @@ if (isset($_POST['typeinter'])) {
             <div class="Breadcrumb">
                 <nav>
                     <ol>
-                        <li><a href=""><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="TypesIntervention.php">Types-Intervention</a></li>
+                        <li><a href="types.intervention.php">Types-Intervention</a></li>
                         <li>></li>
-                        <li><a href="">Cours</a></li>
+                        <li><a href="">Cour</a></li>
                     </ol>
                 </nav>
             </div>
@@ -137,8 +145,8 @@ if (isset($_POST['typeinter'])) {
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
-                            <a href="TypesIntervention.php" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la liste</a>
-                            <a href="types-intervention-supprimer.html" class="A-button" style="background-color: red;">Supprimer</a>
+                            <button type="button">Retour à la liste</button>
+                            <button type="button">Supprimer</button>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
