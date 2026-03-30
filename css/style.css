@@ -42,7 +42,7 @@ th {
 
     background: #F1F2F7;
     width: 240px;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 
@@ -388,7 +388,7 @@ th {
     border-collapse: collapse;
     border-bottom: solid 1px;
     border-color: #C8CBD9;
-    
+
 }
 
 .Table th {
@@ -806,4 +806,17 @@ Table td .material-symbols-outlined {
 .Confirm:hover {
     cursor: pointer;
 
+}
+
+
+
+.Header-Calendar {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Header-Calendar p {
+    font-weight: 400;
+    font-size: 20px;
 }

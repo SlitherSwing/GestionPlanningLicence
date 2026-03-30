@@ -1,5 +1,7 @@
-body{
+body {
     font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -9,10 +11,11 @@ body{
     flex-direction: row;
     width: 100%;
 }
-.Page-Calen{
+
+.Page-Calen {
     display: flex;
     height: 960px;
-    gap:10px;
+    gap: 10px;
 }
 
 .Error {
@@ -267,46 +270,53 @@ body{
     color: #1F384C;
 }
 
-.Right-Calen{
-   margin-left: 100px;
+.Right-Calen {
+    margin-left: 100px;
 }
-.Top-Calen{
+
+.Top-Calen {
     height: 57px;
     width: 1200px;
     display: flex;
     gap: 20px;
 }
 
-.Top-Calen img{
+.Top-Calen img {
     width: 20px;
     height: auto;
     margin-top: 17px;
     cursor: pointer;
 }
-.Lign-Calen{
-  border: none;
-  height: 0.5px;
-  background-color: rgb(219, 218, 218);
-  width: 1200px;
+
+.Lign-Calen {
+    border: none;
+    height: 0.5px;
+    background-color: rgb(219, 218, 218);
+    width: 1200px;
 }
-.Calen-Title{
+
+.Calen-Title {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
     margin-left: 0px;
 }
-.Calen{
+
+.Calen {
     font-size: 26px;
     color: #1F384C;
 }
-.Inter{
-    font-size:20px; 
+
+.Inter {
+    font-size: 20px;
 }
-.Button-Add-Inter{
+
+.Button-Add-Inter {
     margin-top: 40px;
     margin-right: 44px;
 }
-.Add-Inter{
+
+.Add-Inter {
     width: 307px;
     height: 44px;
     color: white;
@@ -316,10 +326,10 @@ body{
     cursor: pointer;
 }
 
-.Table{
+.Table {
     display: flex;
     width: 100%;
-    flex-direction: column;   
+    flex-direction: column;
 }
 
 
@@ -341,14 +351,17 @@ body{
 .Table th {
     text-align: start;
     padding: 20px 25px 20px 25px;
-     font-weight: normal;
+    font-weight: normal;
 }
 
 Table th .material-symbols-outlined {
     vertical-align: middle;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 49130c41052279f01bac59c61239222850449433
 .Table-Calen td {
     text-align: start;
     padding: 20px 25px 20px 25px;
@@ -358,8 +371,12 @@ Table-Calen td .material-symbols-outlined {
     vertical-align: middle;
 }
 
+<<<<<<< HEAD
 .Table-Head {
 
+=======
+.Table-Calen-Head {
+>>>>>>> 49130c41052279f01bac59c61239222850449433
     background-color: #F1F2F7;
 }
 
@@ -378,11 +395,13 @@ Table-Calen td .material-symbols-outlined {
 
 
 
-.Eyes-Calen{
+.Eyes-Calen {
     cursor: pointer;
     margin-top: 10px;
 }
-.Eyes-Calen :hover{
+
+.Eyes-Calen :hover {
     background-color: #a5a8b8;
-    padding: 5px 5px;;
+    padding: 5px 5px;
+    ;
 }

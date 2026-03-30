@@ -30,6 +30,7 @@ Nous sommes en groupe de 4 + 1 élève en observateur
 Pour démarrer le projet, il faut déjà créer une base de donnée dans laquelle, un jeu d'essai sera nécessaire afin de s'assurer que le projet fonctionne au cours de son développement. 
 Ensuite il faudra commencer par la coque, la structure HTML et CSS, qui permettra d'insérer le plus gros du projet. 
 Il faudra ensuite s'attaquer à la partie PHP, qui permettra de faire la liaison entre les éléments en HTML et la base de donnée. 
+Vous trouverez un exemple de fichier de connexion à la base de donnée dans le fichier `Public/Credentials.example.php`
 
 # Conventions # 
 

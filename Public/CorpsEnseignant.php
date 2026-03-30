@@ -2,7 +2,7 @@
 
 session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Requete.php';
+require_once __DIR__ . '/../Require/Requete.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';
@@ -105,7 +105,7 @@ if (!isset($_SESSION['email'])) {
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="Modules.html" class="Icones">
+                <a href="Modules.php" class="Icones">
                     <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
