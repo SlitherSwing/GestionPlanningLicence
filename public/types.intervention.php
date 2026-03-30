@@ -170,7 +170,7 @@ $count = count($typeinterventions);
                                     </td>
 
                                     <td>
-                                        <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px"
+                                        <a href="TypesIntervention_Cour.php"><span class="Eyes-Calen" style="display: flex;align-items: center;"><svg class="Eyes-Calen" width="25px" height="25px"
                                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
@@ -185,7 +185,7 @@ $count = count($typeinterventions);
                                                         stroke="#000000" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round"></path>
                                                 </g>
-                                            </svg>Accéder à la fiche</span>
+                                            </svg>Accéder à la fiche</span></a>
                                     </td>
 
                                 </tr>

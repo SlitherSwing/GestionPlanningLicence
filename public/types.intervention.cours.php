@@ -35,7 +35,6 @@ if (isset($_POST['typeinter'])) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,60 +47,51 @@ if (isset($_POST['typeinter'])) {
         rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
-
 <body>
-
     <main class="Page">
         <div class="Sidebar-Menu">
             <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
+                <img src="./assets/logo.png" class="Logo">
 
                 <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
                     <p>Enseignement Supérieur</p>
                 </div>
             </div>
-
             <div class="Block-Menu">
-
                 <p class="Block-Title">MENU</p>
 
-                <a href="calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
+                <a href="#" class="Icones">
+                    <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
-                <a href="interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
+                <a href="Interventions.php" class="Icones">
+                    <img src="./assets/Frame.svg" class="logo">
                     Interventions
                 </a>
 
-                <a href="corps.enseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
+                <a href="Corps-Enseignant.php" class="Icones">
+                    <img src="./assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
-
             </div>
-
             <div class="Block-Settings">
-
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="modules.php" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
+                <a href="#" class="Icones">
+                    <img src="./assets/Vector.svg" class="logo">
                     Modules
                 </a>
 
-                <a href="types.intervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
+                <a href="types-Intervention.php" class="Icones">
+                    <img src="./assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
-
             </div>
-
             <div class="Block-Profile">
 
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
+                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <div>
@@ -116,7 +106,6 @@ if (isset($_POST['typeinter'])) {
                 </div>
             </div>
         </div>
-
         <div class="Main-Content">
             <div class="Breadcrumb">
                 <nav>
@@ -125,7 +114,7 @@ if (isset($_POST['typeinter'])) {
                         <li>></li>
                         <li><a href="types.intervention.php">Types-Intervention</a></li>
                         <li>></li>
-                        <li><a href="types.intervention.cours.php">Cour</a></li>
+                        <li><a href="">Cour</a></li>
                     </ol>
                 </nav>
             </div>
@@ -159,10 +148,8 @@ if (isset($_POST['typeinter'])) {
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
-                            <button type="button" onclick="window.location.href='types.intervention.php'">Retour à la
-                                liste</button>
-                            <button type="button"
-                                onclick="window.location.href='types.intervention.supprimer.html'">Supprimer</button>
+                            <a href="" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la liste</a>
+                            <a href="" class="A-button" style="background-color: red;">Supprimer</a>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
@@ -174,5 +161,4 @@ if (isset($_POST['typeinter'])) {
         </div>
     </main>
 </body>
-
 </html>
