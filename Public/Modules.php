@@ -1,18 +1,33 @@
+<?php
+
+session_start();
+require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../Require/Requete.php';
+
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/modules.css" />
-    <link rel="stylesheet" href="../css/menu.css" />
-    <title>Modules</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/modules.css">
+    <title>Corps Enseignant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
-    <section class="Page-Modules">
+    <section class="Page">
 
-        <div class="Sidebar-Menu" height="1938px">
+        <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
                 <img src="assets/Logo.png" class="Logo">
@@ -65,9 +80,15 @@
                 <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
-                    <span class="Username">Stella Ribas</span>
-                    <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    <span class="Role">Administrateur</span>
+                    <div>
+                        <span class="Username">
+                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
+                        </span>
+                        <img src="assets/Chevron-down.svg" class="Chevron-down">
+                    </div>
+                    <span class="Role">
+                        <?= $_SESSION['role'] ?>
+                    </span>
                 </div>
 
             </div>
@@ -77,7 +98,7 @@
 
 
 
-        <div class="Right-Modules">
+        <div style="margin-right: 50px;">
             <section class="Top-Modules">
 
                 <div class="House-Modules"> <img src="assets/maison.png"></div>

@@ -1,51 +1,53 @@
-body{
-    font-family: "Poppins", sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
-.Page-Modules{
-    display: flex;
-    height: 1938px;
-    gap:10px;
-
-}
-.Right-Modules{
-    margin-left: 300px;
-}
-.Top-Modules{
-    height: 57px;
-    width: 1200px;
-    display: flex;
-    gap: 20px;
+.Page-Modules {
+  display: flex;
+  height: 1938px;
+  gap: 10px;
 }
 
-.Top-Modules img{
-    width: 20px;
-    height: auto;
-    margin-top: 17px;
-    cursor: pointer;
+
+.Top-Modules {
+  height: 57px;
+  width: 1200px;
+  display: flex;
+  gap: 20px;
 }
-.Lign-Modules{
+
+.Top-Modules img {
+  width: 20px;
+  height: auto;
+  margin-top: 17px;
+  cursor: pointer;
+}
+
+.Lign-Modules {
   border: none;
   height: 0.5px;
   background-color: rgb(219, 218, 218);
   width: 1200px;
 }
-.Modules-Title{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+
+.Modules-Title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
-.Modules{
-    font-size: 26px;
-    color: #1F384C;
+
+.Modules {
+  font-size: 26px;
+  color: #1F384C;
 }
-.The-Modules{
-    width: 756px;
-    height: 1232px;
-    border: 2px dashed #f1f1f1;
-    border-radius: 8px;
-    padding: 20px;
-    margin-left: 17px;
+
+.The-Modules {
+  width: 756px;
+  height: 1232px;
+  border: 2px dashed #f1f1f1;
+  border-radius: 8px;
+  padding: 20px;
+  margin-left: 17px;
 }
 
 .Arborescence-Modules {
@@ -73,7 +75,7 @@ summary::before {
   transition: transform 0.2s;
 }
 
-details[open] > summary::before {
+details[open]>summary::before {
   transform: rotate(90deg);
 }
 
@@ -103,13 +105,13 @@ li::before {
   border-bottom-left-radius: 8px;
 }
 
-.Add-Modules{
-    width: 160px;
-    height: 40px;
-    font-size: 14px;
-    margin-top: 30px;
-    background-color: #2C416E;
-    border-radius: 8px;
-    color: white;
-    padding-bottom: 5px;
+.Add-Modules {
+  width: 160px;
+  height: 40px;
+  font-size: 14px;
+  margin-top: 30px;
+  background-color: #2C416E;
+  border-radius: 8px;
+  color: white;
+  padding-bottom: 5px;
 }
