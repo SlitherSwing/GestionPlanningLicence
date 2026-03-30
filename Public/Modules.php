@@ -137,7 +137,7 @@ $modules = moduleData($con);
                             </li>
                         </ul>
 
-                    <? end foreach; ?>
+                    <? endforeach; ?>
                     </details>
 
                 </div>
