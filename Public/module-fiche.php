@@ -131,7 +131,7 @@ if (isset($_POST['typeinter'])) {
                 <div class="Heading">
                     <h2>Cours</h2>
                 </div>
-                <div class="Type_intervention_Cour">
+                <div class="module-fiche">
                     <?php if ($message !== '') { ?>
                         <p><?= htmlspecialchars($message) ?></p>
                     <?php } ?>
@@ -141,18 +141,17 @@ if (isset($_POST['typeinter'])) {
                     <form action="" method="post">
                         <div>
                             <div>
-                                <label for="Type_intervention_Cour_Nom">Nom - champ obligatoire</label>
-                                <input id="Type_intervention_Cour_Nom" type="text" placeholder="Cours" name="name"
-                                    value="<?= htmlspecialchars($name) ?>" required>
+                                <label for="Module-Fiche-Code">Code - champ obligatoire</label>
+                                <input id="Module-Fiche-Code" type="text" placeholder="TAILWIND_CSS" name="code"
+                                    value="<?= htmlspecialchars($code) ?>" required>
                             </div>
                             <div>
-                                <label for="Type_intervention_Cour_Code">Code couleur (hexadécimal) - champ
-                                    obligatoire</label>
-                                <input id="Type_intervention_Cour_Code" type="text" name="color" placeholder="#FFFFFF"
-                                    value="<?= htmlspecialchars($color) ?>" required>
+                                <label for="Module-Fiche-Nom">Nom - champ obligatoire</label>
+                                <input id="Module-Fiche-Nom" type="text" name="name" placeholder="Tailwind CSS"
+                                    value="<?= htmlspecialchars($name) ?>" required>
                             </div>
                         </div>
-                        <label for="Type_intervention_Cour_Description">Description - champ obligatoire</label>
+                        <label for="module-fiche-description">Description - champ obligatoire</label>
                         <textarea id="Type_intervention_Cour_Description" type=""
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
