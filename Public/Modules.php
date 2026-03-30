@@ -148,4 +148,3 @@ $modules = moduleData($con);
             </button>
         </div>
     </section>
-</body>
