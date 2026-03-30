@@ -145,8 +145,8 @@ if (isset($_POST['typeinter'])) {
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
-                            <button type="button">Retour à la liste</button>
-                            <button type="button">Supprimer</button>
+                            <a href="" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la liste</a>
+                            <a href="" class="A-button" style="background-color: red;">Supprimer</a>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
