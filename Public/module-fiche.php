@@ -5,25 +5,31 @@ require_once('../Require/Credentials.php');
 require_once('../Require/Requete.php');
 
 $name = $_POST['name'] ?? '';
-$color = $_POST['color'] ?? '';
+$code = $_POST['code'] ?? '';
+$heures = $_POST['heures'] ?? '';
+$parent = $_POST['parent'] ?? '';
 $description = $_POST['description'] ?? '';
 $message = '';
 $error = '';
 
 if (isset($_POST['typeinter'])) {
     $name = trim($name);
-    $color = trim($color);
+    $code = trim($code);
+    $heures = trim($heures);
+    $parent = trim($parent);
     $description = trim($description);
 
-    if ($name === '' || $color === '' || $description === '') {
+    if ($name === '' || $code === '' || $heures === ''|| $parent === ''|| $description === '') {
         $error = "Tous les champs sont obligatoires.";
     } else {
-        $saved = insertTypeIntervention($con, $name, $color, $description);
+        $saved = insertTypeIntervention($con, $name, $code, $heures, $parent, $description);
 
         if ($saved) {
             $message = "Le type d'intervention a bien ete enregistre.";
             $name = '';
-            $color = '';
+            $code = '';
+            $heures = '';
+            $parent = '';
             $description = '';
         } else {
             $error = "L'enregistrement a echoue.";
@@ -150,15 +156,28 @@ if (isset($_POST['typeinter'])) {
                                 <input id="Module-Fiche-Nom" type="text" name="name" placeholder="Tailwind CSS"
                                     value="<?= htmlspecialchars($name) ?>" required>
                             </div>
+                        
+                            <div>
+                                <label for="Module-Fiche-Heures">Nombre d’heures</label>
+                                <input id="Module-Fiche-Heures" type="text" placeholder="14" name="heures"
+                                    value="<?= htmlspecialchars($heures) ?>" required>
+                            </div>
+                        
+                            <div>
+                                <label for="Module-Fiche-Parent">Parent</label>
+                                <input id="Module-Fiche-Parent" type="text" name="parent" placeholder="Développement front"
+                                    value="<?= htmlspecialchars($parent) ?>" required>
+                            </div>
+
                         </div>
-                        <label for="module-fiche-description">Description - champ obligatoire</label>
-                        <textarea id="Type_intervention_Cour_Description" type=""
-                            placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
+                        <label for="Module-Fiche-Description">Description - champ obligatoire</label>
+                        <textarea id="Module-Fiche-Description" type=""
+                            placeholder="Piloter un projet informatique" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
                             <button type="button">Retour à la liste</button>
                             <button type="button">Supprimer</button>
-                            <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
+                            <button id="Module-Fiche-Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
                         </div>
