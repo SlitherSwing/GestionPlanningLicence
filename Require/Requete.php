@@ -87,3 +87,15 @@ function calendarData(PDO $con): array
     $stmt = $con->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function insertTypeIntervention(PDO $con, string $name, string $color, string $description): bool
+{
+    $sql = "INSERT INTO intervention_type (name, color, description) VALUES (:name, :color, :description)";
+    $params = [
+        ':name' => $name,
+        ':color' => $color,
+        ':description' => $description,
+    ];
+    $stmt = $con->prepare($sql);
+    return $stmt->execute($params);
+}
