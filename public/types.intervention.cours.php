@@ -3,29 +3,32 @@ session_start();
 require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 
+// Si les valeurs sont envoyées, on les récupère
 $name = $_POST['name'] ?? '';
 $color = $_POST['color'] ?? '';
 $description = $_POST['description'] ?? '';
 $message = '';
 $error = '';
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['typeinter'])) {
     $name = trim($name);
     $color = trim($color);
     $description = trim($description);
 
+    // Si les champs sont vides, on affiche un message d'erreur
     if ($name === '' || $color === '' || $description === '') {
         $error = "Tous les champs sont obligatoires.";
     } else {
         $saved = insertTypeIntervention($con, $name, $color, $description);
 
         if ($saved) {
-            $message = "Le type d'intervention a bien ete enregistre.";
+            $message = "Le type d'intervention a bien été enregistré.";
             $name = '';
             $color = '';
             $description = '';
         } else {
-            $error = "L'enregistrement a echoue.";
+            $error = "L'enregistrement a échoué.";
         }
     }
 }
@@ -156,8 +159,10 @@ if (isset($_POST['typeinter'])) {
                             placeholder="Cours dispensé par un ou plusieurs intervenants" name="description"
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
-                            <button type="button" onclick="window.location.href='types.intervention.php'">Retour à la liste</button>
-                            <button type="button" onclick="window.location.href='types.intervention.supprimer.html'">Supprimer</button>
+                            <button type="button" onclick="window.location.href='types.intervention.php'">Retour à la
+                                liste</button>
+                            <button type="button"
+                                onclick="window.location.href='types.intervention.supprimer.html'">Supprimer</button>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
