@@ -124,21 +124,23 @@ $modules = moduleData($con);
                 <div class="Arborescence-Modules">
 
 
-                    <details open>
+                    
 
                     <?php foreach ($modules as $row): ?>
+                        <details open>
 
-                        <summary><?= htmlspecialchars($row['name']) ?> (<?=  $row['hours_count'] ?>)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary><?= htmlspecialchars($row['description']) ?></summary>
-                                </details>
-                            </li>
-                        </ul>
+                            <summary><?= htmlspecialchars($row['name']) ?> (<?=  $row['hours_count'] ?>)</summary>
+                            <ul class="List-Modules">
+                                <li>
+                                    <details>
+                                        <summary><?= htmlspecialchars($row['description']) ?></summary>
+                                    </details>
+                                </li>
+                            </ul>
+                        </details>
 
                     <? endforeach; ?>
-                    </details>
+                   
 
                 </div>
 
