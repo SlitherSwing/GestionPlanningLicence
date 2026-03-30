@@ -320,7 +320,6 @@ th {
 
 .Filters {
     display: flex;
-    width: 400px;
     flex-direction: column;
     border-bottom: solid 1px;
     border-color: #FFBD01;
