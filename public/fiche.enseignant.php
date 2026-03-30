@@ -30,11 +30,13 @@ if (!$enseignant) {
     exit();
 }
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Save-Infos'])) {
     $nom = trim($_POST['Last-Name'] ?? '');
     $prenom = trim($_POST['First-Name'] ?? '');
     $email = trim($_POST['Email'] ?? '');
 
+    // Si les champs sont vides, on affiche un message d'erreur
     if ($nom === '' || $prenom === '' || $email === '') {
         $erreur = "Tous les champs doivent être remplis.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -44,6 +46,7 @@ if (isset($_POST['Save-Infos'])) {
         SET last_name = :last_name, first_name = :first_name, email = :email
         WHERE id = :user_id");
 
+        // On met à jour les informations de l'enseignant
         $requeteUpdate->execute([
             'last_name' => $nom,
             'first_name' => $prenom,
@@ -63,6 +66,7 @@ $dateDebut = '';
 $dateFin = '';
 $moduleFiltre = '';
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Filter-Interventions'])) {
     $dateDebut = trim($_POST['Start-Date'] ?? '');
     $dateFin = trim($_POST['End-Date'] ?? '');
