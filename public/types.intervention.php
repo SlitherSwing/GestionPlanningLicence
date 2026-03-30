@@ -170,10 +170,10 @@ $count = count($typeinterventions);
                                     </td>
 
                                     <td>
-                                        <a href="types.intervention.cours.php"><span class="Eyes-Calen"
-                                                style="display: flex;align-items: center;"><svg class="Eyes-Calen"
-                                                    width="25px" height="25px" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
+                                        <a href="types.intervention.cours.php?id=<?= $type['id'] ?>"><span
+                                                class="Eyes-Calen" style="display: flex;align-items: center;"><svg
+                                                    class="Eyes-Calen" width="25px" height="25px" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                         stroke-linejoin="round"></g>
