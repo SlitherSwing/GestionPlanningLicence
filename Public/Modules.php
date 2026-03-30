@@ -129,7 +129,7 @@ $modules = moduleData($con);
                     <?php foreach ($modules as $row): ?>
                         <details open>
 
-                            <summary><?= htmlspecialchars($row['name']) ?> (<?=  $row['hours_count'] ?>)</summary>
+                            <summary><?= htmlspecialchars($row['name']) ?> (<?=  $row['hours_count'] ?>h)</summary>
                             <ul class="List-Modules">
                                 <li>
                                     <details>
