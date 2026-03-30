@@ -4,6 +4,8 @@ session_start();
 require_once __DIR__ . '/../Require/Credentials.php';
 require_once __DIR__ . '/../Require/Requete.php';
 
+$modules = moduleData($con);
+
 ?>
 
 
@@ -121,192 +123,21 @@ require_once __DIR__ . '/../Require/Requete.php';
 
                 <div class="Arborescence-Modules">
 
-                    <details open>
-                        <summary>Gestion de projet - Méthode Agile (63h)</summary>
-                    </details>
 
                     <details open>
-                        <summary>Cadre légal - Droit numérique (21h)</summary>
+
+                    <?php foreach ($modules as $row): ?>
+
+                        <summary><?= htmlspecialchars($row['name']) ?> (<?=  $row['hours_count'] ?>)</summary>
                         <ul class="List-Modules">
                             <li>
                                 <details>
-                                    <summary>RGPD</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Propriété intellectuelle</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>RSE</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Accessibilité</summary>
+                                    <summary><?= htmlspecialchars($row['description']) ?></summary>
                                 </details>
                             </li>
                         </ul>
-                    </details>
 
-                    <details open>
-                        <summary>Eco-Conception (3,5h)</summary>
-                    </details>
-
-                    <details open>
-                        <summary>Anglais - Préparation au TOEIC(17,5h)</summary>
-                    </details>
-
-                    <details open>
-                        <summary>Communication - Soft Skills (28h)</summary>
-                    </details>
-
-                    <details open>
-                        <summary>Devops et Cybersécurité(56h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>Environment de travail(7h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Environment de production(7h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Docker(14h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Git(7h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Devops/Cyber(21h)</summary>
-                                </details>
-                            </li>
-                        </ul>
-                    </details>
-
-                    <details open>
-                        <summary>Retour d'expérience(REX) (3,5h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>Conférence (3,5h)</summary>
-                                </details>
-                            </li>
-                        </ul>
-                    </details>
-
-                    <details open>
-                        <summary>Rédaction de comptes rendus d'activités (14h)</summary>
-                    </details>
-
-                    <details open>
-                        <summary>Ergonomie et maquettage des applications (59h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>User Experience / User Interface (49h)</summary>
-                                    <ul>
-                                        <li>
-                                            <details>
-                                                <summary>Les fondammentaux de l'UX (21h)</summary>
-                                            </details>
-                                        </li>
-                                        <li>
-                                            <details>
-                                                <summary>L'UI et l'UX en mode projet (28h)</summary>
-                                            </details>
-                                        </li>
-                                    </ul>
-                                </details>
-                            </li>
-
-                        </ul>
-                    </details>
-
-                    <details open>
-                        <summary>Architechture des données (10,5h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>Structurer et mettre en place une architecture de base de données(7h)
-                                    </summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>><summary>Monitorer une base de données + performance (3,5h)</summary>
-                                </details>
-                            </li>
-                            <ul>
-                                <li>
-                                    <details>L'UI et l'UX en mode projet (28h)</details>
-                                </li>
-                            </ul>
-                    </details>
-                    </li>
-
-                    </ul>
-                    </details>
-
-                    <details open>
-                        <summary>Développement front (126h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>Tailwind CSS (14h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Javascript (35h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>React (49h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>NextJS (28h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>NextJS (28h)</summary>
-                                </details>
-                            </li>
-                        </ul>
-                    </details>
-
-                    <details open>
-                        <summary>Développement back (112h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary>Mise à niveau de PHP (21h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>PHP Objet (28h)</summary>
-                                </details>
-                            </li>
-                            <li>
-                                <details>
-                                    <summary>Symfony (63h)</summary>
-                                </details>
-                            </li>
-                        </ul>
+                    <? end foreach; ?>
                     </details>
 
                 </div>
@@ -316,4 +147,5 @@ require_once __DIR__ . '/../Require/Requete.php';
                 <p>Ajouter un module</p>
             </button>
         </div>
+    </section>
 </body>

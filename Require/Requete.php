@@ -87,3 +87,11 @@ function calendarData(PDO $con): array
     $stmt = $con->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function moduleData(PDO $con): array
+{
+    $sql = "SELECT * FROM module ORDER BY id DESC";
+    $stmt = $con->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
