@@ -103,7 +103,7 @@ if (isset($_POST['typeinter'])) {
                         <li>></li>
                         <li><a href="TypesIntervention.php">Types-Intervention</a></li>
                         <li>></li>
-                        <li><a href="">Cour</a></li>
+                        <li><a href="">Cours</a></li>
                     </ol>
                 </nav>
             </div>
@@ -138,7 +138,7 @@ if (isset($_POST['typeinter'])) {
                             required><?= htmlspecialchars($description) ?></textarea>
                         <div>
                             <a href="TypesIntervention.php" class="A-button" style="background-color: #F0F0F0;color: black;">Retour à la liste</a>
-                            <a href="" class="A-button" style="background-color: red;">Supprimer</a>
+                            <a href="types-intervention-supprimer.html" class="A-button" style="background-color: red;">Supprimer</a>
                             <button id="Type_intervention_Cour_Submit" name="typeinter" type="submit" value="1">
                                 Enregistrer les informations
                             </button>
