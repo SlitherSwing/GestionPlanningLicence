@@ -182,7 +182,7 @@ $interventions = calendarData($con);
 
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <a href="Modules.html" class="Icones">
+                <a href="Modules.php" class="Icones">
                     <img src="assets/Vector.svg" class="logo">
                     Modules
                 </a>
