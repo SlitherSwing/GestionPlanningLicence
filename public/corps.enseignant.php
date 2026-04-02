@@ -108,7 +108,7 @@ if (!isset($_SESSION['email'])) {
             </form>
         </div>
     </div>
-    
+
     <div class="Page">
 
         <div class="Sidebar-Menu">
@@ -221,7 +221,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Template</p>
+                        <p><?= count($result) ?> enseignants trouvés</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom de famille</th>
@@ -299,7 +299,7 @@ if (!isset($_SESSION['email'])) {
         </div>
     </div>
 
-   
+
 </body>
 
 </html>
