@@ -5,22 +5,8 @@ require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
 
-if (!empty($_POST['NameType'])) {
 
-    $nameType = $_POST['NameType'];
-
-    $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
-    $stmt = $con->prepare($sql);
-    $stmt->execute([':nom' => "%" . $nameType . "%"]);
-
-
-} else {
-
-    $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
-    $stmt = $con->query($sql);
-
-}
-$typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$typeinterventions = filtreTypeIntervention($con, $_GET['NameType'] ?? '');
 
 $count = count($typeinterventions);
 
@@ -67,7 +53,7 @@ $count = count($typeinterventions);
                     <div class="Filters">
                         <p>Filtres</p>
                         <div>
-                            <form method="post">
+                            <form method="get">
                                 <div class="Type-Name">
                                     <label for="NameType">Nom</label>
                                     <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType"

@@ -1,6 +1,11 @@
 <?php
 
 
+/*
+ * Vérifie si un utilisateur est connecté via la session. Redirige vers la page de connexion (index.php) sinon.
+ * Utilisée sur presque toutes les pages protégées (Calendrier, Interventions, Modules, etc.).
+ */
+
 function verifierConnexion()
 {
     if (!isset($_SESSION['email'])) {
@@ -8,6 +13,13 @@ function verifierConnexion()
         exit();
     }
 }
+/*
+ * Récupère les informations d'un utilisateur (via son email) dans la base de données.
+ * Principalement utilisée pour l'authentification (page : index.php).
+ * 
+ * @param string $email Email de l'utilisateur
+ * Retourne un tableau contenant les données de l'utilisateur recherché
+ */
 function findUserByEmail(PDO $con, string $email): array
 {
     $query = $con->prepare("SELECT * FROM user WHERE email =:email");
@@ -16,6 +28,15 @@ function findUserByEmail(PDO $con, string $email): array
     return $query->fetch(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Compte le nombre total d'enseignants correspondant aux filtres fournis.
+ * Utilisée pour gérer la pagination de l'annuaire (page : corps.enseignant.php).
+ * 
+ * @param string $nom Filtre sur le nom de famille
+ * @param string $prenom Filtre sur le prénom
+ * @param string $email Filtre sur l'email
+ * Retourne le nombre d'enseignants correspondant aux filtres
+ */
 function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $email): int
 {
     $sql = "SELECT COUNT(*)
@@ -27,6 +48,9 @@ function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $e
 
     $params = [];
 
+    /*
+     * Filtres sur le nom, le prénom et l'email
+     */
     if ($nom !== '') {
         $sql .= " AND user.last_name = :last_name";
         $params['last_name'] = $nom;
@@ -48,6 +72,17 @@ function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $e
     return (int) $stmt->fetchColumn();
 }
 
+/*
+ * Récupère la liste des enseignants avec pagination et filtrage dynamique.
+ * Utilisée pour afficher le tableau des enseignants (page : corps.enseignant.php).
+ * 
+ * @param string $nom Filtre sur le nom de famille
+ * @param string $prenom Filtre sur le prénom
+ * @param string $email Filtre sur l'email
+ * @param int $limit Nombre maximal de résultats par page
+ * @param int $offset Lignes à ignorer (pour la pagination)
+ * Retourne la liste des enseignants
+ */
 function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $email, int $limit, int $offset): array
 {
     $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
@@ -89,6 +124,12 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Récupère tous les cours/interventions triés par date décroissante.
+ * Utilisée pour l'affichage chronologique global (pages : Calendrier.php, Interventions.php).
+ * 
+ * Retourne la liste intégrale des cours
+ */
 function calendarData(PDO $con): array
 {
     $sql = "SELECT * FROM course ORDER BY start_date DESC";
@@ -96,6 +137,15 @@ function calendarData(PDO $con): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Ajoute un nouveau type d'intervention en base de données.
+ * Utilisée lors de la soumission du formulaire de création (page : types.intervention.cours.php).
+ * 
+ * @param string $name Nom du type d'intervention
+ * @param string $color Code couleur
+ * @param string $description Description de l'intervention
+ * Retourne vrai si l'insertion a réussi, sinon faux
+ */
 function insertTypeIntervention(PDO $con, string $name, string $color, string $description): bool
 {
     $sql = "INSERT INTO intervention_type (name, color, description) VALUES (:name, :color, :description)";
@@ -108,6 +158,13 @@ function insertTypeIntervention(PDO $con, string $name, string $color, string $d
     return $stmt->execute($params);
 }
 
+/*
+ * Récupère les informations génériques (nom, prénom, email) d'un enseignant spécifique.
+ * Utilisée pour afficher l'en-tête du profil d'un intervenant (page : fiche.enseignant.php).
+ * 
+ * @param int $id Identifiant (ID) de l'enseignant (instructor)
+ * Retourne les données du profil de l'enseignant
+ */
 function requeteEnseignant(PDO $con, int $id): array
 {
     $sql = "SELECT instructor.id, user.id AS user_id, user.first_name, user.last_name, user.email
@@ -119,6 +176,13 @@ function requeteEnseignant(PDO $con, int $id): array
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Récupère la liste des modules d'enseignement affectés à cet enseignant.
+ * Utilisée pour l'onglet "Modules liés" d'un enseignant (page : fiche.enseignant.php ou Modules).
+ * 
+ * @param int $id Identifiant (ID) de l'enseignant
+ * Retourne les modules assignés à l'enseignant
+ */
 function requeteModules(PDO $con, int $id): array
 {
     $sql = "SELECT module.id, module.name, module.hours_count
@@ -131,6 +195,16 @@ function requeteModules(PDO $con, int $id): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Récupère l'historique des cours/interventions d'un enseignant ciblé avec option de filtrage.
+ * Utilisée dans l'onglet "Interventions" du profil de l'enseignant (page : fiche.enseignant.php).
+ * 
+ * @param int $id Identifiant (ID) de l'enseignant (instructor)
+ * @param string $dateDebut Sélecteur : à partir de la date
+ * @param string $dateFin Sélecteur : jusqu'à la date
+ * @param string $moduleFiltre Sélecteur : l'ID d'un module en particulier
+ * Retourne les interventions correspondant aux filtres
+ */
 function requeteIntervention(PDO $con, int $id, string $dateDebut, string $dateFin, string $moduleFiltre): array
 {
     $sqlInterventions = "SELECT course.start_date, course.end_date, course.title,
@@ -163,4 +237,29 @@ WHERE course_instructor.instructor_id = :id";
     $requeteInterventions = $con->prepare($sqlInterventions);
     $requeteInterventions->execute($parametres);
     return $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/*
+ * Récupère les types d'intervention, avec possibilité de filtrer sur le nom.
+ * Utilisée pour l'affichage du tableau de gestion des types et de ses filtres (page : types.intervention.php).
+ * 
+ * @param string $name Terme de recherche par nom (si vide, on renvoie tout)
+ * Retourne le catalogue dynamique des types d'intervention
+ */
+function filtreTypeIntervention(PDO $con, string $name): array
+{
+    if (!empty($name)) {
+
+        $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([':nom' => "%" . $name . "%"]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } else {
+
+        $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
+        $stmt = $con->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 }
