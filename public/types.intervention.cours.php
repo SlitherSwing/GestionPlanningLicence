@@ -3,6 +3,8 @@ session_start();
 require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 
+verifierConnexion();
+
 // Si les valeurs sont envoyées, on les récupère
 $name = $_POST['name'] ?? '';
 $color = $_POST['color'] ?? '';
@@ -51,63 +53,7 @@ if (isset($_POST['typeinter'])) {
 
 <body>
     <main class="Page">
-        <div class="Sidebar-Menu">
-            <div class="Block-Patch">
-                <img src="./assets/logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-            <div class="Block-Menu">
-                <p class="Block-Title">MENU</p>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="./assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="Corps-Enseignant.php" class="Icones">
-                    <img src="./assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-            </div>
-            <div class="Block-Settings">
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="#" class="Icones">
-                    <img src="./assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="types-Intervention.php" class="Icones">
-                    <img src="./assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-            </div>
-            <div class="Block-Profile">
-
-                <img src="./assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-            </div>
-        </div>
+        <?php include '../require/sidebar.php'; ?>
         <div class="Main-Content">
             <div class="Breadcrumb">
                 <nav>

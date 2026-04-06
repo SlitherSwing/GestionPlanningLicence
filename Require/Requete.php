@@ -1,5 +1,13 @@
 <?php
 
+
+function verifierConnexion()
+{
+    if (!isset($_SESSION['email'])) {
+        header('Location: index.php');
+        exit();
+    }
+}
 function findUserByEmail(PDO $con, string $email): array
 {
     $query = $con->prepare("SELECT * FROM user WHERE email =:email");
