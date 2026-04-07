@@ -46,6 +46,7 @@ th {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Poppins', sans-serif;
 
 }
 
@@ -309,7 +310,18 @@ th {
 .Heading a:hover {
     cursor: pointer;
 }
-
+.A-button{
+    display: flex;
+    background-color: #2C416E;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    color: white;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+}
 .Content {
     display: flex;
     width: 100%;
@@ -321,7 +333,6 @@ th {
 
 .Filters {
     display: flex;
-    width: 400px;
     flex-direction: column;
     border-bottom: solid 1px;
     border-color: #FFBD01;

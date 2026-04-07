@@ -3,22 +3,10 @@ session_start();
 require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 
-if (!empty($_POST['NameType'])) {
-
-    $nameType = $_POST['NameType'];
-
-    $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
-    $stmt = $con->prepare($sql);
-    $stmt->execute([':nom' => "%" . $nameType . "%"]);
+verifierConnexion();
 
 
-} else {
-
-    $sql = "SELECT * FROM intervention_type ORDER BY name DESC";
-    $stmt = $con->query($sql);
-
-}
-$typeinterventions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$typeinterventions = filtreTypeIntervention($con, $_GET['NameType'] ?? '');
 
 $count = count($typeinterventions);
 
@@ -45,71 +33,7 @@ $count = count($typeinterventions);
 <body>
 
     <main class="Page">
-        <div class="Sidebar-Menu">
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="corps.enseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="modules.php" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="types.intervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-            </div>
-        </div>
-
+        <?php include '../require/sidebar.php'; ?>
         <div class="Main-Content">
             <div class="Breadcrumb">
                 <nav>
@@ -129,7 +53,7 @@ $count = count($typeinterventions);
                     <div class="Filters">
                         <p>Filtres</p>
                         <div>
-                            <form method="post">
+                            <form method="get">
                                 <div class="Type-Name">
                                     <label for="NameType">Nom</label>
                                     <input id="NameType" type="text" placeholder="Saisissez le Nom" name="NameType"
@@ -170,22 +94,24 @@ $count = count($typeinterventions);
                                     </td>
 
                                     <td>
-                                        <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px"
-                                                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round"></g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
-                                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <path
-                                                        d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
-                                                        stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </g>
-                                            </svg>Accéder à la fiche</span>
+                                        <a href="types.intervention.cours.php?id=<?= $type['id'] ?>"><span
+                                                class="Eyes-Calen" style="display: flex;align-items: center;"><svg
+                                                    class="Eyes-Calen" width="25px" height="25px" viewBox="0 0 24 24"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
+                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                        <path
+                                                            d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z"
+                                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>Accéder à la fiche</span></a>
                                     </td>
 
                                 </tr>
