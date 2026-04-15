@@ -14,7 +14,20 @@ $limit = 10;
 // On renvoi ici les gens non connectés
 verifierConnexion();
 
-// Si le formulaire a été envoyé, on récupère les valeurs saisies
+// Si le formulaire d'ajout a été soumis, on insère le nouvel enseignant
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nomAjout = trim($_POST['nom'] ?? '');
+    $prenomAjout = trim($_POST['prenom'] ?? '');
+    $emailAjout = trim($_POST['email'] ?? '');
+
+    if ($nomAjout !== '' && $prenomAjout !== '' && $emailAjout !== '') {
+        insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
+        header('Location: corps.enseignant.php');
+        exit();
+    }
+}
+
+// Si le formulaire de filtre a été envoyé, on récupère les valeurs saisies
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $nom = trim($_GET['Name'] ?? '');
     $prenom = trim($_GET['First-Name'] ?? '');
@@ -82,18 +95,19 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
             <form action="" method="post">
                 <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
-                        <label for="Ajout-intervention-Date-Début">Nom de famille - champ obligatoire</label>
-                        <input id="Ajout-intervention-Date-Début" type="text">
+                        <label for="Ajout-Enseignant-Nom">Nom de famille - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Nom" type="text" name="nom" required>
                     </div>
                     <div>
-                        <label for="Ajout-intervention-Date-Fin">Prénom - champ obligatoire</label>
-                        <input id="Ajout-intervention-Date-Fin" type="text">
+                        <label for="Ajout-Enseignant-Prenom">Prénom - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Prenom" type="text" name="prenom" required>
                     </div>
                 </div>
 
                 <div>
-                    <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez une adresse mail">
+                    <label for="Ajout-Enseignant-Email">Email</label>
+                    <input id="Ajout-Enseignant-Email" type="email" name="email"
+                        placeholder="Saisissez une adresse mail" required>
                 </div>
 
                 <div class="Modal-Bottom">

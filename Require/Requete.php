@@ -39,11 +39,11 @@ function findUserByEmail(PDO $con, string $email): array
  */
 function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $email): int
 {
-    $sql = "SELECT COUNT(*)
+    $sql = "SELECT COUNT(DISTINCT instructor.id)
             FROM instructor
             INNER JOIN user ON user.id = instructor.user_id
-            INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
-            INNER JOIN module ON module.id = instructor_module.module_id
+            LEFT JOIN instructor_module ON instructor_module.instructor_id = instructor.id
+            LEFT JOIN module ON module.id = instructor_module.module_id
             WHERE 1=1";
 
     $params = [];
@@ -88,8 +88,8 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
     $sql = "SELECT instructor.id, user.last_name, user.first_name, user.email, module.name, module.hours_count
             FROM instructor
             INNER JOIN user ON user.id = instructor.user_id
-            INNER JOIN instructor_module ON instructor_module.instructor_id = instructor.id
-            INNER JOIN module ON module.id = instructor_module.module_id
+            LEFT JOIN instructor_module ON instructor_module.instructor_id = instructor.id
+            LEFT JOIN module ON module.id = instructor_module.module_id
             WHERE 1=1";
 
     $params = [];
@@ -240,9 +240,41 @@ WHERE course_instructor.instructor_id = :id";
 }
 
 /*
+ * Insère un nouvel enseignant dans la base de données.
+ * Utilisée lors de la soumission du formulaire d'ajout (page : corps.enseignant.php).
+ *
+ * @param string $nom Nom de famille
+ * @param string $prenom Prénom
+ * @param string $email Adresse email
+ * Retourne l'ID de l'enseignant inséré, ou faux en cas d'échec
+ */
+function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email): bool
+{
+    $sql = "INSERT INTO user (last_name, first_name, email, password, role) VALUES (:last_name, :first_name, :email, :password, :role)";
+    $params = [
+        ':last_name' => $nom,
+        ':first_name' => $prenom,
+        ':email' => $email,
+        ':password' => password_hash('default123', PASSWORD_DEFAULT),
+        ':role' => 'instructor',
+    ];
+    $stmt = $con->prepare($sql);
+    $result = $stmt->execute($params);
+
+    if ($result) {
+        $userId = $con->lastInsertId();
+        $sql = "INSERT INTO instructor (user_id) VALUES (:user_id)";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([':user_id' => $userId]);
+    }
+
+    return $result;
+}
+
+/*
  * Récupère les types d'intervention, avec possibilité de filtrer sur le nom.
  * Utilisée pour l'affichage du tableau de gestion des types et de ses filtres (page : types.intervention.php).
- * 
+ *
  * @param string $name Terme de recherche par nom (si vide, on renvoie tout)
  * Retourne le catalogue dynamique des types d'intervention
  */
