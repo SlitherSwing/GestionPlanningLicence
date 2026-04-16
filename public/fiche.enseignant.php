@@ -1,12 +1,10 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
-}
+verifierConnexion();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $tab = isset($_GET['tab']) ? $_GET['tab'] : 'infos';
@@ -18,27 +16,24 @@ if ($tab !== 'interventions') {
 }
 
 if ($id <= 0) {
-    header('Location: CorpsEnseignant.php');
+    header('Location: corps.enseignant.php');
     exit();
 }
 
-$requeteEnseignant = $con->prepare("SELECT instructor.id, user.id AS user_id, user.first_name, user.last_name, user.email
-FROM instructor
-INNER JOIN user ON user.id = instructor.user_id
-WHERE instructor.id = :id");
-$requeteEnseignant->execute(['id' => $id]);
-$enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
 
+$enseignant = requeteEnseignant($con, $id);
 if (!$enseignant) {
-    header('Location: CorpsEnseignant.php');
+    header('Location: corps.enseignant.php');
     exit();
 }
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Save-Infos'])) {
     $nom = trim($_POST['Last-Name'] ?? '');
     $prenom = trim($_POST['First-Name'] ?? '');
     $email = trim($_POST['Email'] ?? '');
 
+    // Si les champs sont vides, on affiche un message d'erreur
     if ($nom === '' || $prenom === '' || $email === '') {
         $erreur = "Tous les champs doivent être remplis.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -48,6 +43,7 @@ if (isset($_POST['Save-Infos'])) {
         SET last_name = :last_name, first_name = :first_name, email = :email
         WHERE id = :user_id");
 
+        // On met à jour les informations de l'enseignant
         $requeteUpdate->execute([
             'last_name' => $nom,
             'first_name' => $prenom,
@@ -57,23 +53,17 @@ if (isset($_POST['Save-Infos'])) {
 
         $message = "Les informations ont bien été enregistrées.";
 
-        $requeteEnseignant->execute(['id' => $id]);
-        $enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
+        $enseignant = requeteEnseignant($con, $id);
     }
 }
 
-$requeteModules = $con->prepare("SELECT module.id, module.name, module.hours_count
-FROM instructor_module
-INNER JOIN module ON module.id = instructor_module.module_id
-WHERE instructor_module.instructor_id = :id
-ORDER BY module.name");
-$requeteModules->execute(['id' => $id]);
-$modules = $requeteModules->fetchAll(PDO::FETCH_ASSOC);
+$modules = requeteModules($con, $id);
 
 $dateDebut = '';
 $dateFin = '';
 $moduleFiltre = '';
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Filter-Interventions'])) {
     $dateDebut = trim($_POST['Start-Date'] ?? '');
     $dateFin = trim($_POST['End-Date'] ?? '');
@@ -81,37 +71,7 @@ if (isset($_POST['Filter-Interventions'])) {
     $tab = 'interventions';
 }
 
-$sqlInterventions = "SELECT course.start_date, course.end_date, course.title,
-module.name AS module_name, intervention_type.name AS type_name, course.remotely
-FROM course
-INNER JOIN course_instructor ON course_instructor.course_id = course.id
-INNER JOIN module ON module.id = course.module_id
-INNER JOIN intervention_type ON intervention_type.id = course.intervention_type_id
-WHERE course_instructor.instructor_id = :id";
-
-$parametres = ['id' => $id];
-
-if ($dateDebut !== '') {
-    $sqlInterventions .= " AND course.start_date >= :date_debut";
-    $parametres['date_debut'] = $dateDebut . ' 00:00:00';
-}
-
-if ($dateFin !== '') {
-    $sqlInterventions .= " AND course.end_date <= :date_fin";
-    $parametres['date_fin'] = $dateFin . ' 23:59:59';
-}
-
-if ($moduleFiltre !== '') {
-    $sqlInterventions .= " AND course.module_id = :module_id";
-    $parametres['module_id'] = $moduleFiltre;
-}
-
-$sqlInterventions .= " ORDER BY course.start_date ASC";
-
-$requeteInterventions = $con->prepare($sqlInterventions);
-$requeteInterventions->execute($parametres);
-$interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
-
+$interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFiltre);
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +80,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Fiche Enseignant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,81 +93,14 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
                     <li>></li>
                     <li><?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?>
                     </li>
@@ -247,13 +140,13 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="Teacher-Tabs">
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
                           echo 'Active-Tab';
                       } ?>">
                         Informations générales
                     </a>
 
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
                           echo 'Active-Tab';
                       } ?>">
                         Interventions
@@ -273,7 +166,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                         <div class="Teacher-Card">
                             <p>Informations générales</p>
 
-                            <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+                            <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Last-Name">Nom de famille - champ obligatoire</label>
@@ -312,7 +205,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                         <div class="Filters">
                             <p>Filtres</p>
                             <div>
-                                <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=interventions">
+                                <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=interventions">
                                     <div>
                                         <label for="Start-Date">Date de début</label>
                                         <input id="Start-Date" type="date" name="Start-Date"

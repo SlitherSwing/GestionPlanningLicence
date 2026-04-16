@@ -1,12 +1,9 @@
 <?php
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
-}
+verifierConnexion();
 
 $interventions = calendarData($con);
 
@@ -22,7 +19,7 @@ $interventions = calendarData($con);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -34,83 +31,14 @@ $interventions = calendarData($con);
 <body>
     <section class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><span class="material-symbols-outlined">home</span></li>
+                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="Calendrier.php">Calendrier</a></li>
+                    <li><a href="calendrier.php">Calendrier</a></li>
                 </ol>
             </nav>
             <div class="Main">

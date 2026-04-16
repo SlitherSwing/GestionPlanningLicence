@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
 // Variables utilisées pour stocker les requêtes de l'utilisateur
 $nom = '';
@@ -12,40 +12,48 @@ $offset = 0;
 $limit = 10;
 
 // On renvoi ici les gens non connectés
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
+verifierConnexion();
 
-} else {
-    // Si le formulaire a été envoyé, on récupère les valeurs saisies
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $nom = trim($_GET['Name'] ?? '');
-        $prenom = trim($_GET['First-Name'] ?? '');
-        $email = trim($_GET['Email'] ?? '');
+// Si le formulaire d'ajout a été soumis, on insère le nouvel enseignant
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nomAjout = trim($_POST['nom'] ?? '');
+    $prenomAjout = trim($_POST['prenom'] ?? '');
+    $emailAjout = trim($_POST['email'] ?? '');
+
+    if ($nomAjout !== '' && $prenomAjout !== '' && $emailAjout !== '') {
+        insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
+        header('Location: corps.enseignant.php');
+        exit();
     }
-
-    // Si la superglobale $_GET["page"] existe, on récupère la valeur de la page, sinon on lui assigne la valeur 1
-    if (isset($_GET["page"])) {
-        $page = (int) $_GET["page"];
-    } else {
-        $page = 1;
-    }
-
-    // Si la page est inférieure à 1, on lui assigne la valeur 1
-    if ($page < 1) {
-        $page = 1;
-    }
-
-    // On calcule les éléments à afficher sur la page
-    $offset = ($page - 1) * $limit;
-
-    $totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
-    $totalPages = ceil($totalResultats / $limit);
-
-    // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
-    $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 }
 
+// Si le formulaire de filtre a été envoyé, on récupère les valeurs saisies
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $nom = trim($_GET['Name'] ?? '');
+    $prenom = trim($_GET['First-Name'] ?? '');
+    $email = trim($_GET['Email'] ?? '');
+}
+
+// Si la superglobale $_GET["page"] existe, on récupère la valeur de la page, sinon on lui assigne la valeur 1
+if (isset($_GET["page"])) {
+    $page = (int) $_GET["page"];
+} else {
+    $page = 1;
+}
+
+// Si la page est inférieure à 1, on lui assigne la valeur 1
+if ($page < 1) {
+    $page = 1;
+}
+
+// On calcule les éléments à afficher sur la page
+$offset = ($page - 1) * $limit;
+
+$totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
+$totalPages = ceil($totalResultats / $limit);
+
+// On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
+$result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 ?>
 
 
@@ -56,7 +64,7 @@ if (!isset($_SESSION['email'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Corps Enseignant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,89 +75,65 @@ if (!isset($_SESSION['email'])) {
 </head>
 
 <body>
-    <div class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
+    <div class="Modal-Screen" id="Modal-Ajout">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3>Ajouter un enseignant</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
                 </div>
             </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
+        </div>
+        <div>
+            <form action="" method="post">
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+                    <div>
+                        <label for="Ajout-Enseignant-Nom">Nom de famille - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Nom" type="text" name="nom" required>
+                    </div>
+                    <div>
+                        <label for="Ajout-Enseignant-Prenom">Prénom - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Prenom" type="text" name="prenom" required>
+                    </div>
+                </div>
 
                 <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
+                    <label for="Ajout-Enseignant-Email">Email</label>
+                    <input id="Ajout-Enseignant-Email" type="email" name="email"
+                        placeholder="Saisissez une adresse mail" required>
                 </div>
 
-            </div>
-
+                <div class="Modal-Bottom">
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button>Confirmer</button>
+                </div>
+            </form>
         </div>
+    </div>
 
+    <div class="Page">
+
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
             <nav class="Breadcrumb">
                 <ol>
-                    <li><span class="material-symbols-outlined">home</span></li>
+                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
                 </ol>
             </nav>
             <div class="Main">
                 <div class="Heading">
                     <h2>Corps enseignant</h2>
-                    <button>Ajouter un enseignant</button>
+                    <button><a href="#Modal-Ajout">Ajouter un enseignant</a></button>
                 </div>
                 <div class="Content">
                     <div class="Filters">
@@ -179,7 +163,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Template</p>
+                        <p><?= count($result) ?> enseignants trouvés</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom de famille</th>
@@ -201,7 +185,7 @@ if (!isset($_SESSION['email'])) {
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
                                         <td class="Table-Structure"><a
-                                                href="FicheEnseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
+                                                href="fiche.enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
                                                 <div class="Table-Link"><span class="material-symbols-outlined">
                                                         visibility
                                                     </span>
@@ -220,7 +204,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
                                     <a class="Pagination-Link"
-                                        href="CorpsEnseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Précédent
                                     </a>
                                 <?php } ?>
@@ -236,7 +220,7 @@ if (!isset($_SESSION['email'])) {
                                     ?>
 
                                     <a class="<?= $classePagination ?>"
-                                        href="CorpsEnseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         <?= $i ?>
                                     </a>
                                 <?php } ?>
@@ -244,7 +228,7 @@ if (!isset($_SESSION['email'])) {
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
                                     <a class="Pagination-Link"
-                                        href="CorpsEnseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
                                         Suivant
                                     </a>
                                 <?php } ?>
@@ -256,6 +240,8 @@ if (!isset($_SESSION['email'])) {
             </div>
         </div>
     </div>
+
+
 </body>
 
 </html>
