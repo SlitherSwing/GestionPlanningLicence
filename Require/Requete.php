@@ -20,7 +20,7 @@ function verifierConnexion()
  * @param string $email Email de l'utilisateur
  * Retourne un tableau contenant les données de l'utilisateur recherché
  */
-function findUserByEmail(PDO $con, string $email): array
+function findUserByEmail(PDO $con, string $email): array|false
 {
     $query = $con->prepare("SELECT * FROM user WHERE email =:email");
     $query->bindParam(':email', $email);
