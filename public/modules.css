@@ -44,10 +44,10 @@
 
 .The-Modules {
   width: 756px;
-  height: 1232px;
   border: 2px dashed #f1f1f1;
   border-radius: 8px;
   padding: 20px;
+  padding-bottom: 40px;
   margin-left: 17px;
 }
 

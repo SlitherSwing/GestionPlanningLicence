@@ -137,6 +137,7 @@ function calendarData(PDO $con): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 /*
  * Ajoute un nouveau type d'intervention en base de données.
  * Utilisée lors de la soumission du formulaire de création (page : types.intervention.cours.php).
@@ -295,3 +296,12 @@ function filtreTypeIntervention(PDO $con, string $name): array
 
     }
 }
+
+function moduleData(PDO $con): array
+{
+    $sql = "SELECT * FROM module ORDER BY id DESC";
+    $stmt = $con->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
