@@ -12,40 +12,48 @@ $offset = 0;
 $limit = 10;
 
 // On renvoi ici les gens non connectés
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
+verifierConnexion();
 
-} else {
-    // Si le formulaire a été envoyé, on récupère les valeurs saisies
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $nom = trim($_GET['Name'] ?? '');
-        $prenom = trim($_GET['First-Name'] ?? '');
-        $email = trim($_GET['Email'] ?? '');
+// Si le formulaire d'ajout a été soumis, on insère le nouvel enseignant
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nomAjout = trim($_POST['nom'] ?? '');
+    $prenomAjout = trim($_POST['prenom'] ?? '');
+    $emailAjout = trim($_POST['email'] ?? '');
+
+    if ($nomAjout !== '' && $prenomAjout !== '' && $emailAjout !== '') {
+        insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
+        header('Location: corps.enseignant.php');
+        exit();
     }
-
-    // Si la superglobale $_GET["page"] existe, on récupère la valeur de la page, sinon on lui assigne la valeur 1
-    if (isset($_GET["page"])) {
-        $page = (int) $_GET["page"];
-    } else {
-        $page = 1;
-    }
-
-    // Si la page est inférieure à 1, on lui assigne la valeur 1
-    if ($page < 1) {
-        $page = 1;
-    }
-
-    // On calcule les éléments à afficher sur la page
-    $offset = ($page - 1) * $limit;
-
-    $totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
-    $totalPages = ceil($totalResultats / $limit);
-
-    // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
-    $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 }
 
+// Si le formulaire de filtre a été envoyé, on récupère les valeurs saisies
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $nom = trim($_GET['Name'] ?? '');
+    $prenom = trim($_GET['First-Name'] ?? '');
+    $email = trim($_GET['Email'] ?? '');
+}
+
+// Si la superglobale $_GET["page"] existe, on récupère la valeur de la page, sinon on lui assigne la valeur 1
+if (isset($_GET["page"])) {
+    $page = (int) $_GET["page"];
+} else {
+    $page = 1;
+}
+
+// Si la page est inférieure à 1, on lui assigne la valeur 1
+if ($page < 1) {
+    $page = 1;
+}
+
+// On calcule les éléments à afficher sur la page
+$offset = ($page - 1) * $limit;
+
+$totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
+$totalPages = ceil($totalResultats / $limit);
+
+// On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
+$result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 ?>
 
 
@@ -87,18 +95,19 @@ if (!isset($_SESSION['email'])) {
             <form action="" method="post">
                 <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
                     <div>
-                        <label for="Ajout-intervention-Date-Début">Nom de famille - champ obligatoire</label>
-                        <input id="Ajout-intervention-Date-Début" type="text">
+                        <label for="Ajout-Enseignant-Nom">Nom de famille - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Nom" type="text" name="nom" required>
                     </div>
                     <div>
-                        <label for="Ajout-intervention-Date-Fin">Prénom - champ obligatoire</label>
-                        <input id="Ajout-intervention-Date-Fin" type="text">
+                        <label for="Ajout-Enseignant-Prenom">Prénom - champ obligatoire</label>
+                        <input id="Ajout-Enseignant-Prenom" type="text" name="prenom" required>
                     </div>
                 </div>
 
                 <div>
-                    <label for="Ajout-intervention-Titre">Email - champ obligatoire</label>
-                    <input id="Ajout-intervention-Titre" type="text" placeholder="Saisissez une adresse mail">
+                    <label for="Ajout-Enseignant-Email">Email</label>
+                    <input id="Ajout-Enseignant-Email" type="email" name="email"
+                        placeholder="Saisissez une adresse mail" required>
                 </div>
 
                 <div class="Modal-Bottom">
@@ -108,77 +117,10 @@ if (!isset($_SESSION['email'])) {
             </form>
         </div>
     </div>
-    
+
     <div class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="corps.enseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="modules.php" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="types.intervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
             <nav class="Breadcrumb">
@@ -221,7 +163,7 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                     <div class="Table">
-                        <p>Template</p>
+                        <p><?= count($result) ?> enseignants trouvés</p>
                         <table>
                             <tr class="Table-Head">
                                 <th>Nom de famille</th>
@@ -299,7 +241,7 @@ if (!isset($_SESSION['email'])) {
         </div>
     </div>
 
-   
+
 </body>
 
 </html>
