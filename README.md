@@ -39,19 +39,55 @@ Statuts utilisés :
 
 - `opérationnel` : fonctionnalité branchée et exploitable dans le dépôt actuel ;
 - `partiel` : fonctionnalité entamée mais incomplète ;
-- `maquette` : écran présent surtout pour la structure ou le design.
+- `maquette` : écran présent surtout pour la structure ou le design ;
+- `manquant` : fonctionnalité prévue mais non implémentée à ce jour.
 
-Fonctionnalités observables dans le dépôt :
+### Authentification et navigation
 
-- `opérationnel` : portail de connexion avec vérification du mot de passe hashé ;
-- `opérationnel` : consultation du corps enseignant avec filtres et pagination ;
-- `opérationnel` : fiche enseignant avec modification des informations générales ;
-- `opérationnel` : consultation filtrable des interventions d'un enseignant ;
-- `opérationnel` : consultation du calendrier des interventions ;
-- `opérationnel` : filtrage des types d'intervention ;
-- `partiel` : page globale des interventions, avec structure d'interface et modales mais sans gestion complète branchée ;
-- `partiel` : page de modules, présente côté interface mais encore statique ;
-- `maquette` : écrans de suppression de module et de type d'intervention.
+- `opérationnel` : portail de connexion avec vérification du mot de passe hashé via `password_verify` ;
+- `opérationnel` : message d'erreur générique en cas d'identifiants invalides (sécurité par non-divulgation) ;
+- `opérationnel` : protection des pages internes via `verifierConnexion()` (redirection vers `index.php` si pas de session) ;
+- `opérationnel` : sidebar commune incluse sur toutes les pages protégées avec affichage du profil utilisateur ;
+- `opérationnel` : fil d'Ariane sur les principales pages ;
+- `manquant` : déconnexion (aucun lien ni script `logout.php` dans le dépôt).
+
+### Corps enseignant
+
+- `opérationnel` : liste des enseignants avec filtres dynamiques (nom, prénom, email) et pagination ;
+- `opérationnel` : ajout d'un enseignant via la modale (insertion en `user` + `instructor` avec mot de passe par défaut hashé) ;
+- `opérationnel` : fiche enseignant avec modification des informations générales (nom, prénom, email) et validation de l'email ;
+- `opérationnel` : onglet "Interventions" de la fiche enseignant, avec filtres date début / date fin / module ;
+- `opérationnel` : affichage des modules enseignés sur la fiche ;
+- `partiel` : colonne "Nombre d'heures" qui affiche le `hours_count` du module et non un cumul réel par enseignant ;
+- `partiel` : champ "Modules enseignés" présent dans la fiche infos mais non traité par le UPDATE serveur ;
+- `manquant` : suppression d'un enseignant (aucun bouton ni fonction).
+
+### Calendrier et interventions
+
+- `opérationnel` : consultation du calendrier des interventions (lecture depuis `course`, tri par date décroissante) ;
+- `partiel` : page globale des interventions — la liste s'affiche, mais les colonnes "Module" et "Type" affichent les IDs au lieu des noms, et la colonne "Intervenants" affiche "Non défini" en dur ;
+- `partiel` : modale d'ajout d'intervention — l'interface est présente mais les sélecteurs de module et de type ne sont pas alimentés ;
+- `partiel` : filtres de la page Interventions — les inputs existent mais leurs valeurs ne sont pas exploitées côté serveur ;
+- `maquette` : modale de modification d'intervention (présente dans le HTML mais pas reliée à un parcours) ;
+- `manquant` : persistance de l'ajout d'une intervention en base (aucune fonction `insertCourse`) ;
+- `manquant` : modification d'une intervention (aucune fonction `updateCourse`) ;
+- `manquant` : suppression d'une intervention (bouton présent dans la modale mais sans handler).
+
+### Modules
+
+- `partiel` : page de modules — la liste affichée est intégralement statique en HTML, sans lecture en base ;
+- `manquant` : ajout d'un module branché à la base (le formulaire de `module-fiche.php` appelle par erreur `insertTypeIntervention` avec un nombre d'arguments incorrect) ;
+- `manquant` : modification d'un module ;
+- `maquette` : écran de suppression d'un module (`module-supprimer.html` non relié à du code serveur).
+
+### Types d'intervention
+
+- `opérationnel` : liste des types d'intervention chargée depuis `intervention_type` ;
+- `opérationnel` : filtrage par nom (recherche LIKE) ;
+- `opérationnel` : ajout d'un type d'intervention (insertion en base + validation des champs obligatoires) ;
+- `manquant` : modification d'un type existant (la fiche ne charge pas le type ciblé et reste en mode "création") ;
+- `maquette` : écran de suppression d'un type d'intervention (`types.intervention.supprimer.html` non relié à du code serveur).
+
 
 ## Démarrer le projet
 
