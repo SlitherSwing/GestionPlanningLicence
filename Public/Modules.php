@@ -1,10 +1,10 @@
 <?php
 
-session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+    session_start();
+    require_once __DIR__ . '/../Require/Credentials.php';
+    require_once __DIR__ . '/../Require/Requete.php';
 
-$modules = moduleData($con);
+    $modules = moduleData($con);
 
 ?>
 
