@@ -190,6 +190,14 @@ $interventions = calendarData($con);
                     <div class="Table">
                         <p>Interventions</p>
                         <table>
+                            <tr class="Table-Head">
+                                <th>Date de l'intervention</th>
+                                <th>Module & Titre</th>
+                                <th>Type</th>
+                                <th>Intervenants</th>
+                                <th>Visio</th>
+                                <th></th>
+                            </tr>
                             <?php foreach ($interventions as $row): ?>
 
                                 <tr>
@@ -201,12 +209,11 @@ $interventions = calendarData($con);
                                     </td>
 
                                     <td>
-                                        Module ID: <?= htmlspecialchars($row['module_id']) ?><br>
                                         <?= htmlspecialchars($row['title']) ?>
                                     </td>
 
                                     <td>
-                                        Type ID: <?= htmlspecialchars($row['intervention_type_id']) ?>
+                                        <?= htmlspecialchars($row['intervention_type_id']) ?>
                                     </td>
 
 
