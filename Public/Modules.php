@@ -6,7 +6,7 @@ require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 verifierConnexion();
 
-    session_start();
+   
     require_once __DIR__ . '/../Require/Credentials.php';
     require_once __DIR__ . '/../Require/Requete.php';
 
