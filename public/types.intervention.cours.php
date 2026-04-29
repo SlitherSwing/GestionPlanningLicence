@@ -62,7 +62,7 @@ if (isset($_POST['typeinter'])) {
                         <li>></li>
                         <li><a href="types.intervention.php">Types-Intervention</a></li>
                         <li>></li>
-                        <li><a href="">Cour</a></li>
+                        <li><a href="">Cours</a></li>
                     </ol>
                 </nav>
             </div>
