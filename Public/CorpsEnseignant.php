@@ -58,19 +58,23 @@ if (!isset($_SESSION['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Corps Enseignant</title>
+   <!-- Import de la police Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- Import des icônes Google -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
     <div class="Page">
+        <!-- Conteneur principal de la page -->
 
+        <!-- MENU LATÉRAL -->
         <div class="Sidebar-Menu">
 
+            <!-- Bloc logo + nom du lycée -->
             <div class="Block-Patch">
                 <img src="assets/Logo.png" class="Logo">
 
@@ -80,10 +84,11 @@ if (!isset($_SESSION['email'])) {
                 </div>
             </div>
 
+            <!-- MENU PRINCIPAL -->
             <div class="Block-Menu">
-
                 <p class="Block-Title">MENU</p>
 
+                <!-- Liens de navigation -->
                 <a href="Calendrier.php" class="Icones">
                     <img src="assets/Calendar.svg" class="logo">
                     Calendrier
@@ -98,11 +103,10 @@ if (!isset($_SESSION['email'])) {
                     <img src="assets/Board.svg" class="logo">
                     Corps enseignant
                 </a>
-
             </div>
 
+            <!-- PARAMÈTRES -->
             <div class="Block-Settings">
-
                 <p class="Block-Title">PARAMÉTRAGE</p>
 
                 <a href="Modules.html" class="Icones">
@@ -114,31 +118,33 @@ if (!isset($_SESSION['email'])) {
                     <img src="assets/Chart.svg" class="logo">
                     Types d'intervention
                 </a>
-
             </div>
 
+            <!-- PROFIL UTILISATEUR -->
             <div class="Block-Profile">
-
                 <img src="assets/ProfilePicture.png" class="ProfilePicture">
 
                 <div>
                     <div>
                         <span class="Username">
+                            <!-- Affiche le prénom + nom depuis la session -->
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                         </span>
                         <img src="assets/Chevron-down.svg" class="Chevron-down">
                     </div>
                     <span class="Role">
+                        <!-- Affiche le rôle de l'utilisateur -->
                         <?= $_SESSION['role'] ?>
                     </span>
                 </div>
-
             </div>
 
         </div>
 
-
+        <!-- CONTENU PRINCIPAL -->
         <div class="Main-Content">
+
+            <!-- FIL D’ARIANE (navigation) -->
             <nav class="Breadcrumb">
                 <ol>
                     <li><span class="material-symbols-outlined">home</span></li>
@@ -146,67 +152,90 @@ if (!isset($_SESSION['email'])) {
                     <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
                 </ol>
             </nav>
+
             <div class="Main">
+
+                <!-- TITRE + BOUTON -->
                 <div class="Heading">
                     <h2>Corps enseignant</h2>
                     <button>Ajouter un enseignant</button>
                 </div>
+
                 <div class="Content">
+
+                    <!-- FILTRES DE RECHERCHE -->
                     <div class="Filters">
                         <p>Filtres</p>
-                        <div>
-                            <form method="get">
-                                <div>
-                                    <label for="Name">Nom de famille</label>
-                                    <input id="Name" type="search" placeholder="Saisissez le nom de famille" name="Name"
-                                        value="<?= htmlspecialchars($nom) ?>">
-                                </div>
-                                <div>
-                                    <label for="First-Name">Prénom</label>
-                                    <input id="First-Name" type="search" placeholder="Saisissez le prénom"
-                                        name="First-Name" value="<?= htmlspecialchars($prenom) ?>">
-                                </div>
-                                <div>
-                                    <label for="Email">Email</label>
-                                    <input id="Email" type="search" placeholder="Saisissez l'email" name="Email"
-                                        value="<?= htmlspecialchars($email) ?>">
-                                </div>
-                                <div>
-                                    <label for="Submit"></label>
-                                    <input id="Submit" type="submit" value="Filtrer">
-                                </div>
-                            </form>
-                        </div>
+
+                        <!-- Formulaire en GET pour filtrer -->
+                        <form method="get">
+
+                            <!-- Filtre nom -->
+                            <div>
+                                <label for="Name">Nom de famille</label>
+                                <input id="Name" type="search" name="Name"
+                                    value="<?= htmlspecialchars($nom) ?>">
+                            </div>
+
+                            <!-- Filtre prénom -->
+                            <div>
+                                <label for="First-Name">Prénom</label>
+                                <input id="First-Name" type="search" name="First-Name"
+                                    value="<?= htmlspecialchars($prenom) ?>">
+                            </div>
+
+                            <!-- Filtre email -->
+                            <div>
+                                <label for="Email">Email</label>
+                                <input id="Email" type="search" name="Email"
+                                    value="<?= htmlspecialchars($email) ?>">
+                            </div>
+
+                            <!-- Bouton submit -->
+                            <div>
+                                <input type="submit" value="Filtrer">
+                            </div>
+
+                        </form>
                     </div>
+
+                    <!-- TABLEAU DES ENSEIGNANTS -->
                     <div class="Table">
                         <p>Enseignants</p>
+
                         <table>
+                            <!-- En-tête du tableau -->
                             <tr class="Table-Head">
-                                <th>Nom de famille</th>
+                                <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Modules enseignés</th>
-                                <th>Nombre d'heures</th>
+                                <th>Modules</th>
+                                <th>Heures</th>
                                 <th>Lien</th>
                             </tr>
+
+                            <!-- Vérifie s'il n'y a aucun résultat -->
                             <?php if ($result === []) { ?>
                                 <tr>
-                                    <td class="Table-Structure" colspan="5">Aucun enseignant ne correspond aux filtres
-                                        saisis.</td>
+                                    <td colspan="5">
+                                        Aucun enseignant trouvé
+                                    </td>
                                 </tr>
+
+                            <!-- Sinon on affiche les résultats -->
                             <?php } else { ?>
                                 <?php foreach ($result as $resultat) { ?>
                                     <tr>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
-                                        <td class="Table-Structure"><a
-                                                href="FicheEnseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
-                                                <div class="Table-Link"><span class="material-symbols-outlined">
-                                                        visibility
-                                                    </span>
-                                                    Accèder à la fiche
-                                                </div>
+
+                                        <!-- htmlspecialchars = sécurité XSS -->
+                                        <td><?= htmlspecialchars($resultat['last_name']) ?></td>
+                                        <td><?= htmlspecialchars($resultat['first_name']) ?></td>
+                                        <td><?= htmlspecialchars($resultat['name']) ?></td>
+                                        <td><?= htmlspecialchars($resultat['hours_count']) ?></td>
+
+                                        <!-- Lien vers fiche enseignant -->
+                                        <td>
+                                            <a href="FicheEnseignant.php?id=<?= (int) $resultat['id'] ?>">
+                                                Accéder à la fiche
                                             </a>
                                         </td>
                                     </tr>
