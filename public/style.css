@@ -193,8 +193,24 @@ th {
 }
 
 .Logout-Button {
-    width: 200px;
+    width: 24px;
+    border: none;
+    background-color: transparent;
+
 }
+
+.Disconnect-button {
+    border: 1px solid #FF0004;
+    border-radius: 8px;
+    background-color: #FF0004;
+    padding: 8px 14px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    color: white;
+
+}
+
 
 /* -------------------------------- */
 

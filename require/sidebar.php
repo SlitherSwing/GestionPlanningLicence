@@ -1,3 +1,11 @@
+<?php
+
+if (isset($_POST['logout'])) {
+    logout();
+}
+
+?>
+
 <div class="Sidebar-Menu">
     <div class="Block-Patch">
         <img src="assets/Logo.png" class="Logo">
@@ -54,11 +62,20 @@
                 <span class="Username">
                     <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
                 </span>
-                <img src="assets/Chevron-down.svg" class="Chevron-down">
+                <button id="Logout-Toggle" class="Logout-Button"><img src="assets/Chevron-down.svg"
+                        class="Chevron-down"></button>
             </div>
+
             <span class="Role">
                 <?= $_SESSION['role'] ?>
             </span>
+            <form id="Logout" method="POST" action="../require/Requete.php" style="display: none;">
+                <input type="hidden" name="logout" value="logout">
+                <button type="submit" class="Disconnect-button" style="display: block;">
+                    Déconnexion
+                </button>
+            </form>
         </div>
     </div>
 </div>
+<script src="../script.js" defer></script>

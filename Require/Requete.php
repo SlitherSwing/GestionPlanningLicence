@@ -295,3 +295,19 @@ function filtreTypeIntervention(PDO $con, string $name): array
 
     }
 }
+
+/*
+ * Détruit la session de l'utilisateur connecté et le redirige vers la page de connexion.
+ * Utilisée lors de la soumission du formulaire de déconnexion (sidebar.php).
+ */
+function logout(): void
+{
+    session_destroy();
+    header('Location: ../public/index.php');
+    exit();
+}
+
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['logout'])) {
+    session_start();
+    logout();
+}
