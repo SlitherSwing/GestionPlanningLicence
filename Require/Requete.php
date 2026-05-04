@@ -132,7 +132,13 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
  */
 function calendarData(PDO $con): array
 {
-    $sql = "SELECT * FROM course ORDER BY start_date DESC";
+    $sql = "SELECT course.*, intervention_type.name AS Type, user.last_name, user.first_name 
+        FROM course
+        JOIN intervention_type ON intervention_type.id = course.intervention_type_id
+        JOIN course_instructor ON course_instructor.course_id = course.id
+        JOIN instructor ON instructor.id = course_instructor.instructor_id
+        JOIN user ON user.id = instructor.user_id
+        ORDER BY course.start_date DESC";
     $stmt = $con->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -249,7 +255,7 @@ WHERE course_instructor.instructor_id = :id";
  * @param string $email Adresse email
  * Retourne l'ID de l'enseignant inséré, ou faux en cas d'échec
  */
-function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email): bool
+function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email = ''): bool
 {
     $sql = "INSERT INTO user (last_name, first_name, email, password, role) VALUES (:last_name, :first_name, :email, :password, :role)";
     $params = [
@@ -297,6 +303,7 @@ function filtreTypeIntervention(PDO $con, string $name): array
     }
 }
 
+
 function moduleData(PDO $con): array
 {
     $sql = "SELECT * FROM module ORDER BY id DESC";
@@ -305,3 +312,57 @@ function moduleData(PDO $con): array
 }
 
 
+
+/*
+ * Détruit la session de l'utilisateur connecté et le redirige vers la page de connexion.
+ * Utilisée lors de la soumission du formulaire de déconnexion (sidebar.php).
+ */
+function logout(): void
+{
+    session_destroy();
+    header('Location: ../public/index.php');
+    exit();
+}
+
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['logout'])) {
+    session_start();
+    logout();
+}
+
+
+function insertIntervention(PDO $con, string $title, string $startDate, string $endDate, int $moduleId, int $typeId, int $remotely, array $instructorIds): bool
+{
+    $startDate = str_replace('T', ' ', $startDate) . ':00';
+    $endDate = str_replace('T', ' ', $endDate) . ':00';
+
+    $sql = "INSERT INTO course (title, start_date, end_date, module_id, intervention_type_id, remotely)
+            VALUES (:title, :start_date, :end_date, :module_id, :intervention_type_id, :remotely)";
+
+    $stmt = $con->prepare($sql);
+    $result = $stmt->execute([
+        ':title' => $title,
+        ':start_date' => $startDate,
+        ':end_date' => $endDate,
+        ':module_id' => $moduleId,
+        ':intervention_type_id' => $typeId,
+        ':remotely' => $remotely,
+    ]);
+
+    if (!$result) {
+        return false;
+    }
+
+    $courseId = (int) $con->lastInsertId();
+
+    $sqlLink = "INSERT INTO course_instructor (course_id, instructor_id) VALUES (:course_id, :instructor_id)";
+    $stmtLink = $con->prepare($sqlLink);
+
+    foreach ($instructorIds as $instructorId) {
+        $stmtLink->execute([
+            ':course_id' => $courseId,
+            ':instructor_id' => (int) $instructorId,
+        ]);
+    }
+
+    return true;
+}
