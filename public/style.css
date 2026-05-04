@@ -730,8 +730,9 @@ Table td .material-symbols-outlined {
     position: absolute;
     background-color: #F0F0F0;
     border-radius: 100px;
-    padding: 5px;
-    margin-left: 120px;
+    padding: 5px 15px 7px 15px;
+    margin-left: 110px;
+    font-size: 20px;
 }
 
 
