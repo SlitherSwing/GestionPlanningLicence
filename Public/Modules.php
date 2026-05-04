@@ -75,6 +75,9 @@ verifierConnexion();
                     <div>
                         <label for="Ajout-Module-Nom">Nom du module</label>
                         <input id="Ajout-Module-Nom" type="text" name="nom" required>
+
+                        <label for="Ajout-Module-Heure">Nombre d'heures </label>
+                        <input id="Ajout-Module-Heure" type="text" name="Heure" required>
                     </div>
 
                 </div>
