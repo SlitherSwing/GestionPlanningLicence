@@ -40,6 +40,64 @@ verifierConnexion();
 
 <body>
 
+
+
+
+
+<div class="Modal-Screen" id="Modal-Ajout-Module">
+
+        <!-- En-tête de la modale -->
+        <div>
+            <div>
+                <!-- Icône -->
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <!-- Titre + texte -->
+                <div>
+                    <h3>Ajouter un module</h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <!-- Bouton fermer -->
+                <div>
+                    <a href="#" class="Close-Modal">x</a>
+                </div>
+            </div>
+        </div>
+        <!-- Formulaire d'ajout -->
+        <div>
+            <form action="" method="post">
+                <!-- POST = envoi des données au serveur -->
+
+                <!-- Nom du module -->
+                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
+
+                    <div>
+                        <label for="Ajout-Enseignant-Nom">Nom du module</label>
+                        <input id="Ajout-Enseignant-Nom" type="text" name="nom" required>
+                    </div>
+
+                </div>
+                <!-- Description du module -->
+                <div>
+                    <label for="Ajout-Enseignant-Email">Description du module</label>
+                    <input id="Ajout-Enseignant-Email" type="email" name="email"
+                        placeholder="Saisissez une description" required>
+                </div>
+                <!-- Boutons -->
+                <div class="Modal-Bottom">
+                    <!-- Annuler -->
+                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <!-- Envoyer le formulaire -->
+                    <button>Confirmer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
 <!-- Conteneur principal  -->
 <section class="Page">
 
