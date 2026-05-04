@@ -192,6 +192,26 @@ th {
     opacity: 1;
 }
 
+.Logout-Button {
+    width: 24px;
+    border: none;
+    background-color: transparent;
+
+}
+
+.Disconnect-button {
+    border: 1px solid #FF0004;
+    border-radius: 8px;
+    background-color: #FF0004;
+    padding: 8px 14px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    color: white;
+
+}
+
+
 /* -------------------------------- */
 
 .Connection-Page {
@@ -310,7 +330,8 @@ th {
 .Heading a:hover {
     cursor: pointer;
 }
-.A-button{
+
+.A-button {
     display: flex;
     background-color: #2C416E;
     align-items: center;
@@ -322,6 +343,7 @@ th {
     width: 100%;
     justify-content: center;
 }
+
 .Content {
     display: flex;
     width: 100%;
@@ -585,7 +607,7 @@ Table td .material-symbols-outlined {
     font-family: 'Poppins';
     flex-direction: column;
     border-radius: 5px;
-    
+
 }
 
 .Modal-Screen:target {
@@ -600,11 +622,12 @@ Table td .material-symbols-outlined {
     padding: 10px 0 10px 0;
 }
 
-.Modal-Screen>div:first-child{
+.Modal-Screen>div:first-child {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
 }
-.Modal-Screen form{
+
+.Modal-Screen form {
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
 }
@@ -613,7 +636,7 @@ Table td .material-symbols-outlined {
     display: flex;
     flex-direction: row;
     gap: 24px;
-    
+
 }
 
 .Modal-Screen>div>div>div:first-child {
@@ -648,7 +671,8 @@ Table td .material-symbols-outlined {
     border-bottom-right-radius: 7px;
     padding-bottom: 20px;
 }
-.Modal-Screen>div:nth-child(3){
+
+.Modal-Screen>div:nth-child(3) {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     padding-bottom: 20px;

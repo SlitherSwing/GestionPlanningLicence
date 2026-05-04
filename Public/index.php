@@ -44,39 +44,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <main class="Connection-Page">
-        <div class="Sidebar-Menu">
+    <!-- Contenu principal -->
+<main class="Connection-Page">
 
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
+    <!-- Partie gauche -->
+    <div class="Sidebar-Menu">
 
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
+        <div class="Block-Patch">
+            <!-- Logo -->
+            <img src="assets/Logo.png" class="Logo">
+
+            <!-- Nom établissement -->
+            <div class="Text">
+                <h1>Lycée Saint-Vincent</h1>
+                <p>Enseignement Supérieur</p>
             </div>
         </div>
-        <section class="Connection-Container">
-            <h1>
-                Gestion du supérieur
-            </h1>
-            <h3>
-                Connexion au portail
-            </h3>
-            <form action="" method="post" class="Connection-Form">
-                <label for="email">Email - champ obligatoire</label>
-                <input type="email" id="email" name="email" placeholder="Veuillez rentrer votre adresse e-mail"
-                    required>
-                <label for="password">Mot de passe - champ obligatoire</label>
-                <input type="password" id="password" name="password" placeholder="Veuillez rentrer votre mot de passe"
-                    required>
-                <button type="submit">Accèder au portail</button>
-            </form>
-            <?php if (isset($error)) { ?>
-                <p class="Error"><?php echo $error; ?></p>
-            <?php } ?>
-        </section>
-    </main>
-</body>
+    </div>
 
+    <!-- Zone de connexion -->
+    <section class="Connection-Container">
+
+        <!-- Titre principal -->
+        <h1>
+            Gestion du supérieur
+        </h1>
+
+        <!-- Sous-titre -->
+        <h3>
+            Connexion au portail
+        </h3>
+
+        <!-- Formulaire de connexion -->
+        <form action="" method="post" class="Connection-Form">
+            <!-- POST = envoi sécurisé des identifiants -->
+
+            <!-- Champ email -->
+            <label for="email">Email - champ obligatoire</label>
+            <input type="email" id="email" name="email"
+                placeholder="Veuillez rentrer votre adresse e-mail"
+                required>
+
+            <!-- Champ mot de passe -->
+            <label for="password">Mot de passe - champ obligatoire</label>
+            <input type="password" id="password" name="password"
+                placeholder="Veuillez rentrer votre mot de passe"
+                required>
+
+            <!-- Bouton de connexion -->
+            <button type="submit">Accèder au portail</button>
+        </form>
+
+        <!-- Affichage message d'erreur si connexion échoue -->
+        <?php if (isset($error)) { ?>
+            <p class="Error"><?php echo $error; ?></p>
+        <?php } ?>
+
+    </section>
+</main>
+
+</body>
 </html>
