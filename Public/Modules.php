@@ -100,7 +100,7 @@ verifierConnexion();
 
         <!-- Bouton ajout module -->
         <button class="Add-Modules">
-            <p>Ajouter un module</p>
+            <a href="#Modal-Ajout-Module">Ajouter un module</a>
         </button>
 
     </div>
