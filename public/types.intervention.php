@@ -3,32 +3,13 @@ session_start();
 require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 
-$limit = 10;
-$nameType = trim($_GET['NameType'] ?? '');
-
 verifierConnexion();
 
-// Ajout
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nomAjout = trim($_POST['nom'] ?? '');
 
-    if ($nomAjout !== '') {
-        insertionEnseignant($con, $nomAjout);
-        header('Location: types.interventions.php');
-        exit();
-    }
-}
+$typeinterventions = filtreTypeIntervention($con, $_GET['NameType'] ?? '');
 
-// Pagination
-$page = isset($_GET["page"]) ? (int) $_GET["page"] : 1;
-if ($page < 1) $page = 1;
+$count = count($typeinterventions);
 
-$offset = ($page - 1) * $limit;
-
-$totalResultats = countTypeIntervention($con, $nameType);
-$totalPages = ceil($totalResultats / $limit);
-
-$typeinterventions = filtreTypeIntervention($con, $nameType, $limit, $offset);
 ?>
 
 
@@ -110,7 +91,7 @@ $typeinterventions = filtreTypeIntervention($con, $nameType, $limit, $offset);
                 <!-- Tableau -->
                 <div class="Table">
 
-                    <p><?= $totalResultats ?> types</p>
+                    <p><?= count($typeinterventions) ?> types</p>
 
                     <table>
 
@@ -170,44 +151,6 @@ $typeinterventions = filtreTypeIntervention($con, $nameType, $limit, $offset);
                             </tr>
 
                         <?php endforeach; ?>
-                        <?php if ($totalPages > 1) { ?>
-                            <!-- On affiche la pagination seulement s'il y a plusieurs pages -->
-                            <div class="Pagination">
-
-                                <?php if ($page > 1) { ?>
-                                    <!-- Lien vers la page précédente -->
-                                    <a class="Pagination-Link"
-                                        href="types.interventions.php?page=<?= $page - 1 ?>&NameType=<?= urlencode( $nameType) ?>"
-                                        Précédent
-                                    </a>
-                                <?php } ?>
-
-                                <!-- Boucle pour afficher tous les numéros de page -->
-                                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                                    <?php
-                                    $classePagination = 'Pagination-Link';
-
-                                    if ($i == $page) {
-                                        $classePagination = 'Pagination-Link Pagination-Active';
-                                    }
-                                    ?>
-
-                                    <a class="<?= $classePagination ?>"
-                                        href="types.interventions.php?page=<?= $i ?>&NameType=<?= urlencode( $nameType) ?>"
-                                        <?= $i ?>
-                                    </a>
-                                <?php } ?>
-
-                                <?php if ($page < $totalPages) { ?>
-                                    <!-- Lien vers la page suivante -->
-                                    <a class="Pagination-Link"
-                                        href="types.interventions.php?page=<?= $page + 1 ?>&NameType=<?= urlencode( $nameType) ?>"
-                                        Suivant
-                                    </a>
-                                <?php } ?>
-
-                            </div>
-                        <?php } ?>
 
                     </table>
                 </div>
