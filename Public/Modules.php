@@ -6,10 +6,6 @@ require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 verifierConnexion();
 
-
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
-
 $modules = moduleData($con);
 
 
@@ -99,7 +95,7 @@ $modules = moduleData($con);
 
             <!-- Bouton ajout module -->
             <button class="Add-Modules">
-                <a href="#Modal-Ajout-Module">Ajouter un module</a>
+                <a style="color:white;" href="#Modal-Ajout-Module">Ajouter un module</a>
             </button>
 
         </div>
