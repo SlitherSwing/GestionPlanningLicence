@@ -4,6 +4,7 @@ require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
+
 $interventions = calendarData($con);
 
 ?>
@@ -295,10 +296,12 @@ $interventions = calendarData($con);
                                     </td>
 
                                     <td>
-                                        <?= htmlspecialchars($row['intervention_type_id']) ?>
+                                        <?= htmlspecialchars($row['Type']) ?>
                                     </td>
 
-                                    <td>Non défini</td>
+                                    <td>
+                                        <?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) ?>
+                                    </td>
 
                                     <td>
 
