@@ -422,6 +422,10 @@ Table th .material-symbols-outlined {
     text-align: start;
     padding: 20px 25px 20px 25px;
 }
+.Table td span{
+    display: flex;
+    justify-content: center;
+}
 
 Table td .material-symbols-outlined {
     vertical-align: middle;
