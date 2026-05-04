@@ -1,102 +1,47 @@
 <?php
 
-    session_start();
+
+session_start();
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
+verifierConnexion();
+
+   
     require_once __DIR__ . '/../Require/Credentials.php';
     require_once __DIR__ . '/../Require/Requete.php';
 
     $modules = moduleData($con);
 
+
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Calendrier</title>
-        <link rel="stylesheet" href="" />
-        <link rel="stylesheet" href="style.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <section class="Page">
+<html lang="fr">
 
-            <div class="Sidebar-Menu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="modules.css">
+    <title>Corps Enseignant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
 
-            <div class="Block-Patch">
-            <img src="./assets/logo.png" class="Logo">
+<body>
+    <section class="Page">
 
-            <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-            </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="#" class="Icones">
-                <img src="./assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                      <img src="./assets/Frame.svg" class="logo">
-                       Interventions
-                    </a>
-
-                    <a href="#" class="Icones">
-                        <img src="./assets/Board.svg" class="logo">
-                        Corps enseignant
-                    </a>
-
-            </div>
-
-                <div class="Block-Settings">
-
-                    <p class="Block-Title">PARAMÉTRAGE</p>
-
-                    <a href="#" class="Icones">
-                       <img src="./assets/Vector.svg" class="logo">
-                      Modules
-                    </a>
-
-                    <a href="#" class="Icones">
-                       <img src="./assets/Chart.svg" class="logo">
-                        Types d'intervention
-                    </a>
-
-                </div>
-
-                <div class="Block-Profile">
-
-                    <img src="./assets/ProfilePicture.png" class="ProfilePicture">
-
-                        <div>
-                        <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                            </span>
-                            <img src="./assets/Chevron-down.svg" class="Chevron-down">
-                        </div>
-                        <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                        </span>
-                        </div>
-
-                </div>
-
-            </div>
+        <?php include '../require/sidebar.php'; ?>
 
 
 
 
-
-        <div style="margin-right: 50px;">
+        <div class="Modules-Content">
             <section class="Top-Modules">
 
                 <div class="House-Modules"> <img src="assets/maison.png"></div>
