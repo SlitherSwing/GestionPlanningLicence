@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenomAjout = trim($_POST['prenom'] ?? '');
     $emailAjout = trim($_POST['email'] ?? '');
 
-    if ($nomAjout !== '' && $prenomAjout !== '' && $emailAjout !== '') {
+    if ($nomAjout !== '' && $prenomAjout !== '') {
         insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
         header('Location: corps.enseignant.php');
         exit();
@@ -66,17 +66,17 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Corps Enseignant</title>
-<!-- Connexrion à Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Connexrion à Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- Import de la police Poppins -->
-<link 
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet">
+    <!-- Import de la police Poppins -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-<!-- Import des icônes Google -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- Import des icônes Google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
@@ -101,7 +101,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 
                 <!-- Bouton fermer -->
                 <div>
-                    <a href="#" class="Close-Modal">X</a>
+                    <a href="#" class="Close-Modal">x</a>
                 </div>
 
             </div>
@@ -131,7 +131,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                 <div>
                     <label for="Ajout-Enseignant-Email">Email</label>
                     <input id="Ajout-Enseignant-Email" type="email" name="email"
-                        placeholder="Saisissez une adresse mail" required>
+                        placeholder="Saisissez une adresse mail">
                 </div>
 
                 <!-- Boutons -->
@@ -173,7 +173,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                     <h2>Corps enseignant</h2>
 
                     <!-- Lien vers la modale -->
-                    <button>
+                    <button style="padding:0">
                         <a href="#Modal-Ajout">Ajouter un enseignant</a>
                     </button>
                 </div>
@@ -240,7 +240,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                     </td>
                                 </tr>
 
-                            <!-- Sinon on affiche les résultats -->
+                                <!-- Sinon on affiche les résultats -->
                             <?php } else { ?>
                                 <?php foreach ($result as $resultat) { ?>
                                     <tr>
@@ -249,7 +249,9 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
+                                        <td class="Table-Structure" style="justify-content: center; display:flex">
+                                            <?= htmlspecialchars($resultat['hours_count']) ?>
+                                        </td>
 
                                         <!-- Lien vers la fiche enseignant -->
                                         <td class="Table-Structure">
