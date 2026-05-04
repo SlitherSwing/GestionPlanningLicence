@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenomAjout = trim($_POST['prenom'] ?? '');
     $emailAjout = trim($_POST['email'] ?? '');
 
-    if ($nomAjout !== '' && $prenomAjout !== '' && $emailAjout !== '') {
+    if ($nomAjout !== '' && $prenomAjout !== '') {
         insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
         header('Location: corps.enseignant.php');
         exit();
@@ -131,7 +131,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                 <div>
                     <label for="Ajout-Enseignant-Email">Email</label>
                     <input id="Ajout-Enseignant-Email" type="email" name="email"
-                        placeholder="Saisissez une adresse mail" required>
+                        placeholder="Saisissez une adresse mail">
                 </div>
 
                 <!-- Boutons -->
@@ -173,7 +173,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                     <h2>Corps enseignant</h2>
 
                     <!-- Lien vers la modale -->
-                    <button>
+                    <button style="padding:0">
                         <a href="#Modal-Ajout">Ajouter un enseignant</a>
                     </button>
                 </div>
@@ -249,7 +249,9 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
                                         <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['hours_count']) ?></td>
+                                        <td class="Table-Structure" style="justify-content: center; display:flex">
+                                            <?= htmlspecialchars($resultat['hours_count']) ?>
+                                        </td>
 
                                         <!-- Lien vers la fiche enseignant -->
                                         <td class="Table-Structure">

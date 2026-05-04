@@ -249,7 +249,7 @@ WHERE course_instructor.instructor_id = :id";
  * @param string $email Adresse email
  * Retourne l'ID de l'enseignant inséré, ou faux en cas d'échec
  */
-function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email): bool
+function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email = ''): bool
 {
     $sql = "INSERT INTO user (last_name, first_name, email, password, role) VALUES (:last_name, :first_name, :email, :password, :role)";
     $params = [
