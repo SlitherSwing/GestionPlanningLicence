@@ -279,13 +279,13 @@ function insertionEnseignant(PDO $con, string $nom, string $prenom, string $emai
  * @param string $name Terme de recherche par nom (si vide, on renvoie tout)
  * Retourne le catalogue dynamique des types d'intervention
  */
-function filtreTypeIntervention(PDO $con, string $name): array
+function filtreTypeIntervention(PDO $con, string $nameType): array
 {
-    if (!empty($name)) {
+    if (!empty($nameType)) {
 
         $sql = "SELECT * FROM intervention_type WHERE name LIKE :nom ORDER BY name DESC";
         $stmt = $con->prepare($sql);
-        $stmt->execute([':nom' => "%" . $name . "%"]);
+        $stmt->execute([':nom' => "%" . $nameType . "%"]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     } else {
@@ -322,3 +322,5 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['log
     session_start();
     logout();
 }
+
+

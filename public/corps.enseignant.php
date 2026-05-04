@@ -273,7 +273,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
                                     <a class="Pagination-Link"
-                                        href="corps.enseignant.php?page=<?= $page - 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $page - 1 ?>&NameType=<?= urlencode($nameType) ?>
                                         Précédent
                                     </a>
                                 <?php } ?>
@@ -289,7 +289,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                     ?>
 
                                     <a class="<?= $classePagination ?>"
-                                        href="corps.enseignant.php?page=<?= $i ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $i ?>&NameType=<?= urlencode($nameType) ?>
                                         <?= $i ?>
                                     </a>
                                 <?php } ?>
@@ -297,7 +297,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
                                     <a class="Pagination-Link"
-                                        href="corps.enseignant.php?page=<?= $page + 1 ?>&Name=<?= urlencode($nom) ?>&First-Name=<?= urlencode($prenom) ?>&Email=<?= urlencode($email) ?>">
+                                        href="corps.enseignant.php?page=<?= $page + 1 ?>&NameType=<?= urlencode($nameType) ?>
                                         Suivant
                                     </a>
                                 <?php } ?>
