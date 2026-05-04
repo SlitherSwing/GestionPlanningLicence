@@ -929,10 +929,11 @@ li::before {
 }
 
 .Add-Modules {
-  width: 160px;
-  height: 40px;
+  width: 165px;
+  height: 45px;
   font-size: 14px;
   margin-top: 30px;
+  margin-left: 55px;
   background-color: #2C416E;
   border-radius: 8px;
   color: white;
