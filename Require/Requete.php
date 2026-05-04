@@ -137,6 +137,7 @@ function calendarData(PDO $con): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
 /*
  * Ajoute un nouveau type d'intervention en base de données.
  * Utilisée lors de la soumission du formulaire de création (page : types.intervention.cours.php).
@@ -294,4 +295,30 @@ function filtreTypeIntervention(PDO $con, string $name): array
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
+}
+
+
+function moduleData(PDO $con): array
+{
+    $sql = "SELECT * FROM module ORDER BY id DESC";
+    $stmt = $con->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+/*
+ * Détruit la session de l'utilisateur connecté et le redirige vers la page de connexion.
+ * Utilisée lors de la soumission du formulaire de déconnexion (sidebar.php).
+ */
+function logout(): void
+{
+    session_destroy();
+    header('Location: ../public/index.php');
+    exit();
+}
+
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['logout'])) {
+    session_start();
+    logout();
 }
