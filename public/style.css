@@ -425,6 +425,7 @@ Table th .material-symbols-outlined {
 .Table td span{
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 Table td .material-symbols-outlined {
