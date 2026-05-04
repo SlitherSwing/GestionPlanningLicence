@@ -91,7 +91,7 @@ verifierConnexion();
                 <!-- Boutons -->
                 <div class="Modal-Bottom">
                     <!-- Annuler -->
-                    <button style="background-color: #F0F0F0;color: black;">Annuler</button>
+                    <button style="background-color: #F0F0F0;color: black;"><a href="#"> Annuler</a></button>
                     <!-- Envoyer le formulaire -->
                     <button>Confirmer</button>
                 </div>
