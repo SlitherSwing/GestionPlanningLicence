@@ -166,6 +166,44 @@ function insertTypeIntervention(PDO $con, string $name, string $color, string $d
 }
 
 /*
+ * Récupère un type d'intervention par son ID.
+ * Utilisée pour pré-remplir le formulaire de modification.
+ *
+ * @param int $id Identifiant du type d'intervention
+ * Retourne les données du type d'intervention
+ */
+function getTypeInterventionById(PDO $con, int $id): array|false
+{
+    $sql = "SELECT * FROM intervention_type WHERE id = :id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute(['id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+/*
+ * Met à jour un type d'intervention existant.
+ * Utilisée lors de la modification d'un type (page : types.intervention.cours.php).
+ *
+ * @param int $id Identifiant du type d'intervention
+ * @param string $name Nom du type d'intervention
+ * @param string $color Code couleur
+ * @param string $description Description de l'intervention
+ * Retourne vrai si la mise à jour a réussi, sinon faux
+ */
+function updateTypeIntervention(PDO $con, int $id, string $name, string $color, string $description): bool
+{
+    $sql = "UPDATE intervention_type SET name = :name, color = :color, description = :description WHERE id = :id";
+    $params = [
+        ':id' => $id,
+        ':name' => $name,
+        ':color' => $color,
+        ':description' => $description,
+    ];
+    $stmt = $con->prepare($sql);
+    return $stmt->execute($params);
+}
+
+/*
  * Récupère les informations génériques (nom, prénom, email) d'un enseignant spécifique.
  * Utilisée pour afficher l'en-tête du profil d'un intervenant (page : fiche.enseignant.php).
  * 

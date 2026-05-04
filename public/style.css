@@ -901,8 +901,10 @@ Table td .material-symbols-outlined {
 }
 
 .Type_intervention_Cour {
-    width: 500px;
+    width: 100%;
+    max-width: 800px;
     display: flex;
+    flex-direction: column;
 }
 
 .Type_intervention_Cour form {
@@ -923,18 +925,14 @@ Table td .material-symbols-outlined {
 }
 
 .Type_intervention_Cour form input,
-textarea {
+.Type_intervention_Cour form textarea {
     line-height: 24px;
     padding: 6px 16px 6px 20px;
     border: 1px solid;
     border-radius: 6px;
     border-color: #C8CBD9;
-    width: 400px;
-    box-sizing: border-box;
-}
-
-.Type_intervention_Cour form textarea {
     width: 100%;
+    box-sizing: border-box;
 }
 
 .Type_intervention_Cour button {
@@ -948,16 +946,31 @@ textarea {
     cursor: pointer;
 }
 
-.Type_intervention_Cour button:nth-child(2) {
+.Delete-Button {
     background-color: #FF0004;
     color: white;
 }
 
-.Type_intervention_Cour button:nth-child(3) {
+.Save-Button {
     background-color: #2C416E;
     color: white;
 }
 
+.Save-Message {
+    padding: 20px;
+    display: flex;
+
+}
+
+.types_intervention_input_container {
+    width: 100%;
+}
+
+.types_intervention_button_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
 
 
 

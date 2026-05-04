@@ -4,6 +4,7 @@
 session_start();
 require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
+
 verifierConnexion();
 
 $modules = moduleData($con);
