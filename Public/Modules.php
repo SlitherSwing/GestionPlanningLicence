@@ -73,15 +73,15 @@ verifierConnexion();
                 <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
 
                     <div>
-                        <label for="Ajout-Enseignant-Nom">Nom du module</label>
-                        <input id="Ajout-Enseignant-Nom" type="text" name="nom" required>
+                        <label for="Ajout-Module-Nom">Nom du module</label>
+                        <input id="Ajout-Module-Nom" type="text" name="nom" required>
                     </div>
 
                 </div>
                 <!-- Description du module -->
                 <div>
                     <label for="Ajout-Enseignant-Email">Description du module</label>
-                    <input id="Ajout-Enseignant-Email" type="email" name="email"
+                    <input id="Ajout-Module-Description" type="Description" name="Description"
                         placeholder="Saisissez une description" required>
                 </div>
                 <!-- Boutons -->
