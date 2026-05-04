@@ -322,3 +322,40 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['log
     session_start();
     logout();
 }
+
+
+function insertIntervention(PDO $con,string $title,string $startDate,string $endDate,int $moduleId,int $typeId,int $remotely,array $instructorIds): bool {
+    $startDate = str_replace('T', ' ', $startDate) . ':00';
+    $endDate   = str_replace('T', ' ', $endDate)   . ':00';
+
+    $sql = "INSERT INTO course (title, start_date, end_date, module_id, intervention_type_id, remotely)
+            VALUES (:title, :start_date, :end_date, :module_id, :intervention_type_id, :remotely)";
+
+    $stmt = $con->prepare($sql);
+    $result = $stmt->execute([
+        ':title'               => $title,
+        ':start_date'          => $startDate,
+        ':end_date'            => $endDate,
+        ':module_id'           => $moduleId,
+        ':intervention_type_id'=> $typeId,
+        ':remotely'            => $remotely,
+    ]);
+
+    if (!$result) {
+        return false;
+    }
+
+    $courseId = (int) $con->lastInsertId();
+
+    $sqlLink = "INSERT INTO course_instructor (course_id, instructor_id) VALUES (:course_id, :instructor_id)";
+    $stmtLink = $con->prepare($sqlLink);
+
+    foreach ($instructorIds as $instructorId) {
+        $stmtLink->execute([
+            ':course_id'    => $courseId,
+            ':instructor_id'=> (int) $instructorId,
+        ]);
+    }
+
+    return true;
+}

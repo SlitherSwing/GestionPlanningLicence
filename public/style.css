@@ -429,7 +429,34 @@ th {
     text-align: start;
     padding: 20px 25px 20px 25px;
 }
-
+.Modal-Ajout-Intervention-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+.Modal-Ajout-Intervention-intervenant{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:6px;
+}
+.Modal-Ajout-Intervention-intervenant>label{
+    font-weight:normal;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:#F0F0F0;
+    padding:4px 10px;
+    border-radius:20px;
+    cursor:pointer;
+    white-space:nowrap;
+}
+.Modal-Ajout-Intervention-check{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:10px;
+}
 Table th .material-symbols-outlined {
     vertical-align: middle;
 }
@@ -437,6 +464,11 @@ Table th .material-symbols-outlined {
 .Table td {
     text-align: start;
     padding: 20px 25px 20px 25px;
+}
+.Table td span{
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
 }
 
 Table td .material-symbols-outlined {
