@@ -10,92 +10,88 @@
 
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calendrier</title>
+        <link rel="stylesheet" href="" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <section class="Page">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/modules.css">
-    <title>Corps Enseignant</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-</head>
-
-<body>
-    <section class="Page">
-
-        <div class="Sidebar-Menu">
+            <div class="Sidebar-Menu">
 
             <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
+            <img src="./assets/logo.png" class="Logo">
 
-                <div class="Text">
+            <div class="Text">
                     <h1>Lycée Saint-Vincent</h1>
                     <p>Enseignement Supérieur</p>
-                </div>
+            </div>
             </div>
 
             <div class="Block-Menu">
 
                 <p class="Block-Title">MENU</p>
 
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
+                <a href="#" class="Icones">
+                <img src="./assets/Calendar.svg" class="logo">
                     Calendrier
                 </a>
 
                 <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
+                      <img src="./assets/Frame.svg" class="logo">
+                       Interventions
+                    </a>
 
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
+                    <a href="#" class="Icones">
+                        <img src="./assets/Board.svg" class="logo">
+                        Corps enseignant
+                    </a>
 
             </div>
 
-            <div class="Block-Profile">
+                <div class="Block-Settings">
 
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
+                    <p class="Block-Title">PARAMÉTRAGE</p>
 
-                <div>
-                    <div>
+                    <a href="#" class="Icones">
+                       <img src="./assets/Vector.svg" class="logo">
+                      Modules
+                    </a>
+
+                    <a href="#" class="Icones">
+                       <img src="./assets/Chart.svg" class="logo">
+                        Types d'intervention
+                    </a>
+
+                </div>
+
+                <div class="Block-Profile">
+
+                    <img src="./assets/ProfilePicture.png" class="ProfilePicture">
+
+                        <div>
+                        <div>
                         <span class="Username">
                             <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
+                            </span>
+                            <img src="./assets/Chevron-down.svg" class="Chevron-down">
+                        </div>
+                        <span class="Role">
                         <?= $_SESSION['role'] ?>
-                    </span>
+                        </span>
+                        </div>
+
                 </div>
 
             </div>
 
-        </div>
 
 
 
