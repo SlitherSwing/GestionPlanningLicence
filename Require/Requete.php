@@ -132,8 +132,9 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
  */
 function calendarData(PDO $con): array
 {
-    $sql = "SELECT course.*, intervention_type.name AS Type, user.last_name, user.first_name 
+    $sql = "SELECT course.*, module.name AS module_name, intervention_type.name AS type_name, user.last_name, user.first_name
         FROM course
+        JOIN module ON module.id = course.module_id
         JOIN intervention_type ON intervention_type.id = course.intervention_type_id
         JOIN course_instructor ON course_instructor.course_id = course.id
         JOIN instructor ON instructor.id = course_instructor.instructor_id
@@ -405,3 +406,96 @@ function insertIntervention(PDO $con, string $title, string $startDate, string $
     return true;
 }
 
+/*
+ * Récupère une intervention par son ID avec tous ses détails.
+ * Utilisée pour pré-remplir la modale de modification.
+ *
+ * @param PDO $con Connexion à la base de données
+ * @param int $id Identifiant de l'intervention
+ * Retourne les données de l'intervention ou false
+ */
+function getInterventionById(PDO $con, int $id): array|false
+{
+    $sql = "SELECT course.*, module.name AS module_name, intervention_type.name AS type_name
+            FROM course
+            JOIN module ON module.id = course.module_id
+            JOIN intervention_type ON intervention_type.id = course.intervention_type_id
+            WHERE course.id = :id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    $course = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$course) {
+        return false;
+    }
+
+    // Récupérer les intervenants associés
+    $sqlInst = "SELECT instructor_id
+                FROM course_instructor
+                WHERE course_id = :course_id";
+    $stmtInst = $con->prepare($sqlInst);
+    $stmtInst->execute([':course_id' => $id]);
+    $instructors = $stmtInst->fetchAll(PDO::FETCH_COLUMN);
+
+    $course['instructor_ids'] = $instructors;
+
+    return $course;
+}
+
+/*
+ * Met à jour une intervention existante.
+ *
+ * @param PDO $con Connexion à la base de données
+ * @param int $id Identifiant de l'intervention
+ * @param string $title Titre de l'intervention
+ * @param string $startDate Date de début
+ * @param string $endDate Date de fin
+ * @param int $moduleId Identifiant du module
+ * @param int $typeId Identifiant du type d'intervention
+ * @param int $remotely Intervention en visio (0 ou 1)
+ * @param array $instructorIds Tableau des identifiants des intervenants
+ * Retourne vrai si la mise à jour a réussi, sinon faux
+ */
+function updateIntervention(PDO $con, int $id, string $title, string $startDate, string $endDate, int $moduleId, int $typeId, int $remotely, array $instructorIds): bool
+{
+    $startDate = str_replace('T', ' ', $startDate) . ':00';
+    $endDate = str_replace('T', ' ', $endDate) . ':00';
+
+    $sql = "UPDATE course
+            SET title = :title, start_date = :start_date, end_date = :end_date,
+                module_id = :module_id, intervention_type_id = :intervention_type_id, remotely = :remotely
+            WHERE id = :id";
+
+    $stmt = $con->prepare($sql);
+    $result = $stmt->execute([
+        ':id' => $id,
+        ':title' => $title,
+        ':start_date' => $startDate,
+        ':end_date' => $endDate,
+        ':module_id' => $moduleId,
+        ':intervention_type_id' => $typeId,
+        ':remotely' => $remotely,
+    ]);
+
+    if (!$result) {
+        return false;
+    }
+
+    // Supprimer les anciennes liaisons intervenants
+    $sqlDelete = "DELETE FROM course_instructor WHERE course_id = :course_id";
+    $stmtDelete = $con->prepare($sqlDelete);
+    $stmtDelete->execute([':course_id' => $id]);
+
+    // Insérer les nouvelles liaisons
+    $sqlLink = "INSERT INTO course_instructor (course_id, instructor_id) VALUES (:course_id, :instructor_id)";
+    $stmtLink = $con->prepare($sqlLink);
+
+    foreach ($instructorIds as $instructorId) {
+        $stmtLink->execute([
+            ':course_id' => $id,
+            ':instructor_id' => (int) $instructorId,
+        ]);
+    }
+
+    return true;
+}

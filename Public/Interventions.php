@@ -5,22 +5,20 @@ require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
 
-
-// ── Traitement du formulaire d'ajout ──────────────────────────────────────────
-$erreur  = '';
-$succes  = false;
+// ── Traitement du formulaire d'ajout
+$erreur = '';
+$succes = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])) {
 
-    $title        = trim($_POST['title']         ?? '');
-    $startDate    = trim($_POST['start_date']    ?? '');
-    $endDate      = trim($_POST['end_date']      ?? '');
-    $moduleId     = (int) ($_POST['module_id']   ?? 0);
-    $typeId       = (int) ($_POST['type_id']     ?? 0);
-    $remotely     = isset($_POST['remotely']) ? 1 : 0;
-    $instructorIds = $_POST['instructor_ids'] ?? [];   // tableau de checkboxes
+    $title = trim($_POST['title'] ?? '');
+    $startDate = trim($_POST['start_date'] ?? '');
+    $endDate = trim($_POST['end_date'] ?? '');
+    $moduleId = (int) ($_POST['module_id'] ?? 0);
+    $typeId = (int) ($_POST['type_id'] ?? 0);
+    $remotely = isset($_POST['remotely']) ? 1 : 0;
+    $instructorIds = $_POST['instructor_ids'] ?? [];
 
-    // Validation basique
     if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
         $erreur = 'Veuillez remplir tous les champs obligatoires.';
     } elseif (empty($instructorIds)) {
@@ -33,12 +31,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
     }
 }
 
-// ── Données pour les <select> et la liste des intervenants ────────────────────
-$interventions = calendarData($con);
-$modules       = moduleData($con);
-$types         = filtreTypeIntervention($con, '');
+// ── Traitement du formulaire de modification
+$modifSuccess = false;
+$modifErreur = '';
 
-// Récupération de tous les instructeurs avec leur nom
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modif_intervention'])) {
+    $courseId = (int) ($_POST['course_id'] ?? 0);
+    $title = trim($_POST['title'] ?? '');
+    $startDate = trim($_POST['start_date'] ?? '');
+    $endDate = trim($_POST['end_date'] ?? '');
+    $moduleId = (int) ($_POST['module_id'] ?? 0);
+    $typeId = (int) ($_POST['type_id'] ?? 0);
+    $remotely = isset($_POST['remotely']) ? 1 : 0;
+    $instructorIds = $_POST['modif_instructor_ids'] ?? [];
+
+    if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
+        $modifErreur = 'Veuillez remplir tous les champs obligatoires.';
+    } elseif (empty($instructorIds)) {
+        $modifErreur = 'Veuillez sélectionner au moins un intervenant.';
+    } else {
+        $modifSuccess = updateIntervention($con, $courseId, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
+        if (!$modifSuccess) {
+            $modifErreur = 'Une erreur est survenue lors de la modification.';
+        }
+    }
+}
+
+// ── Mode modification ?
+$modeModif = false;
+$interventionModif = null;
+$modifIdToUse = null;
+
+// Priorité : POST (après soumission avec erreur) > GET (clic sur Modifier)
+if (isset($_POST['course_id']) && isset($_POST['modif_intervention'])) {
+    $modifIdToUse = (int) $_POST['course_id'];
+} elseif (isset($_GET['modif'])) {
+    $modifIdToUse = (int) $_GET['modif'];
+}
+
+if ($modifIdToUse) {
+    $interventionModif = getInterventionById($con, $modifIdToUse);
+    if ($interventionModif) {
+        $modeModif = true;
+    }
+}
+
+// ── Données
+$interventions = calendarData($con);
+$modules = moduleData($con);
+$types = filtreTypeIntervention($con, '');
+
+// ── Pagination
+$count = count($interventions);
+$limit = 10;
+$page = max(1, (int) ($_GET['page'] ?? 1));
+$totalPages = ceil($count / $limit);
+$offset = ($page - 1) * $limit;
+$interventionsPage = array_slice($interventions, $offset, $limit);
+
+// ── Instructeurs
 $stmtInst = $con->query(
     "SELECT instructor.id, user.first_name, user.last_name
      FROM instructor
@@ -47,6 +98,7 @@ $stmtInst = $con->query(
 );
 $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -71,145 +123,131 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
-<!-- Modale ajout interventions -->
-<div class="Modal-Screen" id="Modal-Ajout">
-    <div>
+    <!-- Modale ajout interventions -->
+    <div class="Modal-Screen <?= $modeModif ? 'modal-visible' : '' ?>" id="Modal-Ajout">
         <div>
             <div>
-                <span class="material-symbols-outlined">add</span>
-            </div>
-            <div>
-                <h3>Ajouter une intervention</h3>
-                <p>Remplissez les informations ci-dessous.</p>
-            </div>
-            <div>
-                <a href="#" class="Close-Modal">X</a>
+                <div>
+                    <span class="material-symbols-outlined"><?= $modeModif ? 'edit' : 'add' ?></span>
+                </div>
+                <div>
+                    <h3><?= $modeModif ? 'Modifier une intervention' : 'Ajouter une intervention' ?></h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="#" class="Close-Modal">X</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div>
-        <form action="" method="post">
-            <input type="hidden" name="ajout_intervention" value="1">
-            <?php if ($erreur !== ''): ?>
-                <p>
-                    <?= htmlspecialchars($erreur) ?>
-                </p>
-            <?php endif; ?>
-            <?php if ($succes): ?>
-                <p>
-                    Intervention ajoutée avec succès.
-                </p>
-            <?php endif; ?>
-            <div>
-                <label for="Ajout-intervention-Titre">Titre</label>
-                <input
-                    id="Ajout-intervention-Titre"
-                    type="text"
-                    name="title"
-                    placeholder="Saisissez un titre sur l'intervention"
-                    value="<?= htmlspecialchars($_POST['title'] ?? '') ?>"
-                >
-            </div>
-            <div class="Modal-Ajout-Intervention-columns">
+        <div>
+            <form action="" method="post">
+                <?php if ($modeModif): ?>
+                    <input type="hidden" name="modif_intervention" value="1">
+                    <input type="hidden" name="course_id" value="<?= $interventionModif['id'] ?>">
+                <?php else: ?>
+                    <input type="hidden" name="ajout_intervention" value="1">
+                <?php endif; ?>
+                <?php if ($erreur !== '' && !$modeModif): ?>
+                    <p>
+                        <?= htmlspecialchars($erreur) ?>
+                    </p>
+                <?php endif; ?>
+                <?php if ($modifErreur !== '' && $modeModif): ?>
+                    <p>
+                        <?= htmlspecialchars($modifErreur) ?>
+                    </p>
+                <?php endif; ?>
+                <?php if ($succes && !$modeModif): ?>
+                    <p>
+                        Intervention ajoutée avec succès.
+                    </p>
+                <?php endif; ?>
+                <?php if ($modifSuccess && $modeModif): ?>
+                    <p>
+                        Intervention modifiée avec succès.
+                    </p>
+                <?php endif; ?>
                 <div>
-                    <label for="Ajout-intervention-Date-Début">
-                        Date de début
-                    </label>
-                    <input
-                        id="Ajout-intervention-Date-Début"
-                        type="datetime-local"
-                        name="start_date"
-                        value="<?= htmlspecialchars($_POST['start_date'] ?? '') ?>"
-                    >
+                    <label for="Ajout-intervention-Titre">Titre</label>
+                    <input id="Ajout-intervention-Titre" type="text" name="title"
+                        placeholder="Saisissez un titre sur l'intervention"
+                        value="<?= htmlspecialchars($interventionModif['title'] ?? $_POST['title'] ?? '') ?>">
                 </div>
-                <div>
-                    <label for="Ajout-intervention-Date-Fin">
-                        Date de fin
-                    </label>
-                    <input
-                        id="Ajout-intervention-Date-Fin"
-                        type="datetime-local"
-                        name="end_date"
-                        value="<?= htmlspecialchars($_POST['end_date'] ?? '') ?>"
-                    >
-                </div>
-            </div>
-            <div class="Modal-Ajout-Intervention-columns">
-                <div>
-                    <label for="Ajout-intervention-Module">Module</label>
-                    <select id="Ajout-intervention-Module" name="module_id">
-                        <option value="">
-                            -- Sélectionner --
-                        </option>
-                        <?php foreach ($modules as $module): ?>
-                            <option
-                                value="<?= $module['id'] ?>"
-                                <?= (($_POST['module_id'] ?? '') == $module['id']) ? 'selected' : '' ?>
-                            >
-                                <?= htmlspecialchars($module['name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div>
-                    <label for="Ajout-intervention-Type">
-                        Type d'intervention
-                    </label>
-                    <select id="Ajout-intervention-Type" name="type_id">
-                        <option value="">
-                            -- Sélectionner --
-                        </option>
-                        <?php foreach ($types as $type): ?>
-                            <option
-                                value="<?= $type['id'] ?>"
-                                <?= (($_POST['type_id'] ?? '') == $type['id']) ? 'selected' : '' ?>
-                            >
-                                <?= htmlspecialchars($type['name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div>
-                <label>Intervenants</label>
-                <div class="Modal-Ajout-Intervention-intervenant">
-                    <?php foreach ($instructeurs as $inst): ?>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="instructor_ids[]"
-                                value="<?= $inst['id'] ?>"
-                                <?= in_array($inst['id'], $_POST['instructor_ids'] ?? []) ? 'checked' : '' ?>
-                            >
-                            <?= htmlspecialchars($inst['last_name'] . ' ' . $inst['first_name']) ?>
+                <div class="Modal-Ajout-Intervention-columns">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">
+                            Date de début
                         </label>
-                    <?php endforeach; ?>
+                        <input id="Ajout-intervention-Date-Début" type="datetime-local" name="start_date"
+                            value="<?= htmlspecialchars(substr(str_replace(' ', 'T', $interventionModif['start_date'] ?? $_POST['start_date'] ?? ''), 0, 16)) ?>">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">
+                            Date de fin
+                        </label>
+                        <input id="Ajout-intervention-Date-Fin" type="datetime-local" name="end_date"
+                            value="<?= htmlspecialchars(substr(str_replace(' ', 'T', $interventionModif['end_date'] ?? $_POST['end_date'] ?? ''), 0, 16)) ?>">
+                    </div>
                 </div>
-            </div>
-            <div class="Modal-Ajout-Intervention-check">
-                <label>Intervention en visio</label>
-                <input
-                    type="checkbox"
-                    name="remotely"
-                    value="1"
-                    <?= isset($_POST['remotely']) ? 'checked' : '' ?>
-                >
-            </div>
-            <div class="Modal-Bottom">
-                <button
-                    type="button"
-                    style="background-color:#F0F0F0;color:black;"
-                    onclick="document.getElementById('Modal-Ajout').style.display='none'"
-                >
-                    Annuler
-                </button>
-                <button type="submit">
-                    Confirmer
-                </button>
-            </div>
-        </form>
+                <div class="Modal-Ajout-Intervention-columns">
+                    <div>
+                        <label for="Ajout-intervention-Module">Module</label>
+                        <select id="Ajout-intervention-Module" name="module_id">
+                            <option value="">
+                                -- Sélectionner --
+                            </option>
+                            <?php foreach ($modules as $module): ?>
+                                <option value="<?= $module['id'] ?>" <?= (($interventionModif['module_id'] ?? $_POST['module_id'] ?? '') == $module['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($module['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Type">
+                            Type d'intervention
+                        </label>
+                        <select id="Ajout-intervention-Type" name="type_id">
+                            <option value="">
+                                -- Sélectionner --
+                            </option>
+                            <?php foreach ($types as $type): ?>
+                                <option value="<?= $type['id'] ?>" <?= (($interventionModif['intervention_type_id'] ?? $_POST['type_id'] ?? '') == $type['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($type['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>Intervenants</label>
+                    <div class="Modal-Ajout-Intervention-intervenant">
+                        <?php foreach ($instructeurs as $inst): ?>
+                            <label>
+                                <input type="checkbox" name="instructor_ids[]" value="<?= $inst['id'] ?>"
+                                    <?= in_array($inst['id'], $interventionModif['instructor_ids'] ?? $_POST['instructor_ids'] ?? []) ? 'checked' : '' ?>>
+                                <?= htmlspecialchars($inst['last_name'] . ' ' . $inst['first_name']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="Modal-Ajout-Intervention-check">
+                    <label>Intervention en visio</label>
+                    <input type="checkbox" name="remotely" value="1" <?= (($interventionModif['remotely'] ?? 0) == 1 || isset($_POST['remotely'])) ? 'checked' : '' ?>>
+                </div>
+                <div class="Modal-Bottom">
+                    <button type="button" style="background-color:#F0F0F0;color:black;"
+                        onclick="document.getElementById('Modal-Ajout').style.display='none'">
+                        Annuler
+                    </button>
+                    <button type="submit">
+                        <?= $modeModif ? 'Mettre à jour' : 'Confirmer' ?>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+
     <!-- page -->
     <div class="Page">
 
@@ -278,7 +316,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                                 <th></th>
                             </tr>
 
-                            <?php foreach ($interventions as $row): ?>
+                            <?php foreach ($interventionsPage as $row): ?>
 
                                 <tr>
 
@@ -289,11 +327,12 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                                     </td>
 
                                     <td>
+                                        <?= htmlspecialchars($row['module_name']) ?><br>
                                         <?= htmlspecialchars($row['title']) ?>
                                     </td>
 
                                     <td>
-                                        <?= htmlspecialchars($row['Type']) ?>
+                                        <?= htmlspecialchars($row['type_name']) ?>
                                     </td>
 
                                     <td>
@@ -357,7 +396,9 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                                                         stroke="#000000" stroke-width="2" stroke-linecap="round"
                                                         stroke-linejoin="round"></path>
                                                 </g>
-                                            </svg>Accéder à la fiche</span>
+                                            </svg>
+                                            <a class="Eyes-Calen"
+                                                href="interventions.php?modif=<?= $row['id'] ?>#Modal-Ajout">Modifier</a>
 
                                     </td>
 
@@ -367,6 +408,28 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 
                         </table>
 
+                        <?php if ($totalPages > 1): ?>
+                            <div class="Pagination">
+
+                                <?php if ($page > 1): ?>
+                                    <a class="Pagination-Link" href="interventions.php?page=<?= $page - 1 ?>">Précédent</a>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                    <a class="Pagination-Link <?= $i == $page ? 'Pagination-Active' : '' ?>"
+                                        href="interventions.php?page=<?= $i ?>">
+                                        <?= $i ?>
+                                    </a>
+                                <?php endfor; ?>
+
+                                <?php if ($page < $totalPages): ?>
+                                    <a class="Pagination-Link" href="interventions.php?page=<?= $page + 1 ?>">Suivant</a>
+                                <?php endif; ?>
+
+                            </div>
+                        <?php endif; ?>
+
+
                     </div>
 
                 </div>
@@ -374,6 +437,10 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
         </div>
+
+    </div>
+
+    </div>
 
     </div>
 
