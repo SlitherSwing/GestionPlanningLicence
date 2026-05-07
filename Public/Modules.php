@@ -6,6 +6,14 @@ require_once __DIR__ . '/../require/credentials.php';
 require_once __DIR__ . '/../require/requete.php';
 verifierConnexion();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ajouterModule($con, $_POST['CodeDuModule'], $_POST['NomDuModule'], $_POST['HeureDuModule'], $_POST['DescriptionDuModule']);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+$modules = moduleData($con);
+
 $modules = moduleData($con);
 
 
