@@ -634,7 +634,9 @@ Table td .material-symbols-outlined {
 
 .Modal-Screen {
     visibility: hidden;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     width: 100%;
     height: 100%;
@@ -644,10 +646,11 @@ Table td .material-symbols-outlined {
     font-family: 'Poppins';
     flex-direction: column;
     border-radius: 5px;
-
+    z-index: 1000;
 }
 
-.Modal-Screen:target {
+.Modal-Screen:target,
+.Modal-Screen.modal-visible {
     visibility: visible;
 }
 
