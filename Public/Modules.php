@@ -74,18 +74,18 @@ verifierConnexion();
 
                     <div>
                         <label for="Ajout-Module-Nom">Nom du module</label>
-                        <input id="Ajout-Module-Nom" type="text" name="nom" required>
+                        <input id="Ajout-Module-Nom" type="text" name="NomDuModule" required>
                     </div>
                     <div>
                         <label for="Ajout-Module-Heure">Nombre d'heures </label>
-                        <input id="Ajout-Module-Heure" type="text" name="Heure" required>
+                        <input id="Ajout-Module-Heure" type="text" name="HeureDuModule" required>
                     </div>
 
                 </div>
                 <!-- Description du module -->
                 <div>
-                    <label for="Ajout-Enseignant-Email">Description du module</label>
-                    <input id="Ajout-Module-Description" type="Description" name="Description"
+                    <label for="DescriptionModule">Description du module</label>
+                    <input id="Ajout-Module-Description" type="DescriptionDuModule" name="DescriptionDuModule"
                         placeholder="Saisissez une description" required>
                 </div>
                 <!-- Boutons -->
