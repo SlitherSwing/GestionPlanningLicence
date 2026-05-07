@@ -576,7 +576,6 @@ Table td .material-symbols-outlined {
 
 .Modal-Screen:target {
     visibility: visible;
-    display: block;
 }
 
 .Modal-Screen>div {
