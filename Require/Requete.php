@@ -326,6 +326,6 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['log
 
 function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description): void
 {
-    $stmt = $con->prepare("INSERT INTO module (code, parent_id, name, description, hours_count, capstone_project) VALUES (?, NULL, ?, ?, ?, 0)");
+    $stmt = $con->prepare("INSERT INTO module (id, code, parent_id, name, description, hours_count, capstone_project) VALUES (?, ?, NULL, ?, ?, ?, 0)");
     $stmt->execute([$code, $nom, $heure, $description]);
 }

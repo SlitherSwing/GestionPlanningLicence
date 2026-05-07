@@ -1139,12 +1139,15 @@ li::before {
 
 .The-Modules {
     width: 756px;
+    font-size: 14px;
+    color: #6e6e6e;
     border: 2px dashed #f1f1f1;
     border-radius: 8px;
     padding: 20px;
     padding-left: 5px;
     padding-bottom: 40px;
     margin-left: 30px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .Arborescence-Modules {
