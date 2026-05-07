@@ -82,6 +82,11 @@ verifierConnexion();
                     </div>
 
                 </div>
+                <!-- Nom du module -->
+                <div>
+                    <label for="Ajout-Module-Code">Code du module</label>
+                    <input id="Ajout-Module-Code" type="text" name="CodeDuModule" required>
+                </div>
                 <!-- Description du module -->
                 <div>
                     <label for="DescriptionModule">Description du module</label>
