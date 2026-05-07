@@ -53,24 +53,25 @@ Statuts utilisés :
 
 ### Corps enseignant
 
-- `opérationnel` : liste des enseignants avec filtres dynamiques (nom, prénom, email) et pagination ;
-- `opérationnel` : ajout d'un enseignant via la modale (insertion en `user` + `instructor` avec mot de passe par défaut hashé, email facultatif) ;
+- `opérationnel` : liste des enseignants avec pagination (10 par page) ;
+- `opérationnel` : filtres dynamiques (nom, prénom, email) ;
+- `opérationnel` : bouton "Ajouter un enseignant" ouvrant la modale d'ajout ;
+- `partiel` : formulaire d'ajout — nom et prénom obligatoires ✓, **email non obligatoire** (doit l'être selon le cahier des charges) ✗ ;
+- `partiel` : tableau d'affichage — nom ✓, prénom ✓, modules enseignés (affiche un seul module au lieu de la liste séparée par virgules) ✗, nombre d'heures (affiche le `hours_count` du module et non le cumul par enseignant) ✗, bouton consulter ✓ ;
 - `opérationnel` : fiche enseignant avec modification des informations générales (nom, prénom, email) et validation de l'email ;
-- `opérationnel` : onglet "Interventions" de la fiche enseignant, avec filtres date début / date fin / module ;
-- `opérationnel` : affichage des modules enseignés sur la fiche ;
-- `partiel` : colonne "Nombre d'heures" qui affiche le `hours_count` du module et non un cumul réel par enseignant ;
-- `partiel` : champ "Modules enseignés" présent dans la fiche infos mais non traité par le UPDATE serveur ;
+- `partiel` : onglet "Interventions" de la fiche enseignant — filtres date début / date fin / module ✓, **pas de pagination** ✗ ;
+- `opérationnel` : affichage des modules enseignés sur la fiche (liste avec heures par module) ;
+- `partiel` : champ "Modules enseignés" dans le formulaire de modification (input texte simple au lieu de sélecteurs multiples) ✗ ;
 
 ### Calendrier et interventions
 
 - `opérationnel` : consultation du calendrier des interventions (lecture depuis `course` avec jointures pour récupérer noms de modules, types et intervenants) ;
-- `opérationnel` : page globale des interventions — affichage correct des colonnes "Module", "Type" et "Intervenants" grâce aux jointures dans `calendarData()` ;
-- `partiel` : modale d'ajout d'intervention — l'interface est présente mais les sélecteurs de module et de type ne sont pas alimentés ;
-- `partiel` : filtres de la page Interventions — les inputs existent mais leurs valeurs ne sont pas exploitées côté serveur ;
+- `opérationnel` : page globale des interventions — affichage correct des colonnes "Module & Titre", "Type" et "Intervenants" grâce aux jointures dans `calendarData()`, avec pagination (10 par page) ;
+- `opérationnel` : modale d'ajout d'intervention — formulaire complet avec sélection de module(s), type, dates, intervenants (checkboxes) et option visio, persistance en base via `insertIntervention()` ;
+- `partiel` : filtres de la page Interventions — les inputs existent (date début, date fin, module) mais leurs valeurs ne sont pas exploitées côté serveur ✗ ;
 - `maquette` : modale de modification d'intervention (présente dans le HTML mais pas reliée à un parcours) ;
-- `manquant` : persistance de l'ajout d'une intervention en base (aucune fonction `insertCourse`) ;
-- `manquant` : modification d'une intervention (aucune fonction `updateCourse`) ;
-- `manquant` : suppression d'une intervention (bouton présent dans la modale mais sans handler).
+- `manquant` : modification d'une intervention (aucune fonction `updateCourse`) ✗ ;
+- `manquant` : suppression d'une intervention (bouton présent dans la modale mais sans handler) ✗ ;
 
 ### Modules
 
@@ -183,9 +184,11 @@ Enseignants et Intervenants sont égalements présents tout au long du projet af
 - `updateTypeIntervention()` : Met à jour un type d'intervention existant
 - `deleteTypeIntervention()` : Supprime un type d'intervention
 - `logout()` : Détruit la session et redirige vers la page de connexion
+- `insertIntervention()` : Insère une nouvelle intervention avec ses intervenants (gestion des dates, visio, liaison course_instructor)
 
 **Améliorations apportées :**
 - Fonction `calendarData()` améliorée avec jointures pour afficher les noms des modules, types et intervenants au lieu des IDs
-- Fonction `insertionEnseignant()` modifiée pour rendre l'email facultatif (`$email = ''` par défaut)
+- Mise en place de la pagination sur la page Interventions.php (10 interventions par page)
+- Correction de l'affichage dans Calendrier.php (affiche maintenant module + titre, type, et intervenants correctement)
 - Correction des SVG incomplets dans les pages Interventions.php et Calendrier.php
 - Mise en place de la pagination sur la page types.intervention.php

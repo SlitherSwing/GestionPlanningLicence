@@ -384,11 +384,12 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                                     </td>
 
                                     <td>
+                                        <?= htmlspecialchars($row['module_name']) ?><br>
                                         <?= htmlspecialchars($row['title']) ?>
                                     </td>
 
                                     <td>
-                                        <?= htmlspecialchars($row['Type']) ?>
+                                        <?= htmlspecialchars($row['type_name']) ?>
                                     </td>
 
                                     <td>

@@ -132,8 +132,9 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
  */
 function calendarData(PDO $con): array
 {
-    $sql = "SELECT course.*, intervention_type.name AS Type, user.last_name, user.first_name 
+    $sql = "SELECT course.*, module.name AS module_name, intervention_type.name AS type_name, user.last_name, user.first_name
         FROM course
+        JOIN module ON module.id = course.module_id
         JOIN intervention_type ON intervention_type.id = course.intervention_type_id
         JOIN course_instructor ON course_instructor.course_id = course.id
         JOIN instructor ON instructor.id = course_instructor.instructor_id
