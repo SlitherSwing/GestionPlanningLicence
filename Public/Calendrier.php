@@ -112,20 +112,20 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
                                     <?= date('H\hi', strtotime($row['end_date'])) ?>
                                 </td>
 
-                                <!-- Infos module -->
+                                <!-- Module & titre -->
                                 <td>
-                                    Module ID: <?= htmlspecialchars($row['module_id']) ?><br>
+                                    <?= htmlspecialchars($row['module_name']) ?><br>
                                     <?= htmlspecialchars($row['title']) ?>
                                 </td>
 
-                                <!-- Type intervention -->
+                                <!-- Type -->
                                 <td>
-                                    Type ID: <?= htmlspecialchars($row['intervention_type_id']) ?>
+                                    <?= htmlspecialchars($row['type_name']) ?>
                                 </td>
 
                                 <!-- Intervenants -->
                                 <td>
-                                    Non défini
+                                    <?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) ?>
                                 </td>
 
                                 <!-- Si intervention en visio ou non -->
