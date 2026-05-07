@@ -1,12 +1,9 @@
 <?php
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
-require_once __DIR__ . '/../Require/Requete.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
-}
+verifierConnexion();
 
 $interventions = calendarData($con);
 
@@ -22,116 +19,72 @@ $interventions = calendarData($con);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<!-- Lien vers le fichier CSS principal -->
+<link rel="stylesheet" href="style.css" />
+
+<!-- Connexion à Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+     rel="stylesheet">
+
+<!-- Import des icônes Google -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
+
+    <!-- Contenu principal -->
     <section class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-
+        <!-- Inclusion du menu (évite de dupliquer le code) -->
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
+
+            <!-- Fil d’Ariane -->
             <nav class="Breadcrumb">
                 <ol>
-                    <li><span class="material-symbols-outlined">home</span></li>
+                    <li>
+                        <a href="corps.enseignant.php">
+                            <span class="material-symbols-outlined">home</span>
+                        </a>
+                    </li>
                     <li>></li>
-                    <li><a href="Calendrier.php">Calendrier</a></li>
+                    <li><a href="calendrier.php">Calendrier</a></li>
                 </ol>
             </nav>
+
             <div class="Main">
 
+                <!-- En-tête de la page -->
                 <section class="Heading">
 
                     <div class="Header-Calendar">
                         <h2>Calendrier</h2>
                         <p>Interventions de la semaine </p>
                     </div>
+
+                    <!-- Bouton ajouter une intervention -->
                     <form>
                         <div class="Button-Add-Inter" name="ButtonAddInter">
-                            <button class="Add-Inter"> Ajouter une nouvelle intervenion</button>
+                            <button class="Add-Inter">
+                                Ajouter une nouvelle intervenion
+                            </button>
                         </div>
                     </form>
+
                 </section>
 
+                <!-- Tableau des interventions -->
                 <div class="Table">
                     <table>
+
+                        <!-- En-tête -->
                         <tr class="Table-Head">
-                            <th>Date de l’intervention</th>
+                            <th>Date de l'intervention</th>
                             <th>Module & titre</th>
                             <th>Type</th>
                             <th>Intervenants</th>
@@ -139,30 +92,35 @@ $interventions = calendarData($con);
                             <th></th>
                         </tr>
 
+                        <!-- Boucle PHP pour afficher les interventions -->
                         <?php foreach ($interventions as $row): ?>
 
                             <tr>
 
+                                <!-- Date début + fin -->
                                 <td>
                                     <?= date('d/m/Y H\hi', strtotime($row['start_date'])) ?>
                                     à
                                     <?= date('H\hi', strtotime($row['end_date'])) ?>
                                 </td>
 
+                                <!-- Infos module -->
                                 <td>
                                     Module ID: <?= htmlspecialchars($row['module_id']) ?><br>
                                     <?= htmlspecialchars($row['title']) ?>
                                 </td>
 
+                                <!-- Type intervention -->
                                 <td>
                                     Type ID: <?= htmlspecialchars($row['intervention_type_id']) ?>
                                 </td>
 
-
+                                <!-- Intervenants -->
                                 <td>
                                     Non défini
                                 </td>
 
+                                <!-- Si intervention en visio ou non -->
                                 <td>
                                     <?php if ($row['remotely'] == 1): ?>
                                         <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -197,6 +155,7 @@ $interventions = calendarData($con);
                                     <?php endif; ?>
                                 </td>
 
+                                <!-- Lien vers la fiche -->
                                 <td>
                                     <span class="Eyes-Calen"><svg class="Eyes-Calen" width="25px" height="25px"
                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -221,7 +180,6 @@ $interventions = calendarData($con);
                         <?php endforeach; ?>
 
                     </table>
-
                 </div>
 
             </div>

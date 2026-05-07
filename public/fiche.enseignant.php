@@ -1,12 +1,10 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../Require/Credentials.php';
+require_once __DIR__ . '/../require/credentials.php';
+require_once __DIR__ . '/../require/requete.php';
 
-if (!isset($_SESSION['email'])) {
-    header('Location: index.php');
-    exit();
-}
+verifierConnexion();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $tab = isset($_GET['tab']) ? $_GET['tab'] : 'infos';
@@ -18,27 +16,24 @@ if ($tab !== 'interventions') {
 }
 
 if ($id <= 0) {
-    header('Location: CorpsEnseignant.php');
+    header('Location: corps.enseignant.php');
     exit();
 }
 
-$requeteEnseignant = $con->prepare("SELECT instructor.id, user.id AS user_id, user.first_name, user.last_name, user.email
-FROM instructor
-INNER JOIN user ON user.id = instructor.user_id
-WHERE instructor.id = :id");
-$requeteEnseignant->execute(['id' => $id]);
-$enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
 
+$enseignant = requeteEnseignant($con, $id);
 if (!$enseignant) {
-    header('Location: CorpsEnseignant.php');
+    header('Location: corps.enseignant.php');
     exit();
 }
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Save-Infos'])) {
     $nom = trim($_POST['Last-Name'] ?? '');
     $prenom = trim($_POST['First-Name'] ?? '');
     $email = trim($_POST['Email'] ?? '');
 
+    // Si les champs sont vides, on affiche un message d'erreur
     if ($nom === '' || $prenom === '' || $email === '') {
         $erreur = "Tous les champs doivent être remplis.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -48,6 +43,7 @@ if (isset($_POST['Save-Infos'])) {
         SET last_name = :last_name, first_name = :first_name, email = :email
         WHERE id = :user_id");
 
+        // On met à jour les informations de l'enseignant
         $requeteUpdate->execute([
             'last_name' => $nom,
             'first_name' => $prenom,
@@ -57,23 +53,17 @@ if (isset($_POST['Save-Infos'])) {
 
         $message = "Les informations ont bien été enregistrées.";
 
-        $requeteEnseignant->execute(['id' => $id]);
-        $enseignant = $requeteEnseignant->fetch(PDO::FETCH_ASSOC);
+        $enseignant = requeteEnseignant($con, $id);
     }
 }
 
-$requeteModules = $con->prepare("SELECT module.id, module.name, module.hours_count
-FROM instructor_module
-INNER JOIN module ON module.id = instructor_module.module_id
-WHERE instructor_module.instructor_id = :id
-ORDER BY module.name");
-$requeteModules->execute(['id' => $id]);
-$modules = $requeteModules->fetchAll(PDO::FETCH_ASSOC);
+$modules = requeteModules($con, $id);
 
 $dateDebut = '';
 $dateFin = '';
 $moduleFiltre = '';
 
+// Si les valeurs sont envoyées, on les récupère
 if (isset($_POST['Filter-Interventions'])) {
     $dateDebut = trim($_POST['Start-Date'] ?? '');
     $dateFin = trim($_POST['End-Date'] ?? '');
@@ -81,37 +71,7 @@ if (isset($_POST['Filter-Interventions'])) {
     $tab = 'interventions';
 }
 
-$sqlInterventions = "SELECT course.start_date, course.end_date, course.title,
-module.name AS module_name, intervention_type.name AS type_name, course.remotely
-FROM course
-INNER JOIN course_instructor ON course_instructor.course_id = course.id
-INNER JOIN module ON module.id = course.module_id
-INNER JOIN intervention_type ON intervention_type.id = course.intervention_type_id
-WHERE course_instructor.instructor_id = :id";
-
-$parametres = ['id' => $id];
-
-if ($dateDebut !== '') {
-    $sqlInterventions .= " AND course.start_date >= :date_debut";
-    $parametres['date_debut'] = $dateDebut . ' 00:00:00';
-}
-
-if ($dateFin !== '') {
-    $sqlInterventions .= " AND course.end_date <= :date_fin";
-    $parametres['date_fin'] = $dateFin . ' 23:59:59';
-}
-
-if ($moduleFiltre !== '') {
-    $sqlInterventions .= " AND course.module_id = :module_id";
-    $parametres['module_id'] = $moduleFiltre;
-}
-
-$sqlInterventions .= " ORDER BY course.start_date ASC";
-
-$requeteInterventions = $con->prepare($sqlInterventions);
-$requeteInterventions->execute($parametres);
-$interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
-
+$interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFiltre);
 ?>
 
 <!DOCTYPE html>
@@ -120,98 +80,43 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Fiche Enseignant</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+ <!-- Connexion à Google Fonts  -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Import de la police Poppins -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+<!-- Import des icônes Google -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
     <div class="Page">
 
-        <div class="Sidebar-Menu">
-
-            <div class="Block-Patch">
-                <img src="assets/Logo.png" class="Logo">
-
-                <div class="Text">
-                    <h1>Lycée Saint-Vincent</h1>
-                    <p>Enseignement Supérieur</p>
-                </div>
-            </div>
-
-            <div class="Block-Menu">
-
-                <p class="Block-Title">MENU</p>
-
-                <a href="Calendrier.php" class="Icones">
-                    <img src="assets/Calendar.svg" class="logo">
-                    Calendrier
-                </a>
-
-                <a href="Interventions.php" class="Icones">
-                    <img src="assets/Frame.svg" class="logo">
-                    Interventions
-                </a>
-
-                <a href="CorpsEnseignant.php" class="Icones">
-                    <img src="assets/Board.svg" class="logo">
-                    Corps enseignant
-                </a>
-
-            </div>
-
-            <div class="Block-Settings">
-
-                <p class="Block-Title">PARAMÉTRAGE</p>
-
-                <a href="Modules.html" class="Icones">
-                    <img src="assets/Vector.svg" class="logo">
-                    Modules
-                </a>
-
-                <a href="TypesIntervention.php" class="Icones">
-                    <img src="assets/Chart.svg" class="logo">
-                    Types d'intervention
-                </a>
-
-            </div>
-
-            <div class="Block-Profile">
-
-                <img src="assets/ProfilePicture.png" class="ProfilePicture">
-
-                <div>
-                    <div>
-                        <span class="Username">
-                            <?= $_SESSION['first_name'] . " " . $_SESSION['last_name'] ?>
-                        </span>
-                        <img src="assets/Chevron-down.svg" class="Chevron-down">
-                    </div>
-                    <span class="Role">
-                        <?= $_SESSION['role'] ?>
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
+        <!-- Inclusion du menu latéral -->
+        <?php include '../require/sidebar.php'; ?>
 
         <div class="Main-Content">
+
+            <!-- Fil d’Ariane -->
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="CorpsEnseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="CorpsEnseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
                     <li>></li>
-                    <li><?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?>
-                    </li>
+
+                    <!-- Nom de l’enseignant affiché  -->
+                    <li><?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?></li>
+
                     <li>></li>
+
+                    <!-- Onglet infos ou interventions -->
                     <li>
                         <?php if ($tab === 'infos') { ?>
                             Informations générales
@@ -223,57 +128,77 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
             </nav>
 
             <div class="Main">
+
+                <!-- Titre avec nom de l’enseignant -->
                 <div class="Heading">
                     <h2>
                         <?= htmlspecialchars($enseignant['first_name']) . " " . htmlspecialchars($enseignant['last_name']) ?>
                     </h2>
                 </div>
+
+                <!-- Liste des modules -->
                 <div class="Module-List">
                     <h3>
                         Modules Enseignés
                     </h3>
+
                     <div class="Teacher-Modules-Block">
+
+                        <!-- Si aucun module -->
                         <?php if ($modules === []) { ?>
                             <p>Aucun module renseigné.</p>
+
+                        <!-- Sinon on affiche la liste -->
                         <?php } else { ?>
                             <ul class="Teacher-Modules-List">
                                 <?php foreach ($modules as $module) { ?>
-                                    <li><?= htmlspecialchars($module['name']) . " : " . htmlspecialchars($module['hours_count']) . "h" ?>
+                                    <li>
+                                        <?= htmlspecialchars($module['name']) . " : " . htmlspecialchars($module['hours_count']) . "h" ?>
                                     </li>
                                 <?php } ?>
                             </ul>
                         <?php } ?>
+
                     </div>
                 </div>
 
+                <!-- Onglets navigation -->
                 <div class="Teacher-Tabs">
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="<?php if ($tab === 'infos') {
-                          echo 'Active-Tab';
-                      } ?>">
+
+                    <!-- Onglet infos -->
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=infos"
+                        class="<?php if ($tab === 'infos') { echo 'Active-Tab'; } ?>">
                         Informations générales
                     </a>
 
-                    <a href="FicheEnseignant.php?id=<?= $id ?>&tab=interventions" class="<?php if ($tab === 'interventions') {
-                          echo 'Active-Tab';
-                      } ?>">
+                    <!-- Onglet interventions -->
+                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=interventions"
+                        class="<?php if ($tab === 'interventions') { echo 'Active-Tab'; } ?>">
                         Interventions
                     </a>
                 </div>
 
+                <!-- Message de succès -->
                 <?php if ($message !== '') { ?>
                     <p class="Success-Message"><?= $message ?></p>
                 <?php } ?>
 
+                <!-- Message d’erreur -->
                 <?php if ($erreur !== '') { ?>
                     <p class="Error-Message"><?= $erreur ?></p>
                 <?php } ?>
 
+                <!-- Si on est sur l’onglet infos -->
                 <?php if ($tab === 'infos') { ?>
+
                     <div class="Content">
                         <div class="Teacher-Card">
                             <p>Informations générales</p>
 
-                            <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+                            <!-- Formulaire modification -->
+                            <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+
+                                <!-- Nom + prénom -->
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Last-Name">Nom de famille - champ obligatoire</label>
@@ -288,6 +213,7 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
+                                <!-- Email -->
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Email">Email - champ obligatoire</label>
@@ -295,24 +221,38 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                                             value="<?= htmlspecialchars($enseignant['email']) ?>" required>
                                     </div>
                                 </div>
+
+                                <!-- Module -->
                                 <div class="Teacher-Form-Row">
                                     <div>
                                         <label for="Modules">Modules enseignés - champ obligatoire</label>
                                         <input id="Modules" type="text" name="Modules"
                                             value="<?= htmlspecialchars($module['name']) ?>" required>
                                     </div>
+
+                                    <!-- Bouton -->
                                     <div class="Teacher-Form-Button">
                                         <button type="submit" name="Save-Infos">Enregistrer les informations</button>
                                     </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
+
                 <?php } else { ?>
+
+                    <!-- Onglet interventions -->
                     <div class="Content">
+
+                        <!-- Filtres -->
                         <div class="Filters">
                             <p>Filtres</p>
+
                             <div>
-                                <form method="post" action="FicheEnseignant.php?id=<?= $id ?>&tab=interventions">
+                                <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=interventions">
+
+                                    <!-- Dates -->
                                     <div>
                                         <label for="Start-Date">Date de début</label>
                                         <input id="Start-Date" type="date" name="Start-Date"
@@ -325,30 +265,35 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                                             value="<?= htmlspecialchars($dateFin) ?>">
                                     </div>
 
+                                    <!-- Filtre module -->
                                     <div>
                                         <label for="Module">Module</label>
                                         <select id="Module" name="Module" class="Teacher-Select">
                                             <option value="">Tous les modules</option>
+
                                             <?php foreach ($modules as $module) { ?>
-                                                <option value="<?= $module['id'] ?>" <?php if ($moduleFiltre == $module['id']) {
-                                                      echo 'selected';
-                                                  } ?>>
+                                                <option value="<?= $module['id'] ?>"
+                                                    <?php if ($moduleFiltre == $module['id']) { echo 'selected'; } ?>>
                                                     <?= htmlspecialchars($module['name']) ?>
                                                 </option>
                                             <?php } ?>
                                         </select>
                                     </div>
 
+                                    <!-- Bouton filtrer -->
                                     <div>
                                         <label for="Submit"></label>
                                         <input id="Submit" type="submit" name="Filter-Interventions" value="Filtrer">
                                     </div>
+
                                 </form>
                             </div>
                         </div>
 
+                        <!-- Tableau des interventions -->
                         <div class="Table">
                             <p>Interventions programmées</p>
+
                             <table>
                                 <tr class="Table-Head">
                                     <th>Date de début</th>
@@ -359,23 +304,34 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                                     <th>En visio</th>
                                 </tr>
 
+                                <!-- Si aucun résultat -->
                                 <?php if ($interventions === []) { ?>
                                     <tr>
-                                        <td class="Table-Structure" colspan="6">Aucune intervention ne correspond aux filtres
-                                            saisis.</td>
+                                        <td class="Table-Structure" colspan="6">
+                                            Aucune intervention ne correspond aux filtres saisis.
+                                        </td>
                                     </tr>
+
+                                <!-- Sinon affichage -->
                                 <?php } else { ?>
                                     <?php foreach ($interventions as $intervention) { ?>
                                         <tr>
+
+                                            <!-- Dates -->
                                             <td class="Table-Structure">
                                                 <?= date('d/m/Y H:i', strtotime($intervention['start_date'])) ?>
                                             </td>
+
                                             <td class="Table-Structure">
                                                 <?= date('d/m/Y H:i', strtotime($intervention['end_date'])) ?>
                                             </td>
+
+                                            <!-- Infos -->
                                             <td class="Table-Structure">
                                                 <?= htmlspecialchars($intervention['module_name']) ?>
                                             </td>
+
+                                            <!-- Gestion titre vide -->
                                             <td class="Table-Structure">
                                                 <?php if ($intervention['title'] === null || $intervention['title'] === '') { ?>
                                                     -
@@ -383,9 +339,12 @@ $interventions = $requeteInterventions->fetchAll(PDO::FETCH_ASSOC);
                                                     <?= htmlspecialchars($intervention['title']) ?>
                                                 <?php } ?>
                                             </td>
+
                                             <td class="Table-Structure">
                                                 <?= htmlspecialchars($intervention['type_name']) ?>
                                             </td>
+
+                                            <!-- Visio -->
                                             <td class="Table-Structure">
                                                 <?php if ($intervention['remotely'] == 1) { ?>
                                                     Oui
