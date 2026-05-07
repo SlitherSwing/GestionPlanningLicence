@@ -5,22 +5,20 @@ require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
 
-
-// ── Traitement du formulaire d'ajout ──────────────────────────────────────────
+// ── Traitement du formulaire d'ajout 
 $erreur  = '';
 $succes  = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])) {
 
-    $title        = trim($_POST['title']         ?? '');
-    $startDate    = trim($_POST['start_date']    ?? '');
-    $endDate      = trim($_POST['end_date']      ?? '');
-    $moduleId     = (int) ($_POST['module_id']   ?? 0);
-    $typeId       = (int) ($_POST['type_id']     ?? 0);
-    $remotely     = isset($_POST['remotely']) ? 1 : 0;
-    $instructorIds = $_POST['instructor_ids'] ?? [];   // tableau de checkboxes
+    $title         = trim($_POST['title']         ?? '');
+    $startDate     = trim($_POST['start_date']    ?? '');
+    $endDate       = trim($_POST['end_date']      ?? '');
+    $moduleId      = (int) ($_POST['module_id']   ?? 0);
+    $typeId        = (int) ($_POST['type_id']     ?? 0);
+    $remotely      = isset($_POST['remotely']) ? 1 : 0;
+    $instructorIds = $_POST['instructor_ids']     ?? [];
 
-    // Validation basique
     if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
         $erreur = 'Veuillez remplir tous les champs obligatoires.';
     } elseif (empty($instructorIds)) {
@@ -33,12 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
     }
 }
 
-// ── Données pour les <select> et la liste des intervenants ────────────────────
+// ── Données
 $interventions = calendarData($con);
 $modules       = moduleData($con);
 $types         = filtreTypeIntervention($con, '');
 
-// Récupération de tous les instructeurs avec leur nom
+// ── Pagination
+$count             = count($interventions);
+$limit             = 10;
+$page              = max(1, (int) ($_GET['page'] ?? 1));
+$totalPages        = ceil($count / $limit);
+$offset            = ($page - 1) * $limit;
+$interventionsPage = array_slice($interventions, $offset, $limit);
+
+// ── Instructeurs
 $stmtInst = $con->query(
     "SELECT instructor.id, user.first_name, user.last_name
      FROM instructor
@@ -47,6 +53,7 @@ $stmtInst = $con->query(
 );
 $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -366,7 +373,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                                 <th></th>
                             </tr>
 
-                            <?php foreach ($interventions as $row): ?>
+                            <?php foreach ($interventionsPage as $row): ?>
 
                                 <tr>
 
@@ -454,6 +461,32 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                             <?php endforeach; ?>
 
                         </table>
+
+                         <?php if ($totalPages > 1): ?>
+                            <div class="Pagination">
+
+                                <?php if ($page > 1): ?>
+                                    <a class="Pagination-Link" href="interventions.php?page=<?= $page - 1 ?>">Précédent</a>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                    <a class="Pagination-Link <?= $i == $page ? 'Pagination-Active' : '' ?>"
+                                       href="interventions.php?page=<?= $i ?>">
+                                        <?= $i ?>
+                                    </a>
+                                <?php endfor; ?>
+
+                                <?php if ($page < $totalPages): ?>
+                                    <a class="Pagination-Link" href="interventions.php?page=<?= $page + 1 ?>">Suivant</a>
+                                <?php endif; ?>
+
+                            </div>
+                        <?php endif; ?>
+                       
+
+                    </div> 
+
+                </div> 
 
                     </div>
 
