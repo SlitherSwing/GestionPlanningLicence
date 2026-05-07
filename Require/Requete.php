@@ -404,3 +404,4 @@ function insertIntervention(PDO $con, string $title, string $startDate, string $
 
     return true;
 }
+
