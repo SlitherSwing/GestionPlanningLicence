@@ -643,6 +643,7 @@ Table td .material-symbols-outlined {
     background-color: rgb(196, 196, 196, 0.6);
     justify-content: center;
     align-items: center;
+    justify-content: center;
     font-family: 'Poppins';
     flex-direction: column;
     border-radius: 5px;
@@ -652,6 +653,7 @@ Table td .material-symbols-outlined {
 .Modal-Screen:target,
 .Modal-Screen.modal-visible {
     visibility: visible;
+    display: flex;
 }
 
 .Modal-Screen>div {

@@ -135,7 +135,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
                 <div>
-                    <a href="#" class="Close-Modal">X</a>
+                    <a href="interventions.php" class="Close-Modal">X</a>
                 </div>
             </div>
         </div>
@@ -237,7 +237,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="Modal-Bottom">
                     <button type="button" style="background-color:#F0F0F0;color:black;"
-                        onclick="document.getElementById('Modal-Ajout').style.display='none'">
+                        onclick="window.location.href='interventions.php'">
                         Annuler
                     </button>
                     <button type="submit">
@@ -269,7 +269,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="Heading">
                     <h2>Interventions</h2>
-                    <a href="#Modal-Ajout">Ajouter une intervention</a>
+                    <a onclick="document.getElementById('Modal-Ajout').style.display='block'" href="#Modal-Ajout">Ajouter une intervention</a>
                 </div>
 
                 <div class="Content">
