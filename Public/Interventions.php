@@ -142,27 +142,35 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div>
             <form action="" method="post">
+                <!-- Met en place les éléments en fonction de ce que l'utilisateur souhaite effectué comme action -->
                 <?php if ($modeModif): ?>
+                <!-- SI on veut modifier  -->
                     <input type="hidden" name="modif_intervention" value="1">
                     <input type="hidden" name="course_id" value="<?= $interventionModif['id'] ?>">
                 <?php else: ?>
+                    <!-- SI on veut ajouter -->
                     <input type="hidden" name="ajout_intervention" value="1">
                 <?php endif; ?>
+
+                <!-- Affiche un message si une erreur est survenue -->
                 <?php if ($erreur !== '' && !$modeModif): ?>
                     <p>
                         <?= htmlspecialchars($erreur) ?>
                     </p>
                 <?php endif; ?>
+                <!-- Affiche un message si une erreur est survenue -->
                 <?php if ($modifErreur !== '' && $modeModif): ?>
                     <p>
                         <?= htmlspecialchars($modifErreur) ?>
                     </p>
                 <?php endif; ?>
+                <!-- Affiche un message si l'ajout a été effectué avec succès -->
                 <?php if ($succes && !$modeModif): ?>
                     <p>
                         Intervention ajoutée avec succès.
                     </p>
                 <?php endif; ?>
+                <!-- Affiche un message si la modification a été effectuée avec succès -->
                 <?php if ($modifSuccess && $modeModif): ?>
                     <p>
                         Intervention modifiée avec succès.
