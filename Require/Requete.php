@@ -213,7 +213,18 @@ function deleteTypeIntervention(PDO $con, int $id): bool
     $stmt = $con->prepare($sql);
     return $stmt->execute($params);
 }
-
+function deleteIntervention(PDO $con, int $id): bool
+{
+    $sql = "DELETE FROM course_instructor WHERE course_id = :id";
+    $sql2 = "DELETE FROM course WHERE id = :id";
+    $params = [
+        ':id' => $id,
+    ];
+    $stmt = $con->prepare($sql);
+    return $stmt->execute($params);
+    $stmt = $con->prepare($sql2);
+    return $stmt->execute($params);
+}
 /*
  * Récupère les informations génériques (nom, prénom, email) d'un enseignant spécifique.
  * Utilisée pour afficher l'en-tête du profil d'un intervenant (page : fiche.enseignant.php).
