@@ -8,11 +8,11 @@ verifierConnexion();
 $interventions = calendarData($con);
 
 // ── Pagination
-$count             = count($interventions);
-$limit             = 10;
-$page              = max(1, (int) ($_GET['page'] ?? 1));
-$totalPages        = ceil($count / $limit);
-$offset            = ($page - 1) * $limit;
+$count = count($interventions);
+$limit = 10;
+$page = max(1, (int) ($_GET['page'] ?? 1));
+$totalPages = ceil($count / $limit);
+$offset = ($page - 1) * $limit;
 $interventionsPage = array_slice($interventions, $offset, $limit);
 
 ?>
@@ -27,19 +27,19 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-<!-- Lien vers le fichier CSS principal -->
-<link rel="stylesheet" href="style.css" />
+    <!-- Lien vers le fichier CSS principal -->
+    <link rel="stylesheet" href="style.css" />
 
-<!-- Connexion à Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Connexion à Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-     rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-<!-- Import des icônes Google -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <!-- Import des icônes Google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
@@ -188,7 +188,7 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
                         <?php endforeach; ?>
 
                     </table>
-
+                    <!-- Début de la pagination -->
                     <?php if ($totalPages > 1): ?>
                         <div class="Pagination">
 
@@ -198,7 +198,7 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
 
                             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                                 <a class="Pagination-Link <?= $i == $page ? 'Pagination-Active' : '' ?>"
-                                   href="calendrier.php?page=<?= $i ?>">
+                                    href="calendrier.php?page=<?= $i ?>">
                                     <?= $i ?>
                                 </a>
                             <?php endfor; ?>
@@ -210,10 +210,10 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
                         </div>
                     <?php endif; ?>
 
-                </div> 
                 </div>
-
             </div>
+
+        </div>
 
     </section>
 
