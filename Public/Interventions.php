@@ -131,6 +131,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                     <span class="material-symbols-outlined"><?= $modeModif ? 'edit' : 'add' ?></span>
                 </div>
                 <div>
+                    <!--  -->
                     <h3><?= $modeModif ? 'Modifier une intervention' : 'Ajouter une intervention' ?></h3>
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
