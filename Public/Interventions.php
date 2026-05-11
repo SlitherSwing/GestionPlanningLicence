@@ -135,7 +135,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
                 <div>
-                    <a href="#" class="Close-Modal">X</a>
+                    <a href="interventions.php" class="Close-Modal">X</a>
                 </div>
             </div>
         </div>
@@ -224,7 +224,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                     <div class="Modal-Ajout-Intervention-intervenant">
                         <?php foreach ($instructeurs as $inst): ?>
                             <label>
-                                <input type="checkbox" name="instructor_ids[]" value="<?= $inst['id'] ?>"
+                                <input type="checkbox" name="<?= $modeModif ? 'modif_instructor_ids' : 'instructor_ids' ?>[]" value="<?= $inst['id'] ?>"
                                     <?= in_array($inst['id'], $interventionModif['instructor_ids'] ?? $_POST['instructor_ids'] ?? []) ? 'checked' : '' ?>>
                                 <?= htmlspecialchars($inst['last_name'] . ' ' . $inst['first_name']) ?>
                             </label>
@@ -237,7 +237,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="Modal-Bottom">
                     <button type="button" style="background-color:#F0F0F0;color:black;"
-                        onclick="document.getElementById('Modal-Ajout').style.display='none'">
+                        onclick="window.location.href='interventions.php'">
                         Annuler
                     </button>
                     <button type="submit">
@@ -269,7 +269,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="Heading">
                     <h2>Interventions</h2>
-                    <a href="#Modal-Ajout">Ajouter une intervention</a>
+                    <a onclick="document.getElementById('Modal-Ajout').style.display='flex'" href="#Modal-Ajout">Ajouter une intervention</a>
                 </div>
 
                 <div class="Content">

@@ -7,6 +7,14 @@ verifierConnexion();
 
 $interventions = calendarData($con);
 
+// ── Pagination
+$count             = count($interventions);
+$limit             = 10;
+$page              = max(1, (int) ($_GET['page'] ?? 1));
+$totalPages        = ceil($count / $limit);
+$offset            = ($page - 1) * $limit;
+$interventionsPage = array_slice($interventions, $offset, $limit);
+
 ?>
 
 
@@ -93,7 +101,7 @@ $interventions = calendarData($con);
                         </tr>
 
                         <!-- Boucle PHP pour afficher les interventions -->
-                        <?php foreach ($interventions as $row): ?>
+                        <?php foreach ($interventionsPage as $row): ?>
 
                             <tr>
 
@@ -180,6 +188,29 @@ $interventions = calendarData($con);
                         <?php endforeach; ?>
 
                     </table>
+
+                    <?php if ($totalPages > 1): ?>
+                        <div class="Pagination">
+
+                            <?php if ($page > 1): ?>
+                                <a class="Pagination-Link" href="calendrier.php?page=<?= $page - 1 ?>">Précédent</a>
+                            <?php endif; ?>
+
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a class="Pagination-Link <?= $i == $page ? 'Pagination-Active' : '' ?>"
+                                   href="calendrier.php?page=<?= $i ?>">
+                                    <?= $i ?>
+                                </a>
+                            <?php endfor; ?>
+
+                            <?php if ($page < $totalPages): ?>
+                                <a class="Pagination-Link" href="calendrier.php?page=<?= $page + 1 ?>">Suivant</a>
+                            <?php endif; ?>
+
+                        </div>
+                    <?php endif; ?>
+
+                </div> 
                 </div>
 
             </div>
