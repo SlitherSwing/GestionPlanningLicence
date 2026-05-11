@@ -24,6 +24,17 @@ if (isset($_GET['id'])) {
     }
 }
 
+//Suppression intervention
+if (isset($_POST['supprimer']) && $id !== '') {
+    $deleted = deleteTypeIntervention($con, $id);
+    if ($deleted) {
+        header('Location: types.intervention.php');
+        exit();
+    } else {
+        $error = "La suppression a échoué.";
+    }
+}
+
 // Si le formulaire est envoyé
 if (isset($_POST['typeinter'])) {
     $name = trim($_POST['name']);
@@ -152,7 +163,7 @@ if (isset($_POST['typeinter'])) {
                             </a>
 
                             <?php if ($id !== '') { ?>
-                                <button class=Delete-Button id="Type_intervention_Cour_Submit" name="typeinter"
+                                <button class=Delete-Button id="Type_intervention_Cour_Submit" name="supprimer"
                                     type="submit">
                                     Supprimer
                                 </button>
