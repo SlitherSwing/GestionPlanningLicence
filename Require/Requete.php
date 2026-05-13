@@ -389,7 +389,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['log
 }
 
 
-function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description): void
+function insertIntervention(PDO $con, string $title, string $startDate, string $endDate, int $moduleId, int $typeId, int $remotely, array $instructorIds): bool
 {
     $startDate = str_replace('T', ' ', $startDate) . ':00';
     $endDate = str_replace('T', ' ', $endDate) . ':00';
@@ -519,6 +519,17 @@ function updateIntervention(PDO $con, int $id, string $title, string $startDate,
 
     return true;
 }
-    $stmt = $con->prepare("INSERT INTO module (id, code, parent_id, name, description, hours_count, capstone_project) VALUES (?, ?, NULL, ?, ?, ?, 0)");
-    $stmt->execute([$code, $nom, $heure, $description]);
+
+function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description): void
+{
+    $sql = "INSERT INTO module (code, name, hours_count, description)
+            VALUES (:code, :name, :hours_count, :description)";
+
+    $stmt = $con->prepare($sql);
+    $stmt->execute([
+        ':code' => $code,
+        ':name' => $nom,
+        ':hours_count' => $heure,
+        ':description' => $description,
+    ]);
 }
