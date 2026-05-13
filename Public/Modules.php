@@ -7,16 +7,7 @@ require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    ajouterModule($con, $_POST['CodeDuModule'], $_POST['NomDuModule'], $_POST['HeureDuModule'], $_POST['DescriptionDuModule']);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-}
-
 $modules = moduleData($con);
-
-$modules = moduleData($con);
-
 
 ?>
 
@@ -43,70 +34,6 @@ $modules = moduleData($con);
 </head>
 
 <body>
-
-
-
-
-
-<div class="Modal-Screen" id="Modal-Ajout-Module">
-
-        <!-- En-tête de la modale -->
-        <div>
-            <div>
-                <!-- Icône -->
-                <div>
-                    <span class="material-symbols-outlined">add</span>
-                </div>
-                <!-- Titre + texte -->
-                <div>
-                    <h3>Ajouter un module</h3>
-                    <p>Remplissez les informations ci-dessous.</p>
-                </div>
-                <!-- Bouton fermer -->
-                <div>
-                    <a href="#" class="Close-Modal">x</a>
-                </div>
-            </div>
-        </div>
-        <!-- Formulaire d'ajout -->
-        <div>
-            <form action="" method="post">
-                <!-- POST = envoi des données au serveur -->
-
-                <!-- Nom du module -->
-                <div style="display: grid;grid-template-columns: 1fr 1fr;gap: 20px;">
-
-                    <div>
-                        <label for="Ajout-Module-Nom">Nom du module</label>
-                        <input id="Ajout-Module-Nom" type="text" name="NomDuModule" required>
-                    </div>
-                    <div>
-                        <label for="Ajout-Module-Heure">Nombre d'heures </label>
-                        <input id="Ajout-Module-Heure" type="text" name="HeureDuModule" required>
-                    </div>
-
-                </div>
-                <!-- Nom du module -->
-                <div>
-                    <label for="Ajout-Module-Code">Code du module</label>
-                    <input id="Ajout-Module-Code" type="text" name="CodeDuModule" required>
-                </div>
-                <!-- Description du module -->
-                <div>
-                    <label for="DescriptionModule">Description du module</label>
-                    <input id="Ajout-Module-Description" type="DescriptionDuModule" name="DescriptionDuModule"
-                        placeholder="Saisissez une description" required>
-                </div>
-                <!-- Boutons -->
-                <div class="Modal-Bottom">
-                    <!-- Annuler -->
-                    <button style="background-color: #F0F0F0;color: black;"><a href="#"> Annuler</a></button>
-                    <!-- Envoyer le formulaire -->
-                    <button>Confirmer</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
 
@@ -164,6 +91,9 @@ $modules = moduleData($con);
                                     <summary><?= htmlspecialchars($row['description']) ?></summary>
                                 </details>
                             </li>
+                            <li>
+                                <a href="module.fiche.php?id=<?= $row['id'] ?>">Modifier ce module</a>
+                            </li>
                         </ul>
                     </details>
 
@@ -173,7 +103,7 @@ $modules = moduleData($con);
 
             <!-- Bouton ajout module -->
             <button class="Add-Modules">
-                <a style="color:white;" href="#Modal-Ajout-Module">Ajouter un module</a>
+                <a style="color:white;" href="module.fiche.php">Ajouter un module</a>
             </button>
 
         </div>

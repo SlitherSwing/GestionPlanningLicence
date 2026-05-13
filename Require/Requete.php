@@ -533,3 +533,40 @@ function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $
         ':description' => $description,
     ]);
 }
+
+function getModuleById(PDO $con, int $id): array|false
+{
+    $sql = "SELECT * FROM module WHERE id = :id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function updateModule(PDO $con, int $id, string $code, string $nom, int $heure, string $description): bool
+{
+    $sql = "UPDATE module SET code = :code, name = :name, hours_count = :hours_count, description = :description
+            WHERE id = :id";
+    $stmt = $con->prepare($sql);
+    return $stmt->execute([
+        ':id' => $id,
+        ':code' => $code,
+        ':name' => $nom,
+        ':hours_count' => $heure,
+        ':description' => $description,
+    ]);
+}
+
+function deleteModule(PDO $con, int $id): bool
+{
+    $sql = "DELETE FROM module WHERE id = :id";
+    $stmt = $con->prepare($sql);
+    return $stmt->execute([':id' => $id]);
+}
+
+function countInterventionsByModule(PDO $con, int $moduleId): int
+{
+    $sql = "SELECT COUNT(*) FROM course WHERE module_id = :id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute([':id' => $moduleId]);
+    return (int) $stmt->fetchColumn();
+}
