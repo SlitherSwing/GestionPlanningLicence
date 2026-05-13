@@ -97,6 +97,18 @@ $stmtInst = $con->query(
      ORDER BY user.last_name ASC"
 );
 $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
+
+//Suppression Intervention
+$id = '';
+if (isset($_POST['Supprimer']) && $id !== '') {
+    $deleted = deleteIntervention($con, $id);
+    if ($deleted) {
+        header('Location: intervention.php');
+        exit();
+    } else {
+        $error = "La Suppression a échoué.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -128,7 +140,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
         <div>
             <div>
                 <div>
-                    <span class="material-symbols-outlined"><?= $modeModif ? 'edit' : 'add' ?></span>
+                    <span class="material-symbols-outlined">add</span>
                 </div>
                 <div>
                     <!--  -->
@@ -249,6 +261,9 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
                         onclick="window.location.href='interventions.php'">
                         Annuler
                     </button>
+                    <?php if ($id !== '') { ?>
+                                <button type="submit" style="background-color: red;"  id="Intervention_Cour_Submit" name="Supprimer">Supprimer</button>
+                            <?php } ?>
                     <button type="submit">
                         <?= $modeModif ? 'Mettre à jour' : 'Confirmer' ?>
                     </button>
