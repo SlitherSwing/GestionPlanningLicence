@@ -20,7 +20,7 @@ function verifierConnexion()
  * @param string $email Email de l'utilisateur
  * Retourne un tableau contenant les données de l'utilisateur recherché
  */
-function findUserByEmail(PDO $con, string $email): array
+function findUserByEmail(PDO $con, string $email): array|false
 {
     $query = $con->prepare("SELECT * FROM user WHERE email =:email");
     $query->bindParam(':email', $email);
@@ -314,7 +314,7 @@ WHERE course_instructor.instructor_id = :id";
  * @param string $email Adresse email
  * Retourne l'ID de l'enseignant inséré, ou faux en cas d'échec
  */
-function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email = ''): bool
+function insertionEnseignant(PDO $con, string $nom, string $prenom, string $email): bool
 {
     $sql = "INSERT INTO user (last_name, first_name, email, password, role) VALUES (:last_name, :first_name, :email, :password, :role)";
     $params = [
@@ -389,7 +389,7 @@ if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['log
 }
 
 
-function insertIntervention(PDO $con, string $title, string $startDate, string $endDate, int $moduleId, int $typeId, int $remotely, array $instructorIds): bool
+function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description): void
 {
     $startDate = str_replace('T', ' ', $startDate) . ':00';
     $endDate = str_replace('T', ' ', $endDate) . ':00';
@@ -518,4 +518,7 @@ function updateIntervention(PDO $con, int $id, string $title, string $startDate,
     }
 
     return true;
+}
+    $stmt = $con->prepare("INSERT INTO module (id, code, parent_id, name, description, hours_count, capstone_project) VALUES (?, ?, NULL, ?, ?, ?, 0)");
+    $stmt->execute([$code, $nom, $heure, $description]);
 }
