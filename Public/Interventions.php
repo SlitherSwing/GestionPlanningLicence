@@ -99,11 +99,10 @@ $stmtInst = $con->query(
 $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 
 //Suppression Intervention
-$id = '';
-if (isset($_POST['Supprimer']) && $id !== '') {
-    $deleted = deleteIntervention($con, $id);
+if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
+    $deleted = deleteIntervention($con, (int) $_POST['course_id']);
     if ($deleted) {
-        header('Location: intervention.php');
+        header('Location: Interventions.php');
         exit();
     } else {
         $error = "La Suppression a échoué.";
@@ -261,7 +260,7 @@ if (isset($_POST['Supprimer']) && $id !== '') {
                         onclick="window.location.href='interventions.php'">
                         Annuler
                     </button>
-                    <?php if ($id !== '') { ?>
+                    <?php if ($id == '') { ?>
                                 <button type="submit" style="background-color: red;"  id="Intervention_Cour_Submit" name="Supprimer">Supprimer</button>
                             <?php } ?>
                     <button type="submit">

@@ -215,15 +215,14 @@ function deleteTypeIntervention(PDO $con, int $id): bool
 }
 function deleteIntervention(PDO $con, int $id): bool
 {
-    $sql = "DELETE FROM course_instructor WHERE course_id = :id";
+    $sql1 = "DELETE FROM course_instructor WHERE course_id = :id";
     $sql2 = "DELETE FROM course WHERE id = :id";
-    $params = [
-        ':id' => $id,
-    ];
-    $stmt = $con->prepare($sql);
-    return $stmt->execute($params);
-    $stmt = $con->prepare($sql2);
-    return $stmt->execute($params);
+
+    $stmt1 = $con->prepare($sql1);
+    $stmt1->execute([':id' => $id]);
+
+    $stmt2 = $con->prepare($sql2);
+    return $stmt2->execute([':id' => $id]);
 }
 /*
  * Récupère les informations génériques (nom, prénom, email) d'un enseignant spécifique.

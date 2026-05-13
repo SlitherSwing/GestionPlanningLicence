@@ -5,7 +5,81 @@ require_once __DIR__ . '/../require/requete.php';
 
 verifierConnexion();
 
+// ── Traitement du formulaire d'ajout
+$erreur = '';
+$succes = false;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])) {
+
+    $title = trim($_POST['title'] ?? '');
+    $startDate = trim($_POST['start_date'] ?? '');
+    $endDate = trim($_POST['end_date'] ?? '');
+    $moduleId = (int) ($_POST['module_id'] ?? 0);
+    $typeId = (int) ($_POST['type_id'] ?? 0);
+    $remotely = isset($_POST['remotely']) ? 1 : 0;
+    $instructorIds = $_POST['instructor_ids'] ?? [];
+
+    if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
+        $erreur = 'Veuillez remplir tous les champs obligatoires.';
+    } elseif (empty($instructorIds)) {
+        $erreur = 'Veuillez sélectionner au moins un intervenant.';
+    } else {
+        $succes = insertIntervention($con, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
+        if (!$succes) {
+            $erreur = 'Une erreur est survenue lors de l\'insertion.';
+        }
+    }
+}
+
+// ── Traitement du formulaire de modification
+$modifSuccess = false;
+$modifErreur = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modif_intervention'])) {
+    $courseId = (int) ($_POST['course_id'] ?? 0);
+    $title = trim($_POST['title'] ?? '');
+    $startDate = trim($_POST['start_date'] ?? '');
+    $endDate = trim($_POST['end_date'] ?? '');
+    $moduleId = (int) ($_POST['module_id'] ?? 0);
+    $typeId = (int) ($_POST['type_id'] ?? 0);
+    $remotely = isset($_POST['remotely']) ? 1 : 0;
+    $instructorIds = $_POST['modif_instructor_ids'] ?? [];
+
+    if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
+        $modifErreur = 'Veuillez remplir tous les champs obligatoires.';
+    } elseif (empty($instructorIds)) {
+        $modifErreur = 'Veuillez sélectionner au moins un intervenant.';
+    } else {
+        $modifSuccess = updateIntervention($con, $courseId, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
+        if (!$modifSuccess) {
+            $modifErreur = 'Une erreur est survenue lors de la modification.';
+        }
+    }
+}
+
+// ── Mode modification ?
+$modeModif = false;
+$interventionModif = null;
+$modifIdToUse = null;
+
+// Priorité : POST (après soumission avec erreur) > GET (clic sur Modifier)
+if (isset($_POST['course_id']) && isset($_POST['modif_intervention'])) {
+    $modifIdToUse = (int) $_POST['course_id'];
+} elseif (isset($_GET['modif'])) {
+    $modifIdToUse = (int) $_GET['modif'];
+}
+
+if ($modifIdToUse) {
+    $interventionModif = getInterventionById($con, $modifIdToUse);
+    if ($interventionModif) {
+        $modeModif = true;
+    }
+}
+
+// ── Données
 $interventions = calendarData($con);
+$modules = moduleData($con);
+$types = filtreTypeIntervention($con, '');
 
 // ── Pagination
 $count = count($interventions);
@@ -15,6 +89,25 @@ $totalPages = ceil($count / $limit);
 $offset = ($page - 1) * $limit;
 $interventionsPage = array_slice($interventions, $offset, $limit);
 
+// ── Instructeurs
+$stmtInst = $con->query(
+    "SELECT instructor.id, user.first_name, user.last_name
+     FROM instructor
+     INNER JOIN user ON user.id = instructor.user_id
+     ORDER BY user.last_name ASC"
+);
+$instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
+
+// ── Suppression Intervention
+if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
+    $deleted = deleteIntervention($con, (int) $_POST['course_id']);
+    if ($deleted) {
+        header('Location: Calendrier.php');
+        exit();
+    } else {
+        $error = "La Suppression a échoué.";
+    }
+}
 ?>
 
 
@@ -43,6 +136,117 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
 </head>
 
 <body>
+
+    <!-- Modale ajout interventions -->
+    <div class="Modal-Screen <?= $modeModif ? 'modal-visible' : '' ?>" id="Modal-Ajout">
+        <div>
+            <div>
+                <div>
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <div>
+                    <h3><?= $modeModif ? 'Modifier une intervention' : 'Ajouter une intervention' ?></h3>
+                    <p>Remplissez les informations ci-dessous.</p>
+                </div>
+                <div>
+                    <a href="Calendrier.php" class="Close-Modal">X</a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form action="" method="post">
+                <?php if ($modeModif): ?>
+                    <input type="hidden" name="modif_intervention" value="1">
+                    <input type="hidden" name="course_id" value="<?= $interventionModif['id'] ?>">
+                <?php else: ?>
+                    <input type="hidden" name="ajout_intervention" value="1">
+                <?php endif; ?>
+
+                <?php if ($erreur !== '' && !$modeModif): ?>
+                    <p><?= htmlspecialchars($erreur) ?></p>
+                <?php endif; ?>
+                <?php if ($modifErreur !== '' && $modeModif): ?>
+                    <p><?= htmlspecialchars($modifErreur) ?></p>
+                <?php endif; ?>
+                <?php if ($succes && !$modeModif): ?>
+                    <p>Intervention ajoutée avec succès.</p>
+                <?php endif; ?>
+                <?php if ($modifSuccess && $modeModif): ?>
+                    <p>Intervention modifiée avec succès.</p>
+                <?php endif; ?>
+                <div>
+                    <label for="Ajout-intervention-Titre">Titre</label>
+                    <input id="Ajout-intervention-Titre" type="text" name="title"
+                        placeholder="Saisissez un titre sur l'intervention"
+                        value="<?= htmlspecialchars($interventionModif['title'] ?? $_POST['title'] ?? '') ?>">
+                </div>
+                <div class="Modal-Ajout-Intervention-columns">
+                    <div>
+                        <label for="Ajout-intervention-Date-Début">Date de début</label>
+                        <input id="Ajout-intervention-Date-Début" type="datetime-local" name="start_date"
+                            value="<?= htmlspecialchars(substr(str_replace(' ', 'T', $interventionModif['start_date'] ?? $_POST['start_date'] ?? ''), 0, 16)) ?>">
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Date-Fin">Date de fin</label>
+                        <input id="Ajout-intervention-Date-Fin" type="datetime-local" name="end_date"
+                            value="<?= htmlspecialchars(substr(str_replace(' ', 'T', $interventionModif['end_date'] ?? $_POST['end_date'] ?? ''), 0, 16)) ?>">
+                    </div>
+                </div>
+                <div class="Modal-Ajout-Intervention-columns">
+                    <div>
+                        <label for="Ajout-intervention-Module">Module</label>
+                        <select id="Ajout-intervention-Module" name="module_id">
+                            <option value="">-- Sélectionner --</option>
+                            <?php foreach ($modules as $module): ?>
+                                <option value="<?= $module['id'] ?>" <?= (($interventionModif['module_id'] ?? $_POST['module_id'] ?? '') == $module['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($module['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="Ajout-intervention-Type">Type d'intervention</label>
+                        <select id="Ajout-intervention-Type" name="type_id">
+                            <option value="">-- Sélectionner --</option>
+                            <?php foreach ($types as $type): ?>
+                                <option value="<?= $type['id'] ?>" <?= (($interventionModif['intervention_type_id'] ?? $_POST['type_id'] ?? '') == $type['id']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($type['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label>Intervenants</label>
+                    <div class="Modal-Ajout-Intervention-intervenant">
+                        <?php foreach ($instructeurs as $inst): ?>
+                            <label>
+                                <input type="checkbox" name="<?= $modeModif ? 'modif_instructor_ids' : 'instructor_ids' ?>[]" value="<?= $inst['id'] ?>"
+                                    <?= in_array($inst['id'], $interventionModif['instructor_ids'] ?? $_POST['instructor_ids'] ?? []) ? 'checked' : '' ?>>
+                                <?= htmlspecialchars($inst['last_name'] . ' ' . $inst['first_name']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="Modal-Ajout-Intervention-check">
+                    <label>Intervention en visio</label>
+                    <input type="checkbox" name="remotely" value="1" <?= (($interventionModif['remotely'] ?? 0) == 1 || isset($_POST['remotely'])) ? 'checked' : '' ?>>
+                </div>
+                <div class="Modal-Bottom">
+                    <button type="button" style="background-color:#F0F0F0;color:black;"
+                        onclick="window.location.href='Calendrier.php'">
+                        Annuler
+                    </button>
+                    <?php if ($modeModif): ?>
+                        <button type="submit" style="background-color: red;" name="Supprimer">Supprimer</button>
+                    <?php endif; ?>
+                    <button type="submit">
+                        <?= $modeModif ? 'Mettre à jour' : 'Confirmer' ?>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Contenu principal -->
     <section class="Page">
@@ -76,13 +280,7 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
                     </div>
 
                     <!-- Bouton ajouter une intervention -->
-                    <form>
-                        <div class="Button-Add-Inter" name="ButtonAddInter">
-                            <button class="Add-Inter">
-                                Ajouter une nouvelle intervenion
-                            </button>
-                        </div>
-                    </form>
+                    <a onclick="document.getElementById('Modal-Ajout').style.display='flex'" href="#Modal-Ajout">Ajouter une intervention</a>
 
                 </section>
 
@@ -180,7 +378,7 @@ $interventionsPage = array_slice($interventions, $offset, $limit);
                                                     stroke="#000000" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round"></path>
                                             </g>
-                                        </svg>Accéder à la fiche</span>
+                                        </svg><a class="Eyes-Calen" href="Calendrier.php?modif=<?= $row['id'] ?>#Modal-Ajout">Accéder à la fiche</a></span>
                                 </td>
 
                             </tr>
