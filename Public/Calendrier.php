@@ -329,7 +329,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
                                 <!-- Si intervention en visio ou non -->
                                 <td>
                                     <?php if ($row['remotely'] == 1): ?>
-                                        <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                        <svg fill="#000000" height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
