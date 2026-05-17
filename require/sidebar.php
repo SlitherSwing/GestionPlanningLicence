@@ -78,4 +78,4 @@ if (isset($_POST['logout'])) {
         </div>
     </div>
 </div>
-<script src="../script.js" defer></script>
+<script src="./script.js" defer></script>
