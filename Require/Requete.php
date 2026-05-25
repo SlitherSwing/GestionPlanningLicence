@@ -127,10 +127,24 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
 /*
  * Récupère tous les cours/interventions triés par date décroissante.
  * Utilisée pour l'affichage chronologique global (pages : Calendrier.php, Interventions.php).
- * 
+ *
  * Retourne la liste intégrale des cours
  */
 function calendarData(PDO $con): array
+{
+    return calendarDataFiltered($con, '', '', '');
+}
+
+/*
+ * Récupère les cours/interventions avec filtres optionnels.
+ * Utilisée pour l'affichage filtré (page : Interventions.php).
+ *
+ * @param string $startDate Filtre : date de début (format YYYY-MM-DD)
+ * @param string $endDate Filtre : date de fin (format YYYY-MM-DD)
+ * @param string $moduleName Filtre : nom du module (recherche partielle)
+ * Retourne la liste des interventions filtrées
+ */
+function calendarDataFiltered(PDO $con, string $startDate, string $endDate, string $moduleName): array
 {
     $sql = "SELECT course.*, module.name AS module_name, intervention_type.name AS type_name, user.last_name, user.first_name
         FROM course
@@ -139,8 +153,29 @@ function calendarData(PDO $con): array
         JOIN course_instructor ON course_instructor.course_id = course.id
         JOIN instructor ON instructor.id = course_instructor.instructor_id
         JOIN user ON user.id = instructor.user_id
-        ORDER BY course.start_date DESC";
-    $stmt = $con->query($sql);
+        WHERE 1=1";
+
+    $params = [];
+
+    if ($startDate !== '') {
+        $sql .= " AND DATE(course.start_date) >= :start_date";
+        $params[':start_date'] = $startDate;
+    }
+
+    if ($endDate !== '') {
+        $sql .= " AND DATE(course.end_date) <= :end_date";
+        $params[':end_date'] = $endDate;
+    }
+
+    if ($moduleName !== '') {
+        $sql .= " AND module.name LIKE :module_name";
+        $params[':module_name'] = "%" . $moduleName . "%";
+    }
+
+    $sql .= " ORDER BY course.start_date DESC";
+
+    $stmt = $con->prepare($sql);
+    $stmt->execute($params);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
