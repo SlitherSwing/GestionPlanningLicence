@@ -8,6 +8,7 @@ require_once __DIR__ . '/../require/requete.php';
 verifierConnexion();
 
 $modules = moduleData($con);
+$organizedModules = organizeModulesHierarchically($modules);
 
 ?>
 
@@ -79,24 +80,39 @@ $modules = moduleData($con);
             <!-- Arborescence des modules -->
             <section class="The-Modules">
 
+                <?php foreach ($organizedModules as $parent): ?>
+                    <details class="Module-Parent" open>
+                        <summary class="Module-Summary">
+                            <span class="Module-Name"><?= htmlspecialchars($parent['name']) ?> (<?= $parent['hours_count'] ?>h)</span>
+                            <a href="module_fiche.php?id=<?= $parent['id'] ?>" class="Module-Edit-Chevron">
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </a>
+                        </summary>
 
+                        <div class="Parent-Content">
+                            <p class="Module-Description">
+                                <em><?= htmlspecialchars($parent['description']) ?></em>
+                            </p>
 
-                <?php foreach ($modules as $row): ?>
-                    <details open>
-
-                        <summary><?= htmlspecialchars($row['name']) ?> (<?= $row['hours_count'] ?>h)</summary>
-                        <ul class="List-Modules">
-                            <li>
-                                <details>
-                                    <summary><?= htmlspecialchars($row['description']) ?></summary>
-                                </details>
-                            </li>
-                            <li>
-                                <a href="module_fiche.php?id=<?= $row['id'] ?>">Modifier ce module</a>
-                            </li>
-                        </ul>
+                            <?php if (!empty($parent['children'])): ?>
+                                <ul class="List-Modules">
+                                    <?php foreach ($parent['children'] as $child): ?>
+                                        <li class="Module-Child">
+                                            <div class="Module-Child-Header">
+                                                <span class="Child-Name"><?= htmlspecialchars($child['name']) ?> (<?= $child['hours_count'] ?>h)</span>
+                                                <a href="module_fiche.php?id=<?= $child['id'] ?>" class="Child-Edit-Chevron">
+                                                    <span class="material-symbols-outlined">chevron_right</span>
+                                                </a>
+                                            </div>
+                                            <p class="Module-Description">
+                                                <em><?= htmlspecialchars($child['description']) ?></em>
+                                            </p>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
                     </details>
-
                 <?php endforeach; ?>
 
             </section>
