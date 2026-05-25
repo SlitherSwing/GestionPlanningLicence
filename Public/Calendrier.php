@@ -19,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
     $remotely = isset($_POST['remotely']) ? 1 : 0;
     $instructorIds = $_POST['instructor_ids'] ?? [];
 
+    if ($startDate > $endDate) {
+        $erreur .= 'Veuillez sélectionner une date de début antérieur à la date de fin';
+    }
+    else
+    {
     if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
         $erreur = 'Veuillez remplir tous les champs obligatoires.';
     } elseif (empty($instructorIds)) {
@@ -28,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
         if (!$succes) {
             $erreur = 'Une erreur est survenue lors de l\'insertion.';
         }
-    }
+    }}
 }
 
 // ── Traitement du formulaire de modification
@@ -45,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modif_intervention'])
     $remotely = isset($_POST['remotely']) ? 1 : 0;
     $instructorIds = $_POST['modif_instructor_ids'] ?? [];
 
+    if ($startDate > $endDate) {
+        $erreur .= 'Veuillez sélectionner une date de début antérieur à la date de fin';
+    }
+    else {
     if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
         $modifErreur = 'Veuillez remplir tous les champs obligatoires.';
     } elseif (empty($instructorIds)) {
@@ -54,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modif_intervention'])
         if (!$modifSuccess) {
             $modifErreur = 'Une erreur est survenue lors de la modification.';
         }
-    }
+    }}
 }
 
 // ── Mode modification ?
