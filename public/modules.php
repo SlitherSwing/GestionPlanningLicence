@@ -92,7 +92,7 @@ $modules = moduleData($con);
                                 </details>
                             </li>
                             <li>
-                                <a href="module.fiche.php?id=<?= $row['id'] ?>">Modifier ce module</a>
+                                <a href="module_fiche.php?id=<?= $row['id'] ?>">Modifier ce module</a>
                             </li>
                         </ul>
                     </details>
@@ -103,7 +103,7 @@ $modules = moduleData($con);
 
             <!-- Bouton ajout module -->
             <button class="Add-Modules">
-                <a style="color:white;" href="module.fiche.php">Ajouter un module</a>
+                <a style="color:white;" href="module_fiche.php">Ajouter un module</a>
             </button>
 
         </div>

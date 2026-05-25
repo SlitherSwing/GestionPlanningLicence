@@ -123,7 +123,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
     $deleted = deleteIntervention($con, (int) $_POST['course_id']);
     if ($deleted) {
-        header('Location: Calendrier.php');
+        header('Location: calendrier.php');
         exit();
     } else {
         $error = "La Suppression a échoué.";
@@ -170,7 +170,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
                     <p>Remplissez les informations ci-dessous.</p>
                 </div>
                 <div>
-                    <a href="Calendrier.php" class="Close-Modal">X</a>
+                    <a href="calendrier.php" class="Close-Modal">X</a>
                 </div>
             </div>
         </div>
@@ -255,7 +255,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
                 </div>
                 <div class="Modal-Bottom">
                     <button type="button" style="background-color:#F0F0F0;color:black;"
-                        onclick="window.location.href='Calendrier.php'">
+                        onclick="window.location.href='calendrier.php'">
                         Annuler
                     </button>
                     <?php if ($modeModif): ?>
@@ -281,7 +281,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
             <nav class="Breadcrumb">
                 <ol>
                     <li>
-                        <a href="corps.enseignant.php">
+                        <a href="corps_enseignant.php">
                             <span class="material-symbols-outlined">home</span>
                         </a>
                     </li>
@@ -399,7 +399,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
                                                     stroke="#000000" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round"></path>
                                             </g>
-                                        </svg><a class="Eyes-Calen" href="Calendrier.php?modif=<?= $row['id'] ?>#Modal-Ajout">Accéder à la fiche</a></span>
+                                        </svg><a class="Eyes-Calen" href="calendrier.php?modif=<?= $row['id'] ?>#Modal-Ajout">Accéder à la fiche</a></span>
                                 </td>
 
                             </tr>

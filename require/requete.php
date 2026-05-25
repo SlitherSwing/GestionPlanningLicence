@@ -30,7 +30,7 @@ function findUserByEmail(PDO $con, string $email): array|false
 
 /*
  * Compte le nombre total d'enseignants correspondant aux filtres fournis.
- * Utilisée pour gérer la pagination de l'annuaire (page : corps.enseignant.php).
+ * Utilisée pour gérer la pagination de l'annuaire (page : corps_enseignant.php).
  * 
  * @param string $nom Filtre sur le nom de famille
  * @param string $prenom Filtre sur le prénom
@@ -74,7 +74,7 @@ function countTeachersByFilters(PDO $con, string $nom, string $prenom, string $e
 
 /*
  * Récupère la liste des enseignants avec pagination et filtrage dynamique.
- * Utilisée pour afficher le tableau des enseignants (page : corps.enseignant.php).
+ * Utilisée pour afficher le tableau des enseignants (page : corps_enseignant.php).
  * 
  * @param string $nom Filtre sur le nom de famille
  * @param string $prenom Filtre sur le prénom
@@ -126,7 +126,7 @@ function findTeachersByFilters(PDO $con, string $nom, string $prenom, string $em
 
 /*
  * Récupère tous les cours/interventions triés par date décroissante.
- * Utilisée pour l'affichage chronologique global (pages : Calendrier.php, Interventions.php).
+ * Utilisée pour l'affichage chronologique global (pages : calendrier.php, interventions.php).
  *
  * Retourne la liste intégrale des cours
  */
@@ -137,7 +137,7 @@ function calendarData(PDO $con): array
 
 /*
  * Récupère les cours/interventions avec filtres optionnels.
- * Utilisée pour l'affichage filtré (page : Interventions.php).
+ * Utilisée pour l'affichage filtré (page : interventions.php).
  *
  * @param string $startDate Filtre : date de début (format YYYY-MM-DD)
  * @param string $endDate Filtre : date de fin (format YYYY-MM-DD)
@@ -182,7 +182,7 @@ function calendarDataFiltered(PDO $con, string $startDate, string $endDate, stri
 
 /*
  * Ajoute un nouveau type d'intervention en base de données.
- * Utilisée lors de la soumission du formulaire de création (page : types.intervention.cours.php).
+ * Utilisée lors de la soumission du formulaire de création (page : types_intervention_cours.php).
  * 
  * @param string $name Nom du type d'intervention
  * @param string $color Code couleur
@@ -218,7 +218,7 @@ function getTypeInterventionById(PDO $con, int $id): array|false
 
 /*
  * Met à jour un type d'intervention existant.
- * Utilisée lors de la modification d'un type (page : types.intervention.cours.php).
+ * Utilisée lors de la modification d'un type (page : types_intervention_cours.php).
  *
  * @param int $id Identifiant du type d'intervention
  * @param string $name Nom du type d'intervention
@@ -261,7 +261,7 @@ function deleteIntervention(PDO $con, int $id): bool
 }
 /*
  * Récupère les informations génériques (nom, prénom, email) d'un enseignant spécifique.
- * Utilisée pour afficher l'en-tête du profil d'un intervenant (page : fiche.enseignant.php).
+ * Utilisée pour afficher l'en-tête du profil d'un intervenant (page : fiche_enseignant.php).
  * 
  * @param int $id Identifiant (ID) de l'enseignant (instructor)
  * Retourne les données du profil de l'enseignant
@@ -279,7 +279,7 @@ function requeteEnseignant(PDO $con, int $id): array
 
 /*
  * Récupère la liste des modules d'enseignement affectés à cet enseignant.
- * Utilisée pour l'onglet "Modules liés" d'un enseignant (page : fiche.enseignant.php ou Modules).
+ * Utilisée pour l'onglet "Modules liés" d'un enseignant (page : fiche_enseignant.php ou Modules).
  * 
  * @param int $id Identifiant (ID) de l'enseignant
  * Retourne les modules assignés à l'enseignant
@@ -298,7 +298,7 @@ function requeteModules(PDO $con, int $id): array
 
 /*
  * Récupère l'historique des cours/interventions d'un enseignant ciblé avec option de filtrage.
- * Utilisée dans l'onglet "Interventions" du profil de l'enseignant (page : fiche.enseignant.php).
+ * Utilisée dans l'onglet "Interventions" du profil de l'enseignant (page : fiche_enseignant.php).
  * 
  * @param int $id Identifiant (ID) de l'enseignant (instructor)
  * @param string $dateDebut Sélecteur : à partir de la date
@@ -342,7 +342,7 @@ WHERE course_instructor.instructor_id = :id";
 
 /*
  * Insère un nouvel enseignant dans la base de données.
- * Utilisée lors de la soumission du formulaire d'ajout (page : corps.enseignant.php).
+ * Utilisée lors de la soumission du formulaire d'ajout (page : corps_enseignant.php).
  *
  * @param string $nom Nom de famille
  * @param string $prenom Prénom
@@ -374,7 +374,7 @@ function insertionEnseignant(PDO $con, string $nom, string $prenom, string $emai
 
 /*
  * Récupère les types d'intervention, avec possibilité de filtrer sur le nom.
- * Utilisée pour l'affichage du tableau de gestion des types et de ses filtres (page : types.intervention.php).
+ * Utilisée pour l'affichage du tableau de gestion des types et de ses filtres (page : types_intervention.php).
  *
  * @param string $name Terme de recherche par nom (si vide, on renvoie tout)
  * Retourne le catalogue dynamique des types d'intervention
@@ -418,7 +418,7 @@ function logout(): void
     exit();
 }
 
-if (basename($_SERVER['SCRIPT_FILENAME']) === 'Requete.php' && isset($_POST['logout'])) {
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'requete.php' && isset($_POST['logout'])) {
     session_start();
     logout();
 }
@@ -604,4 +604,69 @@ function countInterventionsByModule(PDO $con, int $moduleId): int
     $stmt = $con->prepare($sql);
     $stmt->execute([':id' => $moduleId]);
     return (int) $stmt->fetchColumn();
+}
+
+/*
+ * Ajoute un module à un enseignant.
+ * Utilisée pour lier un module existant à un instructeur (page : fiche_enseignant.php).
+ *
+ * @param PDO $con Connexion à la base de données
+ * @param int $instructorId Identifiant de l'enseignant
+ * @param int $moduleId Identifiant du module à lier
+ * Retourne vrai si l'ajout a réussi, faux si le lien existe déjà ou en cas d'erreur
+ */
+function addModuleToInstructor(PDO $con, int $instructorId, int $moduleId): bool
+{
+    $sql = "INSERT IGNORE INTO instructor_module (instructor_id, module_id)
+            VALUES (:instructor_id, :module_id)";
+    $stmt = $con->prepare($sql);
+    return $stmt->execute([
+        ':instructor_id' => $instructorId,
+        ':module_id' => $moduleId,
+    ]);
+}
+
+/*
+ * Supprime un module d'un enseignant.
+ * Utilisée pour dissocier un module d'un instructeur (page : fiche_enseignant.php).
+ *
+ * @param PDO $con Connexion à la base de données
+ * @param int $instructorId Identifiant de l'enseignant
+ * @param int $moduleId Identifiant du module à supprimer
+ * Retourne vrai si la suppression a réussi
+ */
+function removeModuleFromInstructor(PDO $con, int $instructorId, int $moduleId): bool
+{
+    $sql = "DELETE FROM instructor_module
+            WHERE instructor_id = :instructor_id AND module_id = :module_id";
+    $stmt = $con->prepare($sql);
+    return $stmt->execute([
+        ':instructor_id' => $instructorId,
+        ':module_id' => $moduleId,
+    ]);
+}
+
+/*
+ * Récupère tous les modules disponibles.
+ * Utilisée pour peupler les listes déroulantes (page : fiche_enseignant.php).
+ *
+ * @param PDO $con Connexion à la base de données
+ * @param int $excludeInstructorId Si fourni, exclut les modules déjà liés à cet instructeur
+ * Retourne la liste des modules
+ */
+function getAllModules(PDO $con, int $excludeInstructorId = 0): array
+{
+    if ($excludeInstructorId > 0) {
+        $sql = "SELECT m.* FROM module m
+                WHERE m.id NOT IN (
+                    SELECT module_id FROM instructor_module WHERE instructor_id = :instructor_id
+                )
+                ORDER BY m.name ASC";
+        $stmt = $con->prepare($sql);
+        $stmt->execute([':instructor_id' => $excludeInstructorId]);
+    } else {
+        $sql = "SELECT * FROM module ORDER BY name ASC";
+        $stmt = $con->query($sql);
+    }
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -74,9 +74,9 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
             <div class="Breadcrumb">
                 <nav>
                     <ol>
-                        <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="corps_enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="types.intervention.php">Types-Intervention</a></li>
+                        <li><a href="types_intervention.php">Types-Intervention</a></li>
                     </ol>
                 </nav>
             </div>
@@ -86,7 +86,7 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
                 <!-- Titre page -->
                 <div class="Heading">
                     <h2>Types-Intervention</h2>
-                    <a href="types.intervention.cours.php">Ajouter un type</a>
+                    <a href="types_intervention_cours.php">Ajouter un type</a>
                 </div>
 
                 <!-- Contenu principal -->
@@ -146,7 +146,7 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
                                     </td>
 
                                     <td>
-                                        <a href=" types.intervention.cours.php?id=<?= $type['id'] ?>">
+                                        <a href=" types_intervention_cours.php?id=<?= $type['id'] ?>">
                                             <span class="Eyes-Calen" style="display: flex;align-items: center;">
                                                 <svg class="Eyes-Calen" width="25px" height="25px" viewBox="0 0 24 24"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +185,7 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
                                     <a class="Pagination-Link"
-                                        href="types.intervention.php?page=<?= $page - 1 ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="types_intervention.php?page=<?= $page - 1 ?>&NameType=<?= urlencode($nameType) ?>">
                                         Précédent
                                     </a>
                                 <?php } ?>
@@ -201,7 +201,7 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
                                     ?>
 
                                     <a class="<?= $classePagination ?>"
-                                        href="types.intervention.php?page=<?= $i ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="types_intervention.php?page=<?= $i ?>&NameType=<?= urlencode($nameType) ?>">
                                         <?= $i ?>
                                     </a>
                                 <?php } ?>
@@ -209,7 +209,7 @@ $typeinterventionsPage = array_slice($typeinterventions, $offset, $limit);
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
                                     <a class="Pagination-Link"
-                                        href="types.intervention.php?page=<?= $page + 1 ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="types_intervention.php?page=<?= $page + 1 ?>&NameType=<?= urlencode($nameType) ?>">
                                         Suivant
                                     </a>
                                 <?php } ?>

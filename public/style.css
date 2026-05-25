@@ -521,6 +521,13 @@ Table td .material-symbols-outlined {
     color: #FFBD01;
 }
 
+.Remove-Module-Btn {
+    border-radius: 6px;
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+
 .Teacher-Tabs {
     display: flex;
     gap: 10px;
@@ -594,12 +601,14 @@ Table td .material-symbols-outlined {
 
 .Teacher-Form-Button {
     display: flex;
+    justify-content: flex-end;
 }
 
 .Teacher-Form-Button button {
+    margin-top: 10px;
     background-color: #2C416E;
     color: white;
-    padding: 12px 20px 12px 20px;
+    padding: 10px 20px 10px 20px;
     border-radius: 8px;
     border: none;
 }

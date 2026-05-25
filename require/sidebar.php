@@ -30,7 +30,7 @@ if (isset($_POST['logout'])) {
             Interventions
         </a>
 
-        <a href="corps.enseignant.php" class="Icones">
+        <a href="corps_enseignant.php" class="Icones">
             <img src="assets/Board.svg" class="logo">
             Corps enseignant
         </a>
@@ -46,7 +46,7 @@ if (isset($_POST['logout'])) {
             Modules
         </a>
 
-        <a href="types.intervention.php" class="Icones">
+        <a href="types_intervention.php" class="Icones">
             <img src="assets/Chart.svg" class="logo">
             Types d'intervention
         </a>
@@ -69,7 +69,7 @@ if (isset($_POST['logout'])) {
             <span class="Role">
                 <?= $_SESSION['role'] ?>
             </span>
-            <form id="Logout" method="POST" action="../require/Requete.php" style="display: none;">
+            <form id="Logout" method="POST" action="../require/requete.php" style="display: none;">
                 <input type="hidden" name="logout" value="logout">
                 <button type="submit" class="Disconnect-button" style="display: block;">
                     Déconnexion

@@ -16,14 +16,14 @@ if ($tab !== 'interventions') {
 }
 
 if ($id <= 0) {
-    header('Location: corps.enseignant.php');
+    header('Location: corps_enseignant.php');
     exit();
 }
 
 
 $enseignant = requeteEnseignant($con, $id);
 if (!$enseignant) {
-    header('Location: corps.enseignant.php');
+    header('Location: corps_enseignant.php');
     exit();
 }
 
@@ -58,6 +58,33 @@ if (isset($_POST['Save-Infos'])) {
 }
 
 $modules = requeteModules($con, $id);
+
+// ── Traitement de l'ajout de module
+if (isset($_POST['add_module']) && !empty($_POST['module_to_add'])) {
+    $moduleId = (int) $_POST['module_to_add'];
+    $added = addModuleToInstructor($con, $id, $moduleId);
+    if ($added) {
+        $message = "Le module a été ajouté avec succès.";
+        $modules = requeteModules($con, $id); // Rafraîchir la liste
+    } else {
+        $erreur = "Ce module est déjà associé à cet enseignant ou une erreur est survenue.";
+    }
+}
+
+// ── Traitement de la suppression de module
+if (isset($_POST['remove_module']) && !empty($_POST['module_to_remove'])) {
+    $moduleId = (int) $_POST['module_to_remove'];
+    $removed = removeModuleFromInstructor($con, $id, $moduleId);
+    if ($removed) {
+        $message = "Le module a été supprimé avec succès.";
+        $modules = requeteModules($con, $id); // Rafraîchir la liste
+    } else {
+        $erreur = "Une erreur est survenue lors de la suppression du module.";
+    }
+}
+
+// Récupérer tous les modules disponibles (ceux qui ne sont pas encore associés)
+$availableModules = getAllModules($con, $id);
 
 $dateDebut = '';
 $dateFin = '';
@@ -106,9 +133,9 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
             <!-- Fil d’Ariane -->
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="corps_enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
-                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps_enseignant.php">Corps enseignant</a></li>
                     <li>></li>
 
                     <!-- Nom de l’enseignant affiché  -->
@@ -153,7 +180,11 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                             <ul class="Teacher-Modules-List">
                                 <?php foreach ($modules as $module) { ?>
                                     <li>
-                                        <?= htmlspecialchars($module['name']) . " : " . htmlspecialchars($module['hours_count']) . "h" ?>
+                                        <span><?= htmlspecialchars($module['name']) . " : " . htmlspecialchars($module['hours_count']) . "h" ?></span>
+                                        <form method="post" style="display: inline;">
+                                            <input type="hidden" name="module_to_remove" value="<?= $module['id'] ?>">
+                                            <button type="submit" name="remove_module" class="Remove-Module-Btn">×</button>
+                                        </form>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -166,13 +197,13 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                 <div class="Teacher-Tabs">
 
                     <!-- Onglet infos -->
-                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=infos"
+                    <a href="fiche_enseignant.php?id=<?= $id ?>&tab=infos"
                         class="<?php if ($tab === 'infos') { echo 'Active-Tab'; } ?>">
                         Informations générales
                     </a>
 
                     <!-- Onglet interventions -->
-                    <a href="fiche.enseignant.php?id=<?= $id ?>&tab=interventions"
+                    <a href="fiche_enseignant.php?id=<?= $id ?>&tab=interventions"
                         class="<?php if ($tab === 'interventions') { echo 'Active-Tab'; } ?>">
                         Interventions
                     </a>
@@ -196,7 +227,7 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                             <p>Informations générales</p>
 
                             <!-- Formulaire modification -->
-                            <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
+                            <form method="post" action="fiche_enseignant.php?id=<?= $id ?>&tab=infos" class="Teacher-Form">
 
                                 <!-- Nom + prénom -->
                                 <div class="Teacher-Form-Row">
@@ -225,12 +256,25 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                                 <!-- Module -->
                                 <div class="Teacher-Form-Row">
                                     <div>
-                                        <label for="Modules">Modules enseignés - champ obligatoire</label>
-                                        <input id="Modules" type="text" name="Modules"
-                                            value="<?= htmlspecialchars($module['name']) ?>" required>
+                                        <label for="module_to_add">Ajouter un module</label>
+                                        <select id="module_to_add" name="module_to_add">
+                                            <option value="">-- Sélectionner un module --</option>
+                                            <?php foreach ($availableModules as $availModule): ?>
+                                                <option value="<?= $availModule['id'] ?>">
+                                                    <?= htmlspecialchars($availModule['name']) ?> (<?= $availModule['hours_count'] ?>h)
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <?php if ($availableModules === []): ?>
+                                            <small>Tous les modules sont déjà associés à cet enseignant.</small>
+                                        <?php endif; ?>
+                                        <div class="Teacher-Form-Button">
+                                            <button type="submit" name="add_module" class="Add-Module-Btn">Ajouter le
+                                                module</button>
+                                        </div>
                                     </div>
 
-                                    <!-- Bouton -->
+                                    <!-- Boutons -->
                                     <div class="Teacher-Form-Button">
                                         <button type="submit" name="Save-Infos">Enregistrer les informations</button>
                                     </div>
@@ -250,7 +294,7 @@ $interventions = requeteIntervention($con, $id, $dateDebut, $dateFin, $moduleFil
                             <p>Filtres</p>
 
                             <div>
-                                <form method="post" action="fiche.enseignant.php?id=<?= $id ?>&tab=interventions">
+                                <form method="post" action="fiche_enseignant.php?id=<?= $id ?>&tab=interventions">
 
                                     <!-- Dates -->
                                     <div>

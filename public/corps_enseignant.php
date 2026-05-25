@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($nomAjout !== '' && $prenomAjout !== '') {
         insertionEnseignant($con, $nomAjout, $prenomAjout, $emailAjout);
-        header('Location: corps.enseignant.php');
+        header('Location: corps_enseignant.php');
         exit();
     }
 }
@@ -157,12 +157,12 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
             <nav class="Breadcrumb">
                 <ol>
                     <li>
-                        <a href="corps.enseignant.php">
+                        <a href="corps_enseignant.php">
                             <span class="material-symbols-outlined">home</span>
                         </a>
                     </li>
                     <li>></li>
-                    <li><a href="corps.enseignant.php">Corps enseignant</a></li>
+                    <li><a href="corps_enseignant.php">Corps enseignant</a></li>
                 </ol>
             </nav>
 
@@ -255,7 +255,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 
                                         <!-- Lien vers la fiche enseignant -->
                                         <td class="Table-Structure">
-                                            <a href="fiche.enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
+                                            <a href="fiche_enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
                                                 <div class="Table-Link">
                                                     <span class="material-symbols-outlined">
                                                         visibility
@@ -275,7 +275,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                 <?php if ($page > 1) { ?>
                                     <!-- Lien vers la page précédente -->
                                     <a class="Pagination-Link"
-                                        href="corps.enseignant.php?page=<?= $page - 1 ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="corps_enseignant.php?page=<?= $page - 1 ?>&NameType=<?= urlencode($nameType) ?>">
                                         Précédent
                                     </a>
                                 <?php } ?>
@@ -291,7 +291,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                     ?>
 
                                     <a class="<?= $classePagination ?>"
-                                        href="corps.enseignant.php?page=<?= $i ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="corps_enseignant.php?page=<?= $i ?>&NameType=<?= urlencode($nameType) ?>">
                                         <?= $i ?>
                                     </a>
                                 <?php } ?>
@@ -299,7 +299,7 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                 <?php if ($page < $totalPages) { ?>
                                     <!-- Lien vers la page suivante -->
                                     <a class="Pagination-Link"
-                                        href="corps.enseignant.php?page=<?= $page + 1 ?>&NameType=<?= urlencode($nameType) ?>">
+                                        href="corps_enseignant.php?page=<?= $page + 1 ?>&NameType=<?= urlencode($nameType) ?>">
                                         Suivant
                                     </a>
                                 <?php } ?>

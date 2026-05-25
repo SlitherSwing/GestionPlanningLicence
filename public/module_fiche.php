@@ -31,7 +31,7 @@ if (isset($_POST['supprimer']) && $id !== '') {
     } else {
         $deleted = deleteModule($con, (int) $id);
         if ($deleted) {
-            header('Location: Modules.php');
+            header('Location: modules.php');
             exit();
         } else {
             $error = "La suppression a échoué.";
@@ -102,7 +102,7 @@ $modules = moduleData($con);
                     <p>Confirmation de l'action</p>
                 </div>
                 <div class="Delete-Close">
-                    <a href="module.fiche.php?id=<?= $id ?>" style="text-decoration:none;color:inherit;font-size:20px;">X</a>
+                    <a href="module_fiche.php?id=<?= $id ?>" style="text-decoration:none;color:inherit;font-size:20px;">X</a>
                 </div>
             </div>
             <div class="Delete-Content">
@@ -114,7 +114,7 @@ $modules = moduleData($con);
                 <p class="Delete-Question">Confirmez-vous l'action ?</p>
             </div>
             <div class="Delete-Actions">
-                <a href="module.fiche.php?id=<?= $id ?>" class="A-button" style="background-color:#F0F0F0;color:black;">Annuler</a>
+                <a href="module_fiche.php?id=<?= $id ?>" class="A-button" style="background-color:#F0F0F0;color:black;">Annuler</a>
                 <form action="" method="post" style="display:inline;">
                     <input type="hidden" name="supprimer" value="1">
                     <button type="submit" class="Delete-Button">Confirmer</button>
@@ -133,11 +133,11 @@ $modules = moduleData($con);
             <div class="Breadcrumb">
                 <nav>
                     <ol>
-                        <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="corps_enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="Modules.php">Modules</a></li>
+                        <li><a href="modules.php">Modules</a></li>
                         <li>></li>
-                        <li><a href="module.fiche.php"><?= $id !== '' ? 'Modifier' : 'Ajouter' ?></a></li>
+                        <li><a href="module_fiche.php"><?= $id !== '' ? 'Modifier' : 'Ajouter' ?></a></li>
                     </ol>
                 </nav>
             </div>
@@ -193,7 +193,7 @@ $modules = moduleData($con);
                             name="description" required><?= htmlspecialchars($description) ?></textarea>
 
                         <div>
-                            <a href="Modules.php" class="A-button"
+                            <a href="modules.php" class="A-button"
                                 style="background-color: #F0F0F0;color: black;">
                                 Retour à la liste
                             </a>

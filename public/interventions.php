@@ -129,7 +129,7 @@ $instructeurs = $stmtInst->fetchAll(PDO::FETCH_ASSOC);
 if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
     $deleted = deleteIntervention($con, (int) $_POST['course_id']);
     if ($deleted) {
-        header('Location: Interventions.php');
+        header('Location: interventions.php');
         exit();
     } else {
         $error = "La Suppression a échoué.";
@@ -309,7 +309,7 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
             <!-- Fil d’Ariane -->
             <nav class="Breadcrumb">
                 <ol>
-                    <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                    <li><a href="corps_enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                     <li>></li>
                     <li><a href="interventions.php">Interventions</a></li>
                 </ol>

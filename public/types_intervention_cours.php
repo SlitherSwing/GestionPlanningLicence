@@ -28,7 +28,7 @@ if (isset($_GET['id'])) {
 if (isset($_POST['supprimer']) && $id !== '') {
     $deleted = deleteTypeIntervention($con, $id);
     if ($deleted) {
-        header('Location: types.intervention.php');
+        header('Location: types_intervention.php');
         exit();
     } else {
         $error = "La suppression a échoué.";
@@ -105,11 +105,11 @@ if (isset($_POST['typeinter'])) {
 
                 <nav>
                     <ol>
-                        <li><a href="corps.enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
+                        <li><a href="corps_enseignant.php"><span class="material-symbols-outlined">home</span></a></li>
                         <li>></li>
-                        <li><a href="types.intervention.php">Types-Intervention</a></li>
+                        <li><a href="types_intervention.php">Types-Intervention</a></li>
                         <li>></li>
-                        <li><a href="types.intervention.cours.php"><?= $id !== '' ? 'Modifier' : 'Ajouter' ?></a></li>
+                        <li><a href="types_intervention_cours.php"><?= $id !== '' ? 'Modifier' : 'Ajouter' ?></a></li>
                     </ol>
                 </nav>
 
@@ -157,7 +157,7 @@ if (isset($_POST['typeinter'])) {
                         <!-- Boutons -->
                         <div>
 
-                            <a href="types.intervention.php" class="A-button"
+                            <a href="types_intervention.php" class="A-button"
                                 style="background-color: #F0F0F0;color: black;">
                                 Retour à la liste
                             </a>

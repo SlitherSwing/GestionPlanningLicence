@@ -48,7 +48,7 @@ Outils et ressources associés :
 2. Démarrer Apache et MySQL depuis XAMPP.
 3. Créer une base de données nommée `Gestion Licence`.
 4. Configurer l'accès MySQL dans `require/credentials.php`.
-5. Utiliser `Credentials.example.php` comme modèle de structure si nécessaire.
+5. Utiliser `credentials.example.php` comme modèle de structure si nécessaire.
 6. Préparer un jeu d'essai cohérent dans la base de données.
 7. Ouvrir le point d'entrée local dans le navigateur.
 
@@ -61,7 +61,7 @@ Point d'entrée local :
 
 Le fichier réellement chargé à l'exécution est [`require/credentials.php`](require/credentials.php).
 
-Un exemple de structure est fourni dans [`Credentials.example.php`](Credentials.example.php).
+Un exemple de structure est fourni dans [`credentials.example.php`](credentials.example.php).
 
 Important : Il faut adapter `host`, `dbname`, `user` et `password` à votre environnement local !
 
@@ -124,7 +124,7 @@ Enseignants et Intervenants sont égalements présents tout au long du projet af
 
 ## Dernières améliorations
 
-**Fonctions ajoutées dans `require/Requete.php` :**
+**Fonctions ajoutées dans `require/requete.php` :**
 - `getTypeInterventionById()` : Récupère un type d'intervention par son ID pour pré-remplir le formulaire de modification
 - `updateTypeIntervention()` : Met à jour un type d'intervention existant
 - `deleteTypeIntervention()` : Supprime un type d'intervention
@@ -133,7 +133,7 @@ Enseignants et Intervenants sont égalements présents tout au long du projet af
 
 **Améliorations apportées :**
 - Fonction `calendarData()` améliorée avec jointures pour afficher les noms des modules, types et intervenants au lieu des IDs
-- Mise en place de la pagination sur la page Interventions.php (10 interventions par page)
-- Correction de l'affichage dans Calendrier.php (affiche maintenant module + titre, type, et intervenants correctement)
-- Correction des SVG incomplets dans les pages Interventions.php et Calendrier.php
-- Mise en place de la pagination sur la page types.intervention.php
+- Mise en place de la pagination sur la page interventions.php (10 interventions par page)
+- Correction de l'affichage dans calendrier.php (affiche maintenant module + titre, type, et intervenants correctement)
+- Correction des SVG incomplets dans les pages interventions.php et calendrier.php
+- Mise en place de la pagination sur la page types_intervention.php
