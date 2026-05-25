@@ -19,21 +19,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
     $remotely = isset($_POST['remotely']) ? 1 : 0;
     $instructorIds = $_POST['instructor_ids'] ?? [];
 
-    if ($startDate > $endDate) {
-        $erreur .= 'Veuillez sélectionner une date de début antérieur à la date de fin';
+if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
+    $erreur = 'Veuillez remplir tous les champs obligatoires.';
+}
+elseif ($startDate > $endDate) {
+    $erreur = 'Veuillez sélectionner une date de début antérieur à la date de fin';
+}
+elseif (empty($instructorIds)) {
+    $erreur = 'Veuillez sélectionner au moins un intervenant.';
+}
+elseif (strlen($title) > 255) {
+    $erreur = 'Le titre de l\'intervention doit être réduit !';
+}
+elseif ($endDate - $startDate > 14400) {
+    $erreur = 'L\'intervention ne peut pas dépasser 4 heures.';
+}
+else {
+    $succes = insertIntervention($con, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
+    if (!$succes) {
+        $erreur = 'Une erreur est survenue lors de l\'insertion.';
     }
-    else
-    {
-    if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
-        $erreur = 'Veuillez remplir tous les champs obligatoires.';
-    } elseif (empty($instructorIds)) {
-        $erreur = 'Veuillez sélectionner au moins un intervenant.';
-    } else {
-        $succes = insertIntervention($con, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
-        if (!$succes) {
-            $erreur = 'Une erreur est survenue lors de l\'insertion.';
-        }
-    }}
+}
 }
 
 // ── Traitement du formulaire de modification
@@ -50,22 +56,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modif_intervention'])
     $remotely = isset($_POST['remotely']) ? 1 : 0;
     $instructorIds = $_POST['modif_instructor_ids'] ?? [];
 
-    if ($startDate > $endDate) {
-        $erreur .= 'Veuillez sélectionner une date de début antérieur à la date de fin';
-    }
-    else {
-    if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
-        $modifErreur = 'Veuillez remplir tous les champs obligatoires.';
-    } elseif (empty($instructorIds)) {
-        $modifErreur = 'Veuillez sélectionner au moins un intervenant.';
-    } else {
-        $modifSuccess = updateIntervention($con, $courseId, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
-        if (!$modifSuccess) {
-            $modifErreur = 'Une erreur est survenue lors de la modification.';
-        }
-    }}
+if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
+    $modifErreur = 'Veuillez remplir tous les champs obligatoires.';
 }
-
+elseif ($startDate > $endDate) {
+    $modifErreur = 'Veuillez sélectionner une date de début antérieur à la date de fin';
+}
+elseif (empty($instructorIds)) {
+    $modifErreur = 'Veuillez sélectionner au moins un intervenant.';
+}
+elseif (strlen($title) > 255) {
+    $modifErreur = 'Le titre de l\'intervention doit être réduit !';
+}
+elseif ($endDate - $startDate > 14400) {
+    $modifErreur = 'L\'intervention ne peut pas dépasser 4 heures.';
+}
+else {
+    $modifSuccess = updateIntervention($con, $courseId, $title, $startDate, $endDate, $moduleId, $typeId, $remotely, $instructorIds);
+    if (!$modifSuccess) {
+        $modifErreur = 'Une erreur est survenue lors de la modification.';
+    }
+}
+}
 // ── Mode modification ?
 $modeModif = false;
 $interventionModif = null;
