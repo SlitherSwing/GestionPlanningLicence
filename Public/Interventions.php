@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajout_intervention'])
     $instructorIds = $_POST['instructor_ids'] ?? [];
 
     if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
-if ($title === '' || $startDate === '' || $endDate === '' || $moduleId === 0 || $typeId === 0) {
     $erreur = 'Veuillez remplir tous les champs obligatoires.';
 }
 elseif ($startDate > $endDate) {
@@ -40,7 +39,6 @@ else {
     if (!$succes) {
         $erreur = 'Une erreur est survenue lors de l\'insertion.';
     }
-}
 }
 }
 
@@ -100,8 +98,13 @@ if ($modifIdToUse) {
     }
 }
 
+// ── Récupération des filtres
+$filterStartDate = trim($_POST['start_date'] ?? '');
+$filterEndDate = trim($_POST['end_date'] ?? '');
+$filterModule = trim($_POST['module'] ?? '');
+
 // ── Données
-$interventions = calendarData($con);
+$interventions = calendarDataFiltered($con, $filterStartDate, $filterEndDate, $filterModule);
 $modules = moduleData($con);
 $types = filtreTypeIntervention($con, '');
 
@@ -328,17 +331,19 @@ if (isset($_POST['Supprimer']) && !empty($_POST['course_id'])) {
 
                         <form method="post">
                             <div>
-                                <label for="Name">Date de début</label>
-                                <input id="Name" type="date" placeholder="Saisissez la Date de début" name="Name">
+                                <label for="start-date">Date de début</label>
+                                <input id="start-date" type="date" placeholder="Saisissez la Date de début" name="start_date"
+                                    value="<?= htmlspecialchars($filterStartDate) ?>">
                             </div>
                             <div>
-                                <label for="First-Name">Date de fin</label>
-                                <input id="First-Name" type="date" placeholder="Saisissez la Date de fin"
-                                    name="First-Name">
+                                <label for="end-date">Date de fin</label>
+                                <input id="end-date" type="date" placeholder="Saisissez la Date de fin"
+                                    name="end_date" value="<?= htmlspecialchars($filterEndDate) ?>">
                             </div>
                             <div>
-                                <label for="Email">Module</label>
-                                <input id="Email" type="search" placeholder="Saisissez le Module" name="Email">
+                                <label for="module">Module</label>
+                                <input id="module" type="search" placeholder="Saisissez le Module" name="module"
+                                    value="<?= htmlspecialchars($filterModule) ?>">
                             </div>
                             <div>
                                 <label for="Submit"></label>
