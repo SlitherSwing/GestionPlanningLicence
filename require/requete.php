@@ -405,6 +405,39 @@ function moduleData(PDO $con): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Organise les modules hiérarchiquement avec parents et enfants.
+ * Utilisée pour l'affichage arborescent (page : modules.php).
+ *
+ * @param array $modules Liste complète des modules
+ * Retourne un tableau organisé avec parents et leurs enfants
+ */
+function organizeModulesHierarchically(array $modules): array
+{
+    $parents = [];
+    $children = [];
+
+    // Séparer parents et enfants
+    foreach ($modules as $module) {
+        if (empty($module['parent_id'])) {
+            $parents[$module['id']] = $module;
+            $parents[$module['id']]['children'] = [];
+        } else {
+            $children[] = $module;
+        }
+    }
+
+    // Attacher les enfants à leurs parents
+    foreach ($children as $child) {
+        $parentId = $child['parent_id'];
+        if (isset($parents[$parentId])) {
+            $parents[$parentId]['children'][] = $child;
+        }
+    }
+
+    return $parents;
+}
+
 
 
 /*
