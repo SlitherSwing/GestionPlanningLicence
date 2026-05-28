@@ -179,6 +179,23 @@ function calendarDataFiltered(PDO $con, string $startDate, string $endDate, stri
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/*
+ * Récupère les interventions de la semaine en cours.
+ * Utilisée pour l'affichage du calendrier hebdomadaire (page : calendrier.php).
+ *
+ * @param PDO $con Connexion à la base de données
+ * Retourne la liste des interventions de la semaine en cours
+ */
+function calendarDataForCurrentWeek(PDO $con): array
+{
+    // Calculer le lundi de la semaine en cours
+    $monday = date('Y-m-d', strtotime('monday this week'));
+    // Calculer le dimanche de la semaine en cours
+    $sunday = date('Y-m-d', strtotime('sunday this week'));
+
+    return calendarDataFiltered($con, $monday, $sunday, '');
+}
+
 
 /*
  * Ajoute un nouveau type d'intervention en base de données.

@@ -98,7 +98,7 @@ if ($modifIdToUse) {
 }
 
 // ── Données
-$interventions = calendarData($con);
+$interventions = calendarDataForCurrentWeek($con);
 $modules = moduleData($con);
 $types = filtreTypeIntervention($con, '');
 
