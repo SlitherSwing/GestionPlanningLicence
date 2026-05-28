@@ -54,6 +54,32 @@ $totalPages = ceil($totalResultats / $limit);
 
 // On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
 $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
+
+// On regroupe les instructeurs pour éviter les doublons quand ils ont plusieurs modules
+$instructeursGroupes = [];
+
+foreach ($result as $row) {
+    $id = $row['id'];
+
+    // Si l'instructeur n'est pas encore dans le tableau, on l'ajoute
+    if (!isset($instructeursGroupes[$id])) {
+        $instructeursGroupes[$id] = [
+            'id' => $row['id'],
+            'last_name' => $row['last_name'],
+            'first_name' => $row['first_name'],
+            'email' => $row['email'],
+            'modules' => []  // On initialise un tableau pour stocker les modules
+        ];
+    }
+
+    // Si l'instructeur a un module, on l'ajoute à sa liste
+    if ($row['name'] !== null) {
+        $instructeursGroupes[$id]['modules'][] = [
+            'name' => $row['name'],
+            'hours_count' => $row['hours_count']
+        ];
+    }
+}
 ?>
 
 
@@ -228,7 +254,6 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
                                 <th>Nom de famille</th>
                                 <th>Prénom</th>
                                 <th>Modules enseignés</th>
-                                <th>Nombre d'heures</th>
                                 <th>Lien</th>
                             </tr>
 
@@ -242,20 +267,25 @@ $result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
 
                                 <!-- Sinon on affiche les résultats -->
                             <?php } else { ?>
-                                <?php foreach ($result as $resultat) { ?>
+                                <?php foreach ($instructeursGroupes as $instructeur) { ?>
                                     <tr>
 
                                         <!-- Sécurité : htmlspecialchars évite les injections HTML -->
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['last_name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['first_name']) ?></td>
-                                        <td class="Table-Structure"><?= htmlspecialchars($resultat['name']) ?></td>
-                                        <td class="Table-Structure" style="justify-content: center; display:flex">
-                                            <?= htmlspecialchars($resultat['hours_count']) ?>
+                                        <td class="Table-Structure"><?= htmlspecialchars($instructeur['last_name']) ?></td>
+                                        <td class="Table-Structure"><?= htmlspecialchars($instructeur['first_name']) ?></td>
+                                        <td class="Table-Structure">
+                                            <?php if (!empty($instructeur['modules'])): ?>
+                                                <?php foreach ($instructeur['modules'] as $module): ?>
+                                                    <?= htmlspecialchars($module['name']) ?> (<?= $module['hours_count'] ?>h)<br>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                -
+                                            <?php endif; ?>
                                         </td>
 
                                         <!-- Lien vers la fiche enseignant -->
                                         <td class="Table-Structure">
-                                            <a href="fiche_enseignant.php?id=<?= (int) $resultat['id'] ?>&tab=infos">
+                                            <a href="fiche_enseignant.php?id=<?= (int) $instructeur['id'] ?>&tab=infos">
                                                 <div class="Table-Link">
                                                     <span class="material-symbols-outlined">
                                                         visibility
