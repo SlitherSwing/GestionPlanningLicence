@@ -9,6 +9,8 @@ $code = '';
 $name = '';
 $heures = '';
 $description = '';
+$parentId = '';
+$capstoneProject = 0;
 $message = '';
 $error = '';
 $id = '';
@@ -21,6 +23,8 @@ if (isset($_GET['id'])) {
         $name = $moduleData['name'];
         $heures = $moduleData['hours_count'] ?? '';
         $description = $moduleData['description'];
+        $parentId = $moduleData['parent_id'] ?? '';
+        $capstoneProject = (int) ($moduleData['capstone_project'] ?? 0);
     }
 }
 
@@ -44,6 +48,9 @@ if (isset($_POST['enregistrer'])) {
     $name = trim($_POST['name']);
     $heures = trim($_POST['heures']);
     $description = trim($_POST['description']);
+    $parentId = trim($_POST['parent_id'] ?? '');
+    $parentIdInt = $parentId !== '' ? (int) $parentId : null;
+    $capstoneProject = isset($_POST['capstone_project']) ? 1 : 0;
 
     if ($code === '' || $name === '' || $description === '') {
         $error = "Les champs Code, Nom et Description sont obligatoires.";
@@ -53,14 +60,14 @@ if (isset($_POST['enregistrer'])) {
         $heuresInt = $heures === '' ? 0 : (int) $heures;
 
         if ($id !== '') {
-            $saved = updateModule($con, (int) $id, $code, $name, $heuresInt, $description);
+            $saved = updateModule($con, (int) $id, $code, $name, $heuresInt, $description, $parentIdInt, $capstoneProject);
             if ($saved) {
                 $message = "Le module a bien été modifié.";
             } else {
                 $error = "La modification a échoué.";
             }
         } else {
-            ajouterModule($con, $code, $name, $heuresInt, $description);
+            ajouterModule($con, $code, $name, $heuresInt, $description, $parentIdInt, $capstoneProject);
             $message = "Le module a bien été enregistré.";
             $code = '';
             $name = '';
@@ -91,37 +98,39 @@ $modules = moduleData($con);
 <body>
 
     <?php if (isset($_POST['confirmer_suppression']) && $id !== ''): ?>
-    <div class="Delete-Draw">
-        <div class="Delete-Modal">
-            <div class="Delete-Header">
-                <div class="Delete-Icon">
-                    <span class="material-symbols-outlined" style="color:red;font-size:40px;">delete</span>
+        <div class="Delete-Draw">
+            <div class="Delete-Modal">
+                <div class="Delete-Header">
+                    <div class="Delete-Icon">
+                        <span class="material-symbols-outlined" style="color:red;font-size:40px;">delete</span>
+                    </div>
+                    <div class="Delete-Title">
+                        <h3>Supprimer le module</h3>
+                        <p>Confirmation de l'action</p>
+                    </div>
+                    <div class="Delete-Close">
+                        <a href="module_fiche.php?id=<?= $id ?>"
+                            style="text-decoration:none;color:inherit;font-size:20px;">X</a>
+                    </div>
                 </div>
-                <div class="Delete-Title">
-                    <h3>Supprimer le module</h3>
-                    <p>Confirmation de l'action</p>
+                <div class="Delete-Content">
+                    <p>
+                        Vous vous apprêtez à supprimer le module <strong><?= htmlspecialchars($name) ?></strong>.<br>
+                        Cette action est irrévocable.<br>
+                        Aucune intervention ne doit être liée à ce module pour pouvoir le supprimer.
+                    </p>
+                    <p class="Delete-Question">Confirmez-vous l'action ?</p>
                 </div>
-                <div class="Delete-Close">
-                    <a href="module_fiche.php?id=<?= $id ?>" style="text-decoration:none;color:inherit;font-size:20px;">X</a>
+                <div class="Delete-Actions">
+                    <a href="module_fiche.php?id=<?= $id ?>" class="A-button"
+                        style="background-color:#F0F0F0;color:black;">Annuler</a>
+                    <form action="" method="post" style="display:inline;">
+                        <input type="hidden" name="supprimer" value="1">
+                        <button type="submit" class="Delete-Button">Confirmer</button>
+                    </form>
                 </div>
-            </div>
-            <div class="Delete-Content">
-                <p>
-                    Vous vous apprêtez à supprimer le module <strong><?= htmlspecialchars($name) ?></strong>.<br>
-                    Cette action est irrévocable.<br>
-                    Aucune intervention ne doit être liée à ce module pour pouvoir le supprimer.
-                </p>
-                <p class="Delete-Question">Confirmez-vous l'action ?</p>
-            </div>
-            <div class="Delete-Actions">
-                <a href="module_fiche.php?id=<?= $id ?>" class="A-button" style="background-color:#F0F0F0;color:black;">Annuler</a>
-                <form action="" method="post" style="display:inline;">
-                    <input type="hidden" name="supprimer" value="1">
-                    <button type="submit" class="Delete-Button">Confirmer</button>
-                </form>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 
     <main class="Page">
@@ -178,8 +187,9 @@ $modules = moduleData($con);
                                 <select id="Module_Parent" name="parent_id">
                                     <option value="">-- Aucun --</option>
                                     <?php foreach ($modules as $mod): ?>
-                                        <?php if ($id !== '' && $mod['id'] == $id) continue; ?>
-                                        <option value="<?= $mod['id'] ?>">
+                                        <?php if ($id !== '' && $mod['id'] == $id)
+                                            continue; ?>
+                                        <option value="<?= $mod['id'] ?>"<?= $parentId !== '' && $mod['id'] == $parentId ? ' selected' : '' ?>>
                                             <?= htmlspecialchars($mod['name']) ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -188,13 +198,16 @@ $modules = moduleData($con);
                         </div>
 
                         <label for="Module_Description">Description - champ obligatoire</label>
-                        <textarea id="Module_Description"
-                            placeholder="Description du module et de ses objectifs"
+                        <textarea id="Module_Description" placeholder="Description du module et de ses objectifs"
                             name="description" required><?= htmlspecialchars($description) ?></textarea>
 
                         <div>
-                            <a href="modules.php" class="A-button"
-                                style="background-color: #F0F0F0;color: black;">
+                            <label for="Module_Capstone">Projet de fin d'études (capstone)</label>
+                            <input type="checkbox" id="Module_Capstone" name="capstone_project" value="1"<?= $capstoneProject ? ' checked' : '' ?>>
+                        </div>
+
+                        <div>
+                            <a href="modules.php" class="A-button" style="background-color: #F0F0F0;color: black;">
                                 Retour à la liste
                             </a>
 

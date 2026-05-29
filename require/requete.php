@@ -605,10 +605,10 @@ function updateIntervention(PDO $con, int $id, string $title, string $startDate,
     return true;
 }
 
-function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description): void
+function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $description, ?int $parentId = null, int $capstoneProject = 0): void
 {
-    $sql = "INSERT INTO module (code, name, hours_count, description)
-            VALUES (:code, :name, :hours_count, :description)";
+    $sql = "INSERT INTO module (code, name, hours_count, description, parent_id, capstone_project)
+            VALUES (:code, :name, :hours_count, :description, :parent_id, :capstone_project)";
 
     $stmt = $con->prepare($sql);
     $stmt->execute([
@@ -616,6 +616,8 @@ function ajouterModule(PDO $con, string $code, string $nom, int $heure, string $
         ':name' => $nom,
         ':hours_count' => $heure,
         ':description' => $description,
+        ':parent_id' => $parentId,
+        ':capstone_project' => $capstoneProject,
     ]);
 }
 
@@ -627,9 +629,9 @@ function getModuleById(PDO $con, int $id): array|false
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function updateModule(PDO $con, int $id, string $code, string $nom, int $heure, string $description): bool
+function updateModule(PDO $con, int $id, string $code, string $nom, int $heure, string $description, ?int $parentId = null, int $capstoneProject = 0): bool
 {
-    $sql = "UPDATE module SET code = :code, name = :name, hours_count = :hours_count, description = :description
+    $sql = "UPDATE module SET code = :code, name = :name, hours_count = :hours_count, description = :description, parent_id = :parent_id, capstone_project = :capstone_project
             WHERE id = :id";
     $stmt = $con->prepare($sql);
     return $stmt->execute([
@@ -638,6 +640,8 @@ function updateModule(PDO $con, int $id, string $code, string $nom, int $heure, 
         ':name' => $nom,
         ':hours_count' => $heure,
         ':description' => $description,
+        ':parent_id' => $parentId,
+        ':capstone_project' => $capstoneProject,
     ]);
 }
 
