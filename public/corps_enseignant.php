@@ -52,8 +52,8 @@ $offset = ($page - 1) * $limit;
 $totalResultats = countTeachersByFilters($con, $nom, $prenom, $email);
 $totalPages = ceil($totalResultats / $limit);
 
-// On exécute la requête SQL, puis on récupère toutes les lignes dans un tableau PHP.
-$result = findTeachersByFilters($con, $nom, $prenom, $email, $limit, $offset);
+// On exécute la requête SQL en récupérant toutes les lignes (sans limite SQL pour éviter de couper un enseignant)
+$result = findTeachersByFilters($con, $nom, $prenom, $email, 1000, 0);
 
 // On regroupe les instructeurs pour éviter les doublons quand ils ont plusieurs modules
 $instructeursGroupes = [];
@@ -80,6 +80,21 @@ foreach ($result as $row) {
         ];
     }
 }
+
+// On convertit le tableau associatif en tableau indexé pour faciliter la pagination
+$instructeursGroupes = array_values($instructeursGroupes);
+
+// On calcule la pagination sur les enseignants (pas sur les lignes SQL)
+$totalEnseignants = count($instructeursGroupes);
+$totalPages = ceil($totalEnseignants / $limit);
+
+// On corrige la page si elle dépasse le nombre total
+if ($page > $totalPages && $totalPages > 0) {
+    $page = $totalPages;
+}
+
+$offset = ($page - 1) * $limit;
+$instructeursPage = array_slice($instructeursGroupes, $offset, $limit);
 ?>
 
 
@@ -245,7 +260,7 @@ foreach ($result as $row) {
                     <div class="Table">
 
                         <!-- Nombre d'enseignants trouvés -->
-                        <p><?= count($result) ?> enseignants trouvés</p>
+                        <p><?= $totalEnseignants ?> enseignants trouvés</p>
 
                         <table>
 
@@ -267,7 +282,7 @@ foreach ($result as $row) {
 
                                 <!-- Sinon on affiche les résultats -->
                             <?php } else { ?>
-                                <?php foreach ($instructeursGroupes as $instructeur) { ?>
+                                <?php foreach ($instructeursPage as $instructeur) { ?>
                                     <tr>
 
                                         <!-- Sécurité : htmlspecialchars évite les injections HTML -->
